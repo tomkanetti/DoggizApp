@@ -36,6 +36,7 @@ public class SingUpActivity extends AppCompatActivity {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE);
     }
+    ///fksflskfls
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
