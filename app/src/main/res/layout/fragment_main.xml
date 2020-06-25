@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#F5232323"
+tools:context=".MainFragment">
+
+<ImageView
+    android:id="@+id/main_logo"
+    android:layout_width="333dp"
+    android:layout_height="374dp"
+    android:layout_marginBottom="8dp"
+    android:contentDescription="TODO"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.117"
+    app:srcCompat="@drawable/logo__2_" />
+
+<Button
+    android:id="@+id/main_login_btn"
+    android:layout_width="223dp"
+    android:layout_height="55dp"
+    android:layout_marginTop="16dp"
+    android:background="#409DDCC6"
+    android:shadowColor="#C5ACAC"
+    android:text="@string/login"
+    android:textColor="#0C0B0B"
+    app:layout_constraintBottom_toTopOf="@+id/main_singUp_btn"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/main_logo"
+    app:layout_constraintVertical_bias="0.0" />
+
+<Button
+    android:id="@+id/main_singUp_btn"
+    android:layout_width="223dp"
+    android:layout_height="55dp"
+    android:layout_marginTop="100dp"
+    android:background="#D5F1DDA9"
+    android:text="@string/sing_up"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/main_logo"
+    app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
