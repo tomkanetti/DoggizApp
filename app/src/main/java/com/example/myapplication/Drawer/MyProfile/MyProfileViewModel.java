@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.MyProfile;
+package com.example.myapplication.Drawer.MyProfile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
