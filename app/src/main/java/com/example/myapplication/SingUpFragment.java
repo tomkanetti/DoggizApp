@@ -39,6 +39,7 @@ public class SingUpFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_sing_up,container,false);
+
         imageView = view.findViewById(R.id.singup_profile_image);
         button = view.findViewById(R.id.app_bar_writePost_btn);
         button.setOnClickListener(new View.OnClickListener() {
