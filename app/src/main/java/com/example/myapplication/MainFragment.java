@@ -30,6 +30,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_main,container,false);
+
         View loginBtn = view.findViewById(R.id.main_login_btn);
         View singUpBtn=view.findViewById(R.id.main_singUp_btn);
 
