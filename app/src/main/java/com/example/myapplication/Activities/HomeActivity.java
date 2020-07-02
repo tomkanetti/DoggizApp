@@ -6,6 +6,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.myapplication.R;
@@ -19,10 +20,11 @@ public class HomeActivity extends AppCompatActivity {
 
 //        NavController navController = Navigation.findNavController(this, R.id.home_nav_host);
 //        NavigationUI.setupActionBarWithNavController(this,navController);
-
     }
 
-
-
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        return true;
+    }
 }
