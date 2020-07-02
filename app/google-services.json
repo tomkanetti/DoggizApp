@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "482726059883",
+    "firebase_url": "https://doggizapp.firebaseio.com",
+    "project_id": "doggizapp",
+    "storage_bucket": "doggizapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482726059883:android:eb12735e0c6afecf66762e",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482726059883-001lholojivjvgrr0f63bej0n4svj6e5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWtwNXEotd7gR4gBAMj4vHN_kQ5iJgPhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482726059883-001lholojivjvgrr0f63bej0n4svj6e5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

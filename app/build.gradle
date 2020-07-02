@@ -1,17 +1,22 @@
 apply plugin: 'com.android.application'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 28
-
-
     defaultConfig {
         applicationId "com.example.myapplication"
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -20,7 +25,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
@@ -45,10 +49,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    def nav_version = "2.3.0-alpha06"
+    implementation"androidx.navigation:navigation-fragment:$nav_version"
+    implementation"androidx.navigation:navigation-ui:$nav_version"
 
-        def nav_version = "2.3.0-alpha06"
-        implementation"androidx.navigation:navigation-fragment:$nav_version"
-
-        implementation"androidx.navigation:navigation-ui:$nav_version"
-
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
 }

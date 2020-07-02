@@ -39,9 +39,8 @@ public class FriendsListFragment extends Fragment {
 //
 //    Delegate parent;
 
-
-    public FriendsListFragment() {
-        Model.instance.getAllUsers(new Model.getAllUsersListener() {
+        public FriendsListFragment() {
+        Model.instance.getAllUsers(new Model.Listener<List<User>>() {
             @Override
             public void onComplete(List<User> _data) {
                 data = _data;
@@ -51,6 +50,8 @@ public class FriendsListFragment extends Fragment {
                 }
             }
         });
+
+
 //        StudentModel.instance.getAllStudents(new StudentModel.Listener<List<Student>>() {
 //            @Override
 //            public void onComplete(List<Student> _data) {
