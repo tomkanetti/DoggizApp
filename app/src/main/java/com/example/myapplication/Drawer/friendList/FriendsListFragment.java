@@ -1,6 +1,7 @@
 package com.example.myapplication.Drawer.friendList;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,15 +17,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myapplication.Model.Model;
+import com.example.myapplication.model.Model;
 import com.example.myapplication.R;
 
-import com.example.myapplication.Model.User;
+import com.example.myapplication.model.User;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class FriendsListFragment extends Fragment {
@@ -35,13 +34,23 @@ public class FriendsListFragment extends Fragment {
     //LiveData<List<Student>> liveData;
 
 //    interface Delegate{
-//        void onItemSelected(Student student);
+//        void onItemSelected(User user);
 //    }
-
+//
 //    Delegate parent;
 
 
     public FriendsListFragment() {
+        Model.instance.getAllUsers(new Model.getAllUsersListener() {
+            @Override
+            public void onComplete(List<User> _data) {
+                data = _data;
+                // update the friends list with the new data
+                if (adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
 //        StudentModel.instance.getAllStudents(new StudentModel.Listener<List<Student>>() {
 //            @Override
 //            public void onComplete(List<Student> _data) {
@@ -64,7 +73,6 @@ public class FriendsListFragment extends Fragment {
 //        }
 //        setHasOptionsMenu(true);
 //
-//        viewModel = new ViewModelProvider(this).get(StudentListViewModel.class);
 //    }
 
 
@@ -77,7 +85,7 @@ public class FriendsListFragment extends Fragment {
         list.setHasFixedSize(true);
 
         // for displaying the rows and contents of them
-        data = Model.instance.getUserLst();
+        //data = Model.instance.getUserLst();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
