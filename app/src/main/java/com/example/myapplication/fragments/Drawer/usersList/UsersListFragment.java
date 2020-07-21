@@ -1,13 +1,16 @@
-package com.example.myapplication.Drawer.friendList;
-
+package com.example.myapplication.fragments.Drawer.usersList;
 
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +20,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myapplication.model.Model;
+import com.example.myapplication.UsersListViewModel;
+import com.example.myapplication.model.UserModel;
 import com.example.myapplication.R;
 
 import com.example.myapplication.model.User;
@@ -26,30 +30,31 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class FriendsListFragment extends Fragment {
+public class UsersListFragment extends Fragment {
     RecyclerView list;
     List<User> data = new LinkedList<User>();
     FriendsListAdapter adapter;
-    //StudentListViewModel viewModel;
-    //LiveData<List<Student>> liveData;
+    UsersListViewModel viewModel;
+    LiveData<List<User>> liveData;
 
-//    interface Delegate{
-//        void onItemSelected(User user);
-//    }
-//
-//    Delegate parent;
 
-        public FriendsListFragment() {
-        Model.instance.getAllUsers(new Model.Listener<List<User>>() {
-            @Override
-            public void onComplete(List<User> _data) {
-                data = _data;
-                // update the friends list with the new data
-                if (adapter != null) {
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
+    interface Delegate{
+        void onItemSelected(User user);
+    }
+
+    Delegate parent;
+
+        public UsersListFragment() {
+//        UserModel.instance.getAllUsers(new UserModel.Listener<List<User>>() {
+//            @Override
+//            public void onComplete(List<User> _data) {
+//                data = _data;
+//                // update the users list with the new data
+//                if (adapter != null) {
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//        });
 
 
 //        StudentModel.instance.getAllStudents(new StudentModel.Listener<List<Student>>() {
@@ -63,18 +68,20 @@ public class FriendsListFragment extends Fragment {
 //        });
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 //        if (context instanceof Delegate) {
 //            parent = (Delegate) getActivity();
 //        } else {
 //            throw new RuntimeException(context.toString()
-//                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+//                    + "users list parent activity must implement dtudent ;list fragment Delegate");
 //        }
 //        setHasOptionsMenu(true);
-//
-//    }
+
+        // create one instance of viewModel
+        viewModel = new ViewModelProvider(this).get(UsersListViewModel.class);
+    }
 
 
     @Override
@@ -126,6 +133,28 @@ public class FriendsListFragment extends Fragment {
 //            }
 //        });
 
+        liveData = viewModel.getData();
+        // when tha values in liveData changes this function observes
+        liveData.observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                data = users;
+                adapter.notifyDataSetChanged(); //refresh
+            }
+        });
+
+        final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.users_list_swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewModel.refresh(new UserModel.CompListener() {
+                    @Override
+                    public void onComplete() {
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+            }
+        });
         return view;
     }
 

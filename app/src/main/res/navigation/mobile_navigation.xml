@@ -7,30 +7,30 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.myapplication.Drawer.home.HomeFragment"
+        android:name="com.example.myapplication.fragments.Drawer.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.myapplication.Drawer.gallery.GalleryFragment"
+        android:name="com.example.myapplication.fragments.Drawer.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.myapplication.Drawer.slideshow.SlideshowFragment"
+        android:name="com.example.myapplication.fragments.Drawer.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_my_profile"
-        android:name="com.example.myapplication.Drawer.MyProfile.MyProfileFragment"
+        android:name="com.example.myapplication.fragments.Drawer.MyProfile.MyProfileFragment"
         android:label="@string/menu_myProfile"
         tools:layout="@layout/fragment_my_profile" />
 
     <fragment
         android:id="@+id/nav_my_friends"
-        android:name="com.example.myapplication.Drawer.friendList.FriendsListFragment"
+        android:name="com.example.myapplication.fragments.Drawer.usersList.UsersListFragment"
         android:label="@string/menu_myFriends"
         tools:layout="@layout/fragment_friends_list" />
 

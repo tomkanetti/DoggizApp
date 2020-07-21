@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.myapplication.Fragments.MainFragment"
+        android:name="com.example.myapplication.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -22,12 +22,12 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.myapplication.Fragments.LoginFragment"
+        android:name="com.example.myapplication.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/singUpFragment"
-        android:name="com.example.myapplication.Fragments.SingUpFragment"
+        android:name="com.example.myapplication.fragments.SingUpFragment"
         android:label="fragment_sing_up"
         tools:layout="@layout/fragment_sing_up" >
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <activity
         android:id="@+id/postActivity"
-        android:name="com.example.myapplication.Activities.PostActivity"
+        android:name="com.example.myapplication.activities.PostActivity"
         android:label="app_bar_main"
         tools:layout="@layout/app_bar_main" />
 </navigation>

@@ -1,13 +1,9 @@
-package com.example.myapplication.Activities;
+package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.myapplication.R;
 
