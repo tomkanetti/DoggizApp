@@ -1,4 +1,4 @@
-package com.example.myapplication.Drawer.MyProfile;
+package com.example.myapplication.fragments.Drawer.MyProfile;
 
 import androidx.lifecycle.ViewModelProviders;
 

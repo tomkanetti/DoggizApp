@@ -1,4 +1,4 @@
-package com.example.myapplication.Drawer.gallery;
+package com.example.myapplication.fragments.Drawer.gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

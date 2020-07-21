@@ -17,6 +17,8 @@ public class User implements Serializable {
     public String password;
     public String imgUrl;
 
+    public User(){}
+
     public User(String dogName, String ownerName, String id, String email, String password,String imgUrl) {
         this.dogName = dogName;
         this.ownerName = ownerName;

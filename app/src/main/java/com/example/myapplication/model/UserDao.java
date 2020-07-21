@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,7 +15,7 @@ public interface UserDao {
 
     // return all (*) usere from list<User>
     @Query("select * from User")
-    List<User> getAll();
+    LiveData<List<User>> getAll();
 
     // if i have this User in this ame name -> replace it
     @Insert(onConflict = OnConflictStrategy.REPLACE)
