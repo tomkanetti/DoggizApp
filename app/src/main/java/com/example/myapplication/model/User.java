@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 @Entity
 public class User implements Serializable {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NotNull
-    public String id;
+    public int id;
     public String dogName;
     public String ownerName;
     public String email;
@@ -19,21 +19,20 @@ public class User implements Serializable {
 
     public User(){}
 
-    public User(String dogName, String ownerName, String id, String email, String password,String imgUrl) {
+    public User(String ownerName, String dogName, String email, String password, String imgUrl) {
         this.dogName = dogName;
         this.ownerName = ownerName;
-        this.id = id;
         this.email=email;
         this.password=password;
         this.imgUrl=imgUrl;
     }
 
     @NotNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NotNull String id) {
-        this.id = id;
-    }
+//    public void setId(@NotNull Integer id) {
+//        this.id = id;
+//    }
 }

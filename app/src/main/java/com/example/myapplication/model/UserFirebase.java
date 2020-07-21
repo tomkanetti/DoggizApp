@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -11,6 +13,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 
 public class UserFirebase {
@@ -40,7 +43,8 @@ public class UserFirebase {
 
     public static void addUser(User user, final UserModel.Listener<Boolean> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(USER_COLLECTION).document(user.getId()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+        String id = String.valueOf(user.getId());
+        db.collection(USER_COLLECTION).document(id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (listener != null){
