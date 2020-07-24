@@ -30,6 +30,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
 
+import io.opencensus.metrics.LongGauge;
+
 public class SingUpFragment extends Fragment {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -69,7 +71,7 @@ public class SingUpFragment extends Fragment {
         singUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveUser();
+                signUp();
                 Navigation.findNavController(v).navigate(R.id.action_singUpFragment_to_postActivity);
 
             }
@@ -78,7 +80,12 @@ public class SingUpFragment extends Fragment {
         return view;
     }
 
-    void takePhoto(){
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    void takePhoto() {
         Intent takePictureIntent = new Intent(
                 MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -105,34 +112,49 @@ public class SingUpFragment extends Fragment {
                 matrix, true);
     }
 
-    void saveUser(){
+
+    private void saveUser(final String imageUrl) {
         final String ownerName = ownerNameTv.getText().toString();
         final String dogName = dogNameTv.getText().toString();
         final String email = emailTv.getText().toString();
         final String password = passwordTv.getText().toString();
 
+        UserModel.instance.signUp(email, password, new UserModel.Listener<String>() {
+            @Override
+            public void onComplete(String data) {
+                Log.d("TAG","Signup fragment - saveUser - onComplete1");
+                    User user = new User(ownerName,dogName,email,password,imageUrl);
+                    UserModel.instance.addUser(user, new UserModel.Listener<Boolean>() {
+                        @Override
+                        public void onComplete(Boolean data) {
+                            Log.d("TAG","Signup fragment - saveUser - onComplete2");
+                            NavController navCtrl = Navigation.findNavController(view);
+                            navCtrl.navigateUp();
+                        }
+                    });
+                 }
+                //}
+            });
+    }
+
+    void signUp() {
         Date d = new Date();
-        StoreModel.uploadImage(imageBitmap, "my_photo" + d.getTime(), new StoreModel.Listener() {
-            @Override
-            public void onSuccess(String url) {
-                Log.d("TAG", "url: " + url);
-                User u = new User(ownerName, dogName,email,password,url);
-                UserModel.instance.addUser(u, new UserModel.Listener<Boolean>() {
-                    @Override
-                    public void onComplete(Boolean data) {
-                        NavController navCtrl = Navigation.findNavController(view);
-                        navCtrl.navigateUp();
-                    }
-                });
-            }
-//
-            @Override
-            public void onFail() {
-//                progressbr.setVisibility(View.INVISIBLE);
-//                Snackbar mySnackbar = Snackbar.make(view,R.string.fail_to_save_student, Snackbar.LENGTH_LONG);
-//                mySnackbar.show();
-            }
-        });
+        if (imageBitmap != null) {
+            StoreModel.uploadImage(imageBitmap, "my_photo" + d.getTime(), new StoreModel.Listener() {
+                @Override
+                public void onSuccess(final String url) {
+                    Log.d("TAG","signUp SUCESSS");
+                    saveUser(url);
+                }
+                @Override
+                public void onFail() {
+                    Log.d("TAG","signUp NO SUCESSS");
+                    //registrationFailed(REGISTRATION_FAILED_MESSAGE);
+                }
+            });
+        } else
+            Log.d("TAG","signUp ELSE");
+            saveUser("");
     }
 
 

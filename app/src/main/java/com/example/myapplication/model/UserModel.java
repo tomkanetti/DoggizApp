@@ -2,6 +2,7 @@ package com.example.myapplication.model;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -20,12 +21,19 @@ public class UserModel {
     }
 
     public void addUser(User user, Listener<Boolean> listener) {
+        Log.d("TAG","UserModel - addUser");
         UserFirebase.addUser(user, listener);
         //AppLocalDb.db.userDao().insertAll(user);
     }
 
     public interface getAllUsersListener {
         void onComplete(List<User> data);
+    }
+
+    public void signUp(String email, String password,Listener<String> listener) {
+        Log.d("TAG", "userModel - signUp");
+        UserFirebase.signUp(email,password,listener);
+
     }
 
     // THIS IS OTHER THREAD (ASYNC) - ALL DATABASE ACTIONS WILL BE RUN IN THIS THREAD (AND NOT IN THE MAIN ONE)
