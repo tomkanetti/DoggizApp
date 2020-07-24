@@ -7,23 +7,21 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 
 public class UserFirebase {
     final static String USER_COLLECTION = "users";
 
-//    public UserFirebase() {
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    }
-
-    public static void getAllUsers(final  UserModel.Listener<List<User>> listener) {
+    public static void getAllUsers(final UserModel.Listener<List<User>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(USER_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -42,56 +40,54 @@ public class UserFirebase {
     }
 
     public static void addUser(User user, final UserModel.Listener<Boolean> listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String id = String.valueOf(user.getId());
-        db.collection(USER_COLLECTION).document(id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (listener != null){
-                    listener.onComplete(task.isSuccessful());
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String id = String.valueOf(user.getId());
+            db.collection(USER_COLLECTION).document(id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (listener != null) {
+                        listener.onComplete(task.isSuccessful());
+                    }
                 }
-            }
-        });
+            });
+    }
+
+    public static void signUp(String email, String password, final UserModel.Listener<String> listener) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        String id = getCurrentUserId();
+                        listener.onComplete(id);
+                    }
+                });
+    }
+
+    public static void login(String email, String password, final UserModel.Listener<Boolean> listener) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "signInWithEmail:success");
+                        } else {
+                            Log.w("TAG", "signInWithEmail:failure", task.getException());
+                        }
+                        listener.onComplete(task.isSuccessful());
+                    }
+                });
+    }
+
+    public static String getCurrentUserId() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null)
+            return firebaseUser.getUid();
+        return null;
+    }
+
+    public static boolean isSignedIn() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 
 }
 
-
-//public class ModelFirebase {
-//
-//    public ModelFirebase() {
-//        // Access a Cloud Firestore instance from your Activity
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//        // Create a new user with a first and last name
-//        Map<String, Object> user = new HashMap<>();
-//        user.put("first", "Ada");
-//        user.put("last", "Lovelace");
-//        user.put("born", 1815);
-//
-//// Add a new document with a generated ID
-//        db.collection("users")
-//                .add(user)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("TAG", "Error adding document", e);
-//                    }
-//                });
-//
-//    }
-//
-//    public interface GetAllUsersListener {
-//        void onComplete(List<User> data);
-//    }
-//
-//    public void getAllUsere(GetAllUsersListener listener) {
-//
-//    }
-//}
