@@ -46,9 +46,6 @@ public class UserFirebase {
 
     public static void addUser(User user, final UserModel.Listener<Boolean> listener) {
         Log.d("TAG","UserFirebase - addUser");
-        //FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        // if the user isn't signed in already
-        //if (firebaseUser != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             String id = String.valueOf(user.getId());
             db.collection(USER_COLLECTION).document(id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
