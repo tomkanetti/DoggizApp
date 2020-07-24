@@ -24,7 +24,11 @@
         android:id="@+id/loginFragment"
         android:name="com.example.myapplication.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_postActivity"
+            app:destination="@id/postActivity" />
+    </fragment>
     <fragment
         android:id="@+id/singUpFragment"
         android:name="com.example.myapplication.fragments.SingUpFragment"

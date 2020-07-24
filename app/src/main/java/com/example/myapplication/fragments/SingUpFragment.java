@@ -34,7 +34,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
 
-import io.opencensus.metrics.LongGauge;
 
 public class SingUpFragment extends Fragment {
 
@@ -101,8 +100,6 @@ public class SingUpFragment extends Fragment {
         }
     }
 
-    //    private Bitmap imageBitmap;
-//    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE &&
@@ -120,7 +117,6 @@ public class SingUpFragment extends Fragment {
                 matrix, true);
     }
 
-
     private void saveUser(final String imageUrl) {
         final String ownerName = ownerNameTv.getText().toString();
         final String dogName = dogNameTv.getText().toString();
@@ -130,18 +126,15 @@ public class SingUpFragment extends Fragment {
         UserModel.instance.signUp(email, password, new UserModel.Listener<String>() {
             @Override
             public void onComplete(String data) {
-                Log.d("TAG","Signup fragment - saveUser - onComplete1");
                     User user = new User(ownerName,dogName,email,password,imageUrl);
                     UserModel.instance.addUser(user, new UserModel.Listener<Boolean>() {
                         @Override
                         public void onComplete(Boolean data) {
-                            Log.d("TAG","Signup fragment - saveUser - onComplete2");
                             NavController navCtrl = Navigation.findNavController(view);
                             navCtrl.navigateUp();
                         }
                     });
                  }
-                //}
             });
     }
 
@@ -151,13 +144,10 @@ public class SingUpFragment extends Fragment {
             StoreModel.uploadImage(imageBitmap, "my_photo" + d.getTime(), new StoreModel.Listener() {
                 @Override
                 public void onSuccess(final String url) {
-                    Log.d("TAG","signUp SUCESSS");
                     saveUser(url);
                 }
                 @Override
                 public void onFail() {
-                    Log.d("TAG","signUp NO SUCESSS");
-                    //registrationFailed(REGISTRATION_FAILED_MESSAGE);
                 }
             });
         } else
@@ -209,10 +199,5 @@ public class SingUpFragment extends Fragment {
         return true;
 
     }
-
-
-
-
-
 
 }

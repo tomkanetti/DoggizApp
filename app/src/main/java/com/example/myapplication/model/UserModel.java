@@ -21,7 +21,6 @@ public class UserModel {
     }
 
     public void addUser(User user, Listener<Boolean> listener) {
-        Log.d("TAG","UserModel - addUser");
         UserFirebase.addUser(user, listener);
         //AppLocalDb.db.userDao().insertAll(user);
     }
@@ -31,40 +30,13 @@ public class UserModel {
     }
 
     public void signUp(String email, String password,Listener<String> listener) {
-        Log.d("TAG", "userModel - signUp");
         UserFirebase.signUp(email,password,listener);
 
     }
 
-    // THIS IS OTHER THREAD (ASYNC) - ALL DATABASE ACTIONS WILL BE RUN IN THIS THREAD (AND NOT IN THE MAIN ONE)
-//    public void getAllUsers(final getAllUsersListener listener) {
-//        // params - pass parameters to the function that runs in the second thread (like user id that will be filtered by it)
-//        // progress - update main thread as progress
-//        // result - pass the result from the second thread to the main thread
-//        class MyAsyncTask extends AsyncTask<String,String,String> {
-//            List<User> data;
-//
-//            // run on the second thread
-//            @Override
-//            protected String doInBackground(String... strings) {
-////                for (int i=0; i<12; i++) {
-////                    AppLocalDb.db.userDao().insertAll(new User("jessi"+i, "noa"+i,i+"" , null,null,null));
-////                }
-//                data = AppLocalDb.db.userDao().getAll();
-//                return null;
-//            }
-//
-//            // will be run after doInBackground() finish
-//            // run on the main thread
-//            @Override
-//            protected void onPostExecute(String s) {
-//                super.onPostExecute(s);
-//                listener.onComplete(data);
-//            }
-//        }
-//        MyAsyncTask task = new MyAsyncTask();
-//        task.execute();
-//    }
+    public void login(String email, String password, Listener<Boolean> listener) {
+        UserFirebase.login(email, password, listener);
+    }
 
     public interface Listener<T>{
         void onComplete(T data);
@@ -74,6 +46,9 @@ public class UserModel {
         void onComplete();
     }
 
+    public boolean isLoggedIn() {
+        return UserFirebase.isSignedIn();
+    }
 
     public void refreshUserList(final CompListener listener) {
         UserFirebase.getAllUsers(new Listener<List<User>>() {

@@ -16,15 +16,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 
 public class UserFirebase {
     final static String USER_COLLECTION = "users";
-
-//    public UserFirebase() {
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    }
 
     public static void getAllUsers(final UserModel.Listener<List<User>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -45,30 +40,40 @@ public class UserFirebase {
     }
 
     public static void addUser(User user, final UserModel.Listener<Boolean> listener) {
-        Log.d("TAG","UserFirebase - addUser");
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             String id = String.valueOf(user.getId());
             db.collection(USER_COLLECTION).document(id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Log.d("TAG","UserFirebase - addUser - onComplete");
                     if (listener != null) {
                         listener.onComplete(task.isSuccessful());
                     }
                 }
             });
-       // }
     }
 
     public static void signUp(String email, String password, final UserModel.Listener<String> listener) {
-        Log.d("TAG","UserFirebase - signUp");
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("TAG","UserFirebase - signUp - onComplete");
                         String id = getCurrentUserId();
                         listener.onComplete(id);
+                    }
+                });
+    }
+
+    public static void login(String email, String password, final UserModel.Listener<Boolean> listener) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "signInWithEmail:success");
+                        } else {
+                            Log.w("TAG", "signInWithEmail:failure", task.getException());
+                        }
+                        listener.onComplete(task.isSuccessful());
                     }
                 });
     }
@@ -78,6 +83,10 @@ public class UserFirebase {
         if (firebaseUser != null)
             return firebaseUser.getUid();
         return null;
+    }
+
+    public static boolean isSignedIn() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 
 }
