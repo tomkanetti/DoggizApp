@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -17,6 +19,7 @@ import java.util.Random;
 
 
 public class UserFirebase {
+    static int numOfUsers = 0;
     final static String USER_COLLECTION = "users";
 
 //    public UserFirebase() {
@@ -42,16 +45,20 @@ public class UserFirebase {
     }
 
     public static void addUser(User user, final UserModel.Listener<Boolean> listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String id = String.valueOf(user.getId());
-        db.collection(USER_COLLECTION).document(id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (listener != null){
-                    listener.onComplete(task.isSuccessful());
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        // if the user isn't signed in already
+        if (firebaseUser != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String id = String.valueOf(user.getId());
+            db.collection(USER_COLLECTION).document(id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (listener != null) {
+                        listener.onComplete(task.isSuccessful());
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
 }

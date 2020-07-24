@@ -25,6 +25,7 @@ import com.example.myapplication.model.UserModel;
 import com.example.myapplication.R;
 
 import com.example.myapplication.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -192,6 +193,13 @@ public class UsersListFragment extends Fragment {
         public void bind(User u) {
             dogName.setText(u.dogName);
             ownerName.setText(u.ownerName);
+            if (u.imgUrl != null && u.imgUrl != "") {
+                Picasso.get().load(u.imgUrl).placeholder(R.drawable.f).into(userImage);
+            } else {
+                userImage.setImageResource(R.drawable.f);
+            }
+
+
 //            student = st;
 //            if (st.imgUrl != null && st.imgUrl != "") {
 //                Picasso.get().load(st.imgUrl).placeholder(R.drawable.avatar).into(image);

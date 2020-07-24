@@ -8,9 +8,10 @@ import java.io.Serializable;
 
 @Entity
 public class User implements Serializable {
+
     @PrimaryKey(autoGenerate = true)
     @NotNull
-    public int id;
+    public Integer id;
     public String dogName;
     public String ownerName;
     public String email;
@@ -25,10 +26,12 @@ public class User implements Serializable {
         this.email=email;
         this.password=password;
         this.imgUrl=imgUrl;
+        this.id = Integer.parseInt(ownerName);
+        //this.id = UserFirebase.numOfUsers+1;
     }
 
     @NotNull
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

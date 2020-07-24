@@ -21,6 +21,7 @@ public class UserModel {
 
     public void addUser(User user, Listener<Boolean> listener) {
         UserFirebase.addUser(user, listener);
+        //AppLocalDb.db.userDao().insertAll(user);
     }
 
     public interface getAllUsersListener {
