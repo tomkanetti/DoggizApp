@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.fragments.Drawer.usersList;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

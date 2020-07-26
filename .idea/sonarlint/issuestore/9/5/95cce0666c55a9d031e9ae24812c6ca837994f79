@@ -1,0 +1,29 @@
+
+V	java:S125u"<This block of commented-out lines of code should be removed.(ÇÒòÎþÿÿÿÿ
+W	java:S125þ"<This block of commented-out lines of code should be removed.(Þÿ±›ùÿÿÿÿ
+Q	java:S125J"<This block of commented-out lines of code should be removed.(¶¥ýË
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¥¸²êùÿÿÿÿ
+U
+java:S4973Ã"9Use the "equals" method if value comparison was intended.(î›é‹ÿÿÿÿÿ
+Q	java:S125m"<This block of commented-out lines of code should be removed.(Þ§æ§
+R	java:S125Œ"<This block of commented-out lines of code should be removed.(ÜîæÝ
+R	java:S125ˆ"<This block of commented-out lines of code should be removed.(÷ªÄ§
+V	java:S125>"<This block of commented-out lines of code should be removed.(ÙÌúßþÿÿÿÿ
+V	java:S1252"<This block of commented-out lines of code should be removed.(æ ¯¢úÿÿÿÿ
+R	java:S125Ì"<This block of commented-out lines of code should be removed.(°‘¶Ê
+Q	java:S125<"<This block of commented-out lines of code should be removed.(Ó–Çü
+Q	java:S125~"<This block of commented-out lines of code should be removed.(–¹Îà
+R	java:S125÷"<This block of commented-out lines of code should be removed.(ú•íõ
+v
+java:S1488å"ZImmediately return this expression instead of assigning it to the temporary variable "vh".(óÕ”Õýÿÿÿÿ
+P	java:S125N"<This block of commented-out lines of code should be removed.(ùÑÕ.
+V	java:S125r"<This block of commented-out lines of code should be removed.(·÷½ýÿÿÿÿ
+W	java:S125"<This block of commented-out lines of code should be removed.(’ÀñËýÿÿÿÿ
+V	java:S125{"<This block of commented-out lines of code should be removed.(Í¨ð—ûÿÿÿÿ
+R	java:S125"<This block of commented-out lines of code should be removed.(÷ªÄ§
+R	java:S125¢"<This block of commented-out lines of code should be removed.(Î©“¥
+V	java:S1250"<This block of commented-out lines of code should be removed.(¨©âùÿÿÿÿ
+Q	java:S1255"<This block of commented-out lines of code should be removed.(ºÀ³Ž
+o
+java:S2293#"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿ´…•
+Q	java:S125`"<This block of commented-out lines of code should be removed.(†ÂÊŠ

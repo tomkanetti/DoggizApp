@@ -40,9 +40,10 @@ public class UserFirebase {
     }
 
     public static void addUser(User user, final UserModel.Listener<Boolean> listener) {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            String id = String.valueOf(user.getId());
-            db.collection(USER_COLLECTION).document(id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            db.collection(USER_COLLECTION).document(firebaseUser.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (listener != null) {
@@ -50,6 +51,7 @@ public class UserFirebase {
                     }
                 }
             });
+        }
     }
 
     public static void signUp(String email, String password, final UserModel.Listener<String> listener) {
