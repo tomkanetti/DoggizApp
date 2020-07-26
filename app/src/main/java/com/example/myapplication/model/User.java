@@ -20,6 +20,24 @@ public class User implements Serializable {
     public String imgUrl;
     public long lastUpdated;
 
+    public User(String ownerName, @NonNull String dogName, @NonNull String email,String password, String imgUrl) {
+        this.dogName = dogName;
+        this.ownerName = ownerName;
+        this.email=email;
+        this.password=password;
+        this.imgUrl=imgUrl;
+    }
+
+    public User() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @NonNull
     public String getDogName() {
@@ -51,13 +69,7 @@ public class User implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public User(String ownerName, @NonNull String dogName, @NonNull String email,String password, String imgUrl) {
-        this.dogName = dogName;
-        this.ownerName = ownerName;
-        this.email=email;
-        this.password=password;
-        this.imgUrl=imgUrl;
-    }
+
 
     public String getOwnerName() {
         return ownerName;

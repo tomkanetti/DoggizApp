@@ -43,4 +43,16 @@
         android:name="com.example.myapplication.activities.PostActivity"
         android:label="app_bar_main"
         tools:layout="@layout/app_bar_main" />
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.example.myapplication.fragments.Drawer.MyProfile.MyProfileFragment"
+        android:label="profile"
+        tools:layout="@layout/fragment_my_profile">
+        <argument
+            android:name="user"
+            app:argType="com.example.myapplication.model.User" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_myProfileFragment"
+        app:destination="@id/myProfileFragment" />
 </navigation>
