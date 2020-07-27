@@ -27,6 +27,7 @@ import androidx.navigation.Navigation;
 import static android.app.Activity.RESULT_OK;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.PostActivityDirections;
 import com.example.myapplication.model.StoreModel;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
@@ -79,7 +80,7 @@ public class SingUpFragment extends Fragment {
                 //hideKeyboard();
                 if(validateForm() ) {
                     signUp();
-                    Navigation.findNavController(v).navigate(R.id.action_singUpFragment_to_postActivity2);
+                    Navigation.findNavController(v).navigate(PostActivityDirections.actionGlobalPostActivity());
                 }
             }
         });

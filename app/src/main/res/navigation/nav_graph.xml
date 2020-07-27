@@ -8,36 +8,17 @@
         android:id="@+id/mainFragment"
         android:name="com.example.myapplication.fragments.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popExitAnim="@android:anim/slide_out_right" />
-        <action
-            android:id="@+id/action_mainFragment_to_singUpFragment"
-            app:destination="@id/singUpFragment"
-            app:enterAnim="@android:anim/slide_in_left" />
-    </fragment>
+        tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.myapplication.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_postActivity2"
-            app:destination="@id/postActivity" />
-    </fragment>
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/singUpFragment"
         android:name="com.example.myapplication.fragments.SingUpFragment"
         android:label="fragment_sing_up"
-        tools:layout="@layout/fragment_sing_up" >
-        <action
-            android:id="@+id/action_singUpFragment_to_postActivity2"
-            app:destination="@id/postActivity" />
-    </fragment>
+        tools:layout="@layout/fragment_sing_up" />
     <fragment
         android:id="@+id/myProfileFragment"
         android:name="com.example.myapplication.fragments.Drawer.MyProfile.MyProfileFragment"
@@ -47,11 +28,25 @@
             android:name="user"
             app:argType="com.example.myapplication.model.User" />
     </fragment>
-    <action
-        android:id="@+id/action_global_myProfileFragment"
-        app:destination="@id/myProfileFragment" />
     <activity
         android:id="@+id/postActivity"
         android:name="com.example.myapplication.activities.PostActivity"
         android:label="PostActivity" />
+    <action
+        android:id="@+id/action_global_singUpFragment"
+        app:destination="@id/singUpFragment" />
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment" />
+    <action
+        android:id="@+id/action_global_postActivity"
+        app:destination="@id/postActivity" />
+    <fragment
+        android:id="@+id/usersListFragment"
+        android:name="com.example.myapplication.fragments.Drawer.usersList.UsersListFragment"
+        android:label="fragment_friends_list"
+        tools:layout="@layout/fragment_friends_list" />
+    <action
+        android:id="@+id/action_global_myProfileFragment"
+        app:destination="@id/myProfileFragment" />
 </navigation>

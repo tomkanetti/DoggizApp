@@ -47,45 +47,9 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         view= inflater.inflate(R.layout.fragment_home,container,false);
 
-//        final TextView textView = root.findViewById(R.id.text_home);
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-//        View view2= inflater.inflate(R.layout.nav_header_main,container,false);
-//
-//        dogName=view2.findViewById(R.id.nav_header_profileName_textView);
-//        email=view2.findViewById(R.id.nav_header_profileEmail_textView);
-//        userImage=view2.findViewById(R.id.nav_header_profileImage_imageView);
-//
-//        UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
-//            @Override
-//            public void onComplete(User u) {
-//                user= new User(u);
-//                bind(u);
-//            }
-//        });
         return view;
 
 
-    }
-
-
-    public void bind(User u) {
-        if(u!=null) {
-            dogName.setText(user.dogName);
-            email.setText(user.email);
-            if (user.imgUrl != null && !user.imgUrl.equals("")) {
-                Log.d("TAG", " if - UsersListFragment - bind");
-                Picasso.get().load(user.imgUrl).placeholder(R.drawable.f).into(userImage);
-            } else {
-                Log.d("TAG", " else - UsersListFragment - bind");
-                userImage.setImageResource(R.drawable.f);
-            }
-
-        }
     }
 
 

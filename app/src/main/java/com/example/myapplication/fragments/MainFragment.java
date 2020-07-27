@@ -33,29 +33,9 @@ public class MainFragment extends Fragment {
         View loginBtn = view.findViewById(R.id.main_login_btn);
         View singUpBtn=view.findViewById(R.id.main_singUp_btn);
 
+        loginBtn.setOnClickListener(Navigation.createNavigateOnClickListener(LoginFragmentDirections.actionGlobalLoginFragment()));
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_loginFragment);
-            }
-        });
-
-        singUpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_singUpFragment);
-            }
-        });
-
-//
-//        singUpBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, SingUpActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        singUpBtn.setOnClickListener(Navigation.createNavigateOnClickListener(SingUpFragmentDirections.actionGlobalSingUpFragment()));
 
         return view;
 

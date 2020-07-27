@@ -68,34 +68,6 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
         updateNavHeader();
 
 
-//        drawer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
-//                    @Override
-//                    public void onComplete(User u) {
-//                        Log.d("TAG","on click");
-//                        bind(u);
-//                    }
-//                });
-//            }
-//        });
-
-
-    }
-    public void bind(User u) {
-        if(user==null) {
-            dogName.setText(u.dogName);
-            email.setText(u.ownerName);
-            if (u.imgUrl != null && !u.imgUrl.equals("")) {
-                Log.d("TAG", " if - UsersListFragment - bind");
-                Picasso.get().load(u.imgUrl).placeholder(R.drawable.f).into(userImage);
-            } else {
-                Log.d("TAG", " else - UsersListFragment - bind");
-                userImage.setImageResource(R.drawable.f);
-            }
-            user= u;
-        }
     }
 
     @Override

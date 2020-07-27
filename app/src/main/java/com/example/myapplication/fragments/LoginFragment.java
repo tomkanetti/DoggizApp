@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activities.HomeActivity;
+import com.example.myapplication.activities.PostActivityDirections;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -52,7 +53,8 @@ public class LoginFragment extends Fragment {
                 if (validateForm()) {
                     login();
                     if (flag)
-                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_postActivity2);
+                        Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalPostActivity());
+                    //Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_postActivity2);
                 } else {
                     loginError(INVALID_FORM_MESSAGE);
                 }
@@ -62,6 +64,7 @@ public class LoginFragment extends Fragment {
     }
 
     void login() {
+
         UserModel.instance.login(emailTv.getText().toString(), passwordTv.getText().toString(), new UserModel.Listener<Boolean>() {
             @Override
             public void onComplete(Boolean data) {
@@ -69,13 +72,14 @@ public class LoginFragment extends Fragment {
 //                navCtrl.navigateUp();
                 if (data) {
                     Log.d("TAG","loginFragment - login - if");
-                    flag = true;
                 } else {
                     Log.d("TAG","loginFragment - login - else");
                     loginError(AUTHENTICATION_FAILED_MESSAGE);
                 }
+                flag = data;
             }
         });
+
     }
 
     private void loginError(String errorMsg) {
