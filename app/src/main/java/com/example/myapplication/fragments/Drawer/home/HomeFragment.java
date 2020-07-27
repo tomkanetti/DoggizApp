@@ -54,19 +54,19 @@ public class HomeFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
-        View view2= inflater.inflate(R.layout.nav_header_main,container,false);
-
-        dogName=view2.findViewById(R.id.nav_header_profileName_textView);
-        email=view2.findViewById(R.id.nav_header_profileEmail_textView);
-        userImage=view2.findViewById(R.id.nav_header_profileImage_imageView);
-
-        UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
-            @Override
-            public void onComplete(User u) {
-                user= new User(u);
-                bind(u);
-            }
-        });
+//        View view2= inflater.inflate(R.layout.nav_header_main,container,false);
+//
+//        dogName=view2.findViewById(R.id.nav_header_profileName_textView);
+//        email=view2.findViewById(R.id.nav_header_profileEmail_textView);
+//        userImage=view2.findViewById(R.id.nav_header_profileImage_imageView);
+//
+//        UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
+//            @Override
+//            public void onComplete(User u) {
+//                user= new User(u);
+//                bind(u);
+//            }
+//        });
         return view;
 
 

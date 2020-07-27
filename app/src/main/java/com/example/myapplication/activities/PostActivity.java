@@ -12,6 +12,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -30,10 +32,10 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
 
     private AppBarConfiguration mAppBarConfiguration;
     NavController navController;
-    TextView dogName;
-    TextView email;
+    TextView dogName,ownerName,email;
     ImageView userImage;
     User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,7 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
         setContentView(R.layout.fragment_post);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -61,21 +64,22 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
             }
         });
 
-        dogName=(TextView)findViewById(R.id.nav_header_profileName_textView);
-        email=(TextView)findViewById(R.id.nav_header_profileEmail_textView);
-        userImage=(ImageView) findViewById(R.id.nav_header_profileImage_imageView);
-        drawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
-                    @Override
-                    public void onComplete(User u) {
-                        Log.d("TAG","on click");
-                        bind(u);
-                    }
-                });
-            }
-        });
+
+        updateNavHeader();
+
+
+//        drawer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
+//                    @Override
+//                    public void onComplete(User u) {
+//                        Log.d("TAG","on click");
+//                        bind(u);
+//                    }
+//                });
+//            }
+//        });
 
 
     }
@@ -108,4 +112,37 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onNavigationItemSelected(MenuItem item) {
         return true;
     }
+
+    public void updateNavHeader() {
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        dogName=headerView.findViewById(R.id.nav_header_profileName_textView);
+        ownerName=headerView.findViewById(R.id.nav_header_ownerName_textView);
+        email=headerView.findViewById(R.id.nav_header_profileEmail_textView);
+        userImage=headerView.findViewById(R.id.nav_header_profileImage_imageView);
+        UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
+            @Override
+            public void onComplete(User data) {
+                email.setText(data.getEmail());
+                dogName.setText(data.dogName);
+                ownerName.setText(data.ownerName);
+
+                if (data.imgUrl != null && !data.imgUrl.equals("")) {
+                    Log.d("TAG", " if - UsersListFragment - bind");
+                    Picasso.get().load(data.imgUrl).placeholder(R.drawable.f).into(userImage);
+                } else {
+                    Log.d("TAG", " else - UsersListFragment - bind");
+                    userImage.setImageResource(R.drawable.f);
+                }
+            }
+        });
+
+
+
+
+    }
+
+
 }
