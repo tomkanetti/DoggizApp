@@ -60,6 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:ems="10"
+            android:background="@drawable/reg_edittext_style"
+
             android:hint="Name"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -74,6 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/reg_edittext_style"
+
             android:ems="10"
             android:hint="Dog's Name"
             android:inputType="textPersonName"
@@ -90,6 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
+            android:background="@drawable/reg_edittext_style"
+
             android:hint="Email"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -105,6 +111,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="180dp"
+            android:background="@drawable/reg_edittext_style"
+
             android:autofillHints=""
             android:ems="10"
             android:hint="Password"
@@ -122,6 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="68dp"
             android:backgroundTint="#B6EDD8A2"
+            android:background="@drawable/reg_btn_style"
+
             android:text="SING UP"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

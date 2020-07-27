@@ -7,17 +7,27 @@
     tools:context="fragments.SharePostFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="59dp"
+        android:background="#F3E7D3"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#DCCAAB"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_width="340dp"
+            android:layout_height="match_parent"
+            android:background="#F3E7D3"
+            android:visibility="visible"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="TODO"
+                app:srcCompat="@drawable/logo__2_" />
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />

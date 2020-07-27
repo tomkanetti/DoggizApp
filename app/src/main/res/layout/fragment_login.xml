@@ -20,21 +20,24 @@
         android:id="@+id/login_login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#4E82BED1"
+
         android:text="LOGIN"
+        android:background="@drawable/login_btn_style"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_password_text"
         app:layout_constraintVertical_bias="0.317" />
-
+    <!--        android:background="#4E82BED1"-->
     <EditText
         android:id="@+id/login_email_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="E-mail"
+        android:background="@drawable/reg_edittext_style"
         android:inputType="textEmailAddress"
         android:text="tom@tom.com"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,6 +54,7 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Password"
+        android:background="@drawable/reg_edittext_style"
         android:inputType="textPassword"
         android:text="tomtom"
         app:layout_constraintBottom_toBottomOf="parent"
