@@ -92,6 +92,7 @@
         android:layout_width="110dp"
         android:layout_height="109dp"
         android:layout_marginStart="8dp"
+        app:civ_border_width="1.5dp"
         app:layout_constraintBottom_toTopOf="@+id/sharePost_description_txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sharePost_title_txt"
