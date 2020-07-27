@@ -52,7 +52,7 @@ public class LoginFragment extends Fragment {
                 if (validateForm()) {
                     login();
                     if (flag)
-                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_postActivity);
+                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_postActivity2);
                 } else {
                     loginError(INVALID_FORM_MESSAGE);
                 }

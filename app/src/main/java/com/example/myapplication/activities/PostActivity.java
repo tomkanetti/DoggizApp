@@ -1,10 +1,18 @@
 package com.example.myapplication.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.User;
+import com.example.myapplication.model.UserModel;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,10 +30,14 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
 
     private AppBarConfiguration mAppBarConfiguration;
     NavController navController;
-
+    TextView dogName;
+    TextView email;
+    ImageView userImage;
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.fragment_post);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,6 +60,38 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
                 getSupportActionBar().setTitle(destination.getLabel());
             }
         });
+
+        dogName=(TextView)findViewById(R.id.nav_header_profileName_textView);
+        email=(TextView)findViewById(R.id.nav_header_profileEmail_textView);
+        userImage=(ImageView) findViewById(R.id.nav_header_profileImage_imageView);
+        drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
+                    @Override
+                    public void onComplete(User u) {
+                        Log.d("TAG","on click");
+                        bind(u);
+                    }
+                });
+            }
+        });
+
+
+    }
+    public void bind(User u) {
+        if(user==null) {
+            dogName.setText(u.dogName);
+            email.setText(u.ownerName);
+            if (u.imgUrl != null && !u.imgUrl.equals("")) {
+                Log.d("TAG", " if - UsersListFragment - bind");
+                Picasso.get().load(u.imgUrl).placeholder(R.drawable.f).into(userImage);
+            } else {
+                Log.d("TAG", " else - UsersListFragment - bind");
+                userImage.setImageResource(R.drawable.f);
+            }
+            user= u;
+        }
     }
 
     @Override

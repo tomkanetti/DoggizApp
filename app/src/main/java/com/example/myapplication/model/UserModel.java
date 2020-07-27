@@ -25,9 +25,7 @@ public class UserModel {
 //            addUser(u,null);
 //        }
     }
-    public void getCurrentUserDetails(Listener<User> listener) {
-        UserFirebase.getCurrentUserDetails(listener);
-    }
+
     public void addUser(User user, Listener<Boolean> listener) {
         UserFirebase.addUser(user, listener);
         //AppLocalDb.db.userDao().insertAll(user);
@@ -132,5 +130,27 @@ public class UserModel {
         LiveData<List<User>> liveData = AppLocalDb.db.userDao().getAll();
         refreshUserList(null);
         return liveData;
+    }
+    public void getCurrentUserDetails(Listener<User> listener) {
+        UserFirebase.getCurrentUserDetails(listener);
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    public void refreshReportDetails() {
+        UserFirebase.getCurrentUserDetails(new Listener<User>() {
+            @Override
+            public void onComplete(final User data) {
+                if (data != null) {
+                    new AsyncTask<String, String, String>() {
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            AppLocalDb.db.userDao().insertAll(data);
+                            return null;
+                        }
+                    }.execute("");
+                }
+            }
+        });
     }
 }

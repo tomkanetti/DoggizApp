@@ -1,0 +1,38 @@
+
+w
+java:S1450$"\Remove the "homeViewModel" field and declare it as a local variable in the relevant methods.(¿­¶üÿÿÿÿ
+E
+java:S1874-"*Remove this use of "of"; it is deprecated.(¶ÓÇÿÿÿÿÿÿ
+t
+java:S1128"RRemove this unused import 'com.google.android.material.navigation.NavigationView'.(Û²òÿÿÿÿÿ8¤Çä¸.
+S
+java:S1128"6Remove this unused import 'android.view.MenuInflater'.(¥ñ´Ò8Şµæ¸.
+S
+java:S1068$"1Remove this unused "homeViewModel" private field.(¿­¶üÿÿÿÿ8åöã¸.
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(–½ù¿ıÿÿÿÿ
+b
+java:S1128"ERemove this unused import 'androidx.appcompat.app.AppCompatActivity'.(€¶£î8¤Çä¸.
+]	java:S1250"<This block of commented-out lines of code should be removed.(ÂÚñÿÿÿÿÿ8åöã¸.
+I
+java:S1481`"'Remove this unused "id" local variable.(ªÙğúÿÿÿÿ8¬²³æ¸.
+U
+java:S1874-":Remove this use of "ViewModelProviders"; it is deprecated.(¶ÓÇÿÿÿÿÿÿ
+]
+java:S1128";Remove this unused import 'androidx.navigation.Navigation'.(ÄíÚÀÿÿÿÿÿ8¤Çä¸.
+]	java:S1253"<This block of commented-out lines of code should be removed.(ŒİÄ¹ÿÿÿÿÿ8åöã¸.
+K
+java:S1128".Remove this unused import 'android.view.Menu'.(£¯Ò…8Şµæ¸.
+a
+java:S1128"?Remove this unused import 'androidx.navigation.NavDestination'.(›ÑÏüÿÿÿÿ8¤Çä¸.
+X
+java:S1854`"6Remove this useless assignment to local variable "id".(ªÙğúÿÿÿÿ8¬²³æ¸.
+b
+java:S1128"FRemove this unused import 'androidx.drawerlayout.widget.DrawerLayout'.(çÊş8¤Çä¸.
+k
+java:S1128"IRemove this unused import 'androidx.appcompat.app.ActionBarDrawerToggle'.(Èš¦·ÿÿÿÿÿ8¤Çä¸.
+U
+java:S1161*":Add the "@Override" annotation above this method signature(î•Éğûÿÿÿÿ
+b
+java:S1128"@Remove this unused import 'androidx.navigation.ui.NavigationUI'.(„¾¯Êüÿÿÿÿ8¤Çä¸.
+`
+java:S1128">Remove this unused import 'androidx.appcompat.widget.Toolbar'.(ÔËûİùÿÿÿÿ8¤Çä¸.

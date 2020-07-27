@@ -79,7 +79,7 @@ public class SingUpFragment extends Fragment {
                 //hideKeyboard();
                 if(validateForm() ) {
                     signUp();
-                    Navigation.findNavController(v).navigate(R.id.action_singUpFragment_to_postActivity);
+                    Navigation.findNavController(v).navigate(R.id.action_singUpFragment_to_postActivity2);
                 }
             }
         });

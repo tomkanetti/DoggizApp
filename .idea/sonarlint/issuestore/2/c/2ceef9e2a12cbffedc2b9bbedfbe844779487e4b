@@ -1,0 +1,30 @@
+
+U
+java:S1128"8Remove this unused import 'android.view.LayoutInflater'.(À¯ÑÇ8§ıŒã¸.
+U
+java:S1128"8Remove this unused import 'com.example.myapplication.R'.(”äç8§ıŒã¸.
+V
+java:S1128	"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš8§ıŒã¸.
+P
+java:S1128".Remove this unused import 'android.os.Bundle'.(°şÊóøÿÿÿÿ8§ıŒã¸.
+]
+java:S1128";Remove this unused import 'androidx.navigation.Navigation'.(ÄíÚÀÿÿÿÿÿ8§ıŒã¸.
+t
+java:S1128"RRemove this unused import 'com.google.android.material.navigation.NavigationView'.(Û²òÿÿÿÿÿ8§ıŒã¸.
+U
+java:S1128"8Remove this unused import 'androidx.annotation.NonNull'.(ˆÛúÜ8§ıŒã¸.
+P
+java:S1128"3Remove this unused import 'android.view.ViewGroup'.(‹îá8§ıŒã¸.
+a
+java:S1128"?Remove this unused import 'androidx.navigation.NavDestination'.(›ÑÏüÿÿÿÿ8§ıŒã¸.
+b
+java:S1128"@Remove this unused import 'androidx.navigation.ui.NavigationUI'.(„¾¯Êüÿÿÿÿ8§ıŒã¸.
+`
+java:S1128">Remove this unused import 'androidx.appcompat.widget.Toolbar'.(ÔËûİùÿÿÿÿ8§ıŒã¸.
+k
+java:S1128
+"IRemove this unused import 'androidx.appcompat.app.ActionBarDrawerToggle'.(Èš¦·ÿÿÿÿÿ8§ıŒã¸.
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ò›Ü°8Æ™¿â¸.
+b
+java:S1128"FRemove this unused import 'androidx.drawerlayout.widget.DrawerLayout'.(çÊş8§ıŒã¸.

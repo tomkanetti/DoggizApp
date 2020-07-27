@@ -1,5 +1,7 @@
 package com.example.myapplication.fragments.Drawer.MyProfile;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -19,6 +21,9 @@ import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class MyProfileFragment extends Fragment {
 
     private MyProfileViewModel mViewModel;
@@ -27,6 +32,9 @@ public class MyProfileFragment extends Fragment {
     ImageView userImage;
     View view;
     User user;
+    LiveData<User> liveData;
+    MyProfileViewModel viewModel;
+    User data = new User();
 
     public MyProfileFragment() {
     }
@@ -41,7 +49,14 @@ public class MyProfileFragment extends Fragment {
         ownerName=view.findViewById(R.id.profile_ownerName_text);
         userImage=view.findViewById(R.id.profile_image);
 
-
+//        liveData = viewModel.getData();
+//        liveData.observe(getViewLifecycleOwner(), new Observer<User>() {
+//            @Override
+//            public void onChanged(User users) {
+//                data = users;
+//                adapter.notifyDataSetChanged(); //refresh
+//            }
+//        });
         UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
             @Override
             public void onComplete(User u) {

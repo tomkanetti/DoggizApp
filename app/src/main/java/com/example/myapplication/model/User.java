@@ -20,6 +20,13 @@ public class User implements Serializable {
     public String imgUrl;
     public long lastUpdated;
 
+    public User(User newU){
+        this.dogName = newU.dogName;
+        this.ownerName = newU.ownerName;
+        this.email=newU.email;
+        this.password=newU.password;
+        this.imgUrl=newU.imgUrl;
+    }
     public User(String ownerName, @NonNull String dogName, @NonNull String email,String password, String imgUrl) {
         this.dogName = dogName;
         this.ownerName = ownerName;
