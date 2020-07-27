@@ -166,5 +166,17 @@ public class UserFirebase {
             });
         }
     }
+
+    public static void getUserByEmail(final String UserEmail, final UserModel.Listener<User> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(USER_COLLECTION).document(UserEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot res = task.getResult();
+                if (res != null && res.getData()!=null)
+                    listener.onComplete(factory(res.getData()));
+            }
+        });
+    }
 }
 

@@ -20,10 +20,10 @@
         android:label="fragment_sing_up"
         tools:layout="@layout/fragment_sing_up" />
     <fragment
-        android:id="@+id/myProfileFragment"
-        android:name="com.example.myapplication.fragments.Drawer.MyProfile.MyProfileFragment"
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragment"
         android:label="profile"
-        tools:layout="@layout/fragment_my_profile">
+        tools:layout="@layout/fragment_user_profile">
         <argument
             android:name="user"
             app:argType="com.example.myapplication.model.User" />
@@ -47,6 +47,17 @@
         android:label="fragment_friends_list"
         tools:layout="@layout/fragment_friends_list" />
     <action
-        android:id="@+id/action_global_myProfileFragment"
-        app:destination="@id/myProfileFragment" />
+        android:id="@+id/action_global_userProfileFragment"
+        app:destination="@id/userProfileFragment" />
+    <fragment
+        android:id="@+id/sharePostFragment"
+        android:name="com.example.myapplication.fragments.SharePostFragment"
+        android:label="SharePostFragment" >
+        <argument
+            android:name="user"
+            app:argType="com.example.myapplication.model.User" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_sharePostFragment"
+        app:destination="@id/sharePostFragment" />
 </navigation>

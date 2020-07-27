@@ -23,4 +23,7 @@ public interface UserDao {
 
     @Delete
     void delete(User student);
+
+    @Query("SELECT * FROM User WHERE email LIKE :userEmail")
+    LiveData<User> getUser(String userEmail);
 }

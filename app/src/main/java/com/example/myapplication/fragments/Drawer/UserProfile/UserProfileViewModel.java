@@ -1,17 +1,16 @@
-package com.example.myapplication.fragments.Drawer.MyProfile;
+package com.example.myapplication.fragments.Drawer.UserProfile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.model.User;
-import com.example.myapplication.model.UserModel;
 
-public class MyProfileViewModel extends ViewModel {
+public class UserProfileViewModel extends ViewModel {
     private MutableLiveData<String> mText;
     LiveData<User> liveData;
 
-    public MyProfileViewModel() {
+    public UserProfileViewModel() {
 
     }
     //public LiveData<User> getData( )

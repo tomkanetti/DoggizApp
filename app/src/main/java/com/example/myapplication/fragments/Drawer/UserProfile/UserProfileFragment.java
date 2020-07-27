@@ -1,7 +1,6 @@
-package com.example.myapplication.fragments.Drawer.MyProfile;
+package com.example.myapplication.fragments.Drawer.UserProfile;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -21,48 +20,43 @@ import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.LinkedList;
-import java.util.List;
+public class UserProfileFragment extends Fragment {
 
-public class MyProfileFragment extends Fragment {
-
-    private MyProfileViewModel mViewModel;
+    private UserProfileViewModel mViewModel;
     TextView dogName;
     TextView ownerName;
     ImageView userImage;
     View view;
     User user;
     LiveData<User> liveData;
-    MyProfileViewModel viewModel;
+    UserProfileViewModel viewModel;
     User data = new User();
 
-    public MyProfileFragment() {
+    public UserProfileFragment() {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mViewModel =
-                ViewModelProviders.of(this).get(MyProfileViewModel.class);
-        view = inflater.inflate(R.layout.fragment_my_profile, container, false);
+                ViewModelProviders.of(this).get(UserProfileViewModel.class);
+        view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         dogName=view.findViewById(R.id.profile_dogName_text);
         ownerName=view.findViewById(R.id.profile_ownerName_text);
         userImage=view.findViewById(R.id.profile_image);
-
-//        liveData = viewModel.getData();
-//        liveData.observe(getViewLifecycleOwner(), new Observer<User>() {
-//            @Override
-//            public void onChanged(User users) {
-//                data = users;
-//                adapter.notifyDataSetChanged(); //refresh
-//            }
-//        });
         UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
             @Override
             public void onComplete(User u) {
                 bind(u);
+                user=u;
             }
         });
+//
+//        if (user == null){
+//            user=UserProfileFragmentArgs.fromBundle((getArguments())).getUser();
+//            if(user!=null)
+//                bind(user);
+//        }
 
 
 

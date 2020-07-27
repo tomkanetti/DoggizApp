@@ -56,33 +56,6 @@ public class UserModel {
         return UserFirebase.isSignedIn();
     }
 
-//    public void refreshUserList(final CompListener listener) {
-////        UserFirebase.getAllUsers(new Listener<List<User>>() {
-////            @SuppressLint("StaticFieldLeak")
-////            @Override
-////            public void onComplete(final List<User> data) {
-////                new AsyncTask<String, String, String>() {
-////                    @Override
-////                    protected String doInBackground(String... strings) {
-////                        for(User u : data) {
-////                            AppLocalDb.db.userDao().insertAll(u);
-////                        }
-////                        return "";
-////                    }
-////
-////                    @Override
-////                    protected void onPostExecute(String s) {
-////                        super.onPostExecute(s);
-////                        if (listener != null){
-////                            listener.onComplete();
-////                        }
-////
-////                    }
-////                }.execute("");
-////            }
-////        });
-////    }
-
     public void refreshUserList(final CompListener listener){
         long lastUpdated = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE)
                 .getLong("ReportsLastUpdateDate", 0);
@@ -133,6 +106,30 @@ public class UserModel {
     }
     public void getCurrentUserDetails(Listener<User> listener) {
         UserFirebase.getCurrentUserDetails(listener);
+    }
+
+    public LiveData<User> getUser(String userEmail) {
+        LiveData<User> userLiveData = AppLocalDb.db.userDao().getUser(userEmail);
+        refreshUserDetails(userEmail);
+        return userLiveData;
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void refreshUserDetails(String spotName) {
+        UserFirebase.getUserByEmail(spotName, new Listener<User>() {
+            @Override
+            public void onComplete(final User data) {
+                if (data != null) {
+                    new AsyncTask<String, String, String>() {
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            AppLocalDb.db.userDao().insertAll(data);
+                            return null;
+                        }
+                    }.execute();
+                }
+            }
+        });
     }
 
 

@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication.NavGraphDirections;
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
+import com.example.myapplication.fragments.Drawer.usersList.UsersListFragmentDirections;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.navigation.NavigationView;
@@ -115,6 +118,7 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
 
 
     }
+
 
 
 }
