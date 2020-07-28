@@ -15,8 +15,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class PostFirebase {
@@ -47,7 +52,7 @@ public class PostFirebase {
 
     private static Map<String,Object> toJson(Post post) {
         HashMap<String,Object> json = new HashMap<>();
-        json.put("post id", FieldValue.serverTimestamp());
+        json.put("post id", post.getTitle()+post.getDescription());
         json.put("title", post.getTitle());
         json.put("description", post.getDescription());
         json.put("image", post.getImage());
@@ -71,5 +76,29 @@ public class PostFirebase {
             post.setLastUpdate(timestamp.toDate().getTime());
         }
         return post;
+    }
+
+    public static void getAllPostsSince(long lastUpdated, final PostModel.Listener<List<Post>> listListener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Timestamp ts = new Timestamp(new Date(lastUpdated));
+        db.collection(POST_COLLECTION).whereGreaterThanOrEqualTo("last update", ts)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Post> posts = null;
+                if (task.isSuccessful()) {
+                    posts = new LinkedList<Post>();
+                    if (task.getResult() != null) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            Map<String, Object> json = doc.getData();
+                            Post post = factory(json);
+                            posts.add(post);
+                        }
+                    }
+                }
+                listListener.onComplete(posts);
+                Log.d("TAG","refresh " + posts.size());
+            }
+        });
     }
 }

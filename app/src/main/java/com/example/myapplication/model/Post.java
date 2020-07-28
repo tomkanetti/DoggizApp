@@ -9,9 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 
 
-@Entity
+@Entity(tableName = "Posts")
 public class Post implements Serializable {
     @PrimaryKey
+    @NonNull
     private String id;
     @NonNull
     private String title;

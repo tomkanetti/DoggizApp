@@ -1,6 +1,7 @@
 package com.example.myapplication.fragments.Drawer.feed;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -16,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,12 +24,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.room.Dao;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
 import com.example.myapplication.model.Post;
 import com.example.myapplication.model.PostModel;
 import com.example.myapplication.model.StoreModel;
@@ -40,6 +45,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -49,22 +56,27 @@ public class FeedFragment extends DialogFragment {
 
     private FeedViewModel feedViewModel;
     View view;
-    LiveData<User> userLiveData;
-
+    LiveData<User> postLiveData;
     Dialog popAddPost ;
     ImageView popupUserImage, popupAddImageBtn,  popupPostImage;
     Button popUpShareBtn;
     TextView popupTitle,popupDescription;
     User user;
 
+    RecyclerView list;
+    List<Post> data = new LinkedList<Post>();
+    PostListAdapter adapter;
+    FeedViewModel viewModel;
+    LiveData<List<Post>> liveData;
+
+
 
     private Bitmap pickedImgBit = null;
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view= inflater.inflate(R.layout.fragment_feed,container,false);
+        view = inflater.inflate(R.layout.fragment_feed,container,false);
 
         iniPopup();
 
@@ -76,7 +88,61 @@ public class FeedFragment extends DialogFragment {
             }
         });
 
+        //------------------- FEED -------------------------
+
+        list = view.findViewById(R.id.feed_recycleView);
+        list.setHasFixedSize(true);
+
+        // for displaying the rows and contents of them
+        //data = Model.instance.getUserLst();
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        list.setLayoutManager(layoutManager);
+
+        adapter = new FeedFragment.PostListAdapter();
+        list.setAdapter(adapter);
+
+        // click on specific friend
+        adapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Log.d("TAG","row was clicked" + position);
+                Post post = data.get(position);
+//                parent.onItemSelected(user);
+            }
+        });
+
+
+        liveData = viewModel.getData();
+        // when tha values in liveData changes this function observes
+        liveData.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
+            @Override
+            public void onChanged(List<Post> posts) {
+                data = posts;
+                adapter.notifyDataSetChanged(); //refresh
+            }
+        });
+
+        final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.feed_swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewModel.refresh(new PostModel.CompListener() {
+                    @Override
+                    public void onComplete() {
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
     }
 
     private void iniPopup() {
@@ -214,5 +280,81 @@ public class FeedFragment extends DialogFragment {
         matrix.postRotate(0);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
+    }
+
+    //-----------------------------FEED-------------------------------------------
+
+    interface OnItemClickListener {
+        void onClick (int position);
+    }
+
+    static class PostsRowViewHolder extends RecyclerView.ViewHolder {
+        TextView title;
+        ImageView userImage;
+        ImageView postImage;
+
+        public PostsRowViewHolder(@NonNull View itemView, final FeedFragment.OnItemClickListener listener) {
+            super(itemView);
+            title = itemView.findViewById(R.id.post_list_PostTitle);
+            userImage = itemView.findViewById(R.id.post_list_profile_img);
+            postImage = itemView.findViewById(R.id.post_list_postImg);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            listener.onClick(position);
+                        }
+                    }
+                }
+            });
+        }
+
+        public void bind(Post p) {
+            title.setText(p.getTitle());
+
+            if (p.getImage() != null && !p.getImage().equals("")) {
+                Picasso.get().load(p.getImage()).placeholder(R.drawable.f).into(postImage);
+            } else {
+                postImage.setImageResource(R.drawable.f);
+            }
+
+            if (p.getUserImage() != null && !p.getUserImage().equals("")) {
+                Picasso.get().load(p.getUserImage()).placeholder(R.drawable.f).into(userImage);
+            } else {
+                userImage.setImageResource(R.drawable.f);
+            }
+        }
+    }
+
+
+    class PostListAdapter extends RecyclerView.Adapter<FeedFragment.PostsRowViewHolder>{
+        private FeedFragment.OnItemClickListener listener;
+
+        void setOnItemClickListener(FeedFragment.OnItemClickListener listener) {
+            this.listener = listener;
+        }
+
+
+        @NonNull
+        @Override
+        public FeedFragment.PostsRowViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View v = LayoutInflater.from(getActivity()).inflate(R.layout.post_list_row, viewGroup,false );
+            FeedFragment.PostsRowViewHolder vh = new FeedFragment.PostsRowViewHolder(v, listener);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull FeedFragment.PostsRowViewHolder postRowViewHolder, int position) {
+            Post p = data.get(position);
+            postRowViewHolder.bind(p);
+        }
+
+        @Override
+        public int getItemCount() {
+            return data.size();
+        }
     }
 }

@@ -4,26 +4,29 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.myapplication.model.Post;
+import com.example.myapplication.model.PostModel;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 
-public class FeedViewModel extends ViewModel {
-    LiveData<User> userLiveData;
+import java.util.List;
 
-    private MutableLiveData<String> mText;
+public class FeedViewModel extends ViewModel {
+    LiveData<List<Post>> liveData;
 
     public FeedViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+    }
+
+    public LiveData<List<Post>> getData() {
+        if (liveData == null) {
+            liveData = PostModel.instance.getAllPosts();
+        }
+        return liveData;
+    }
+
+    public void refresh(PostModel.CompListener listener) {
+        PostModel.instance.refreshPostList(listener);
     }
 
 
-    public LiveData<User> getUserLiveData(String userEmail) {
-        if(userLiveData==null)
-            userLiveData= UserModel.instance.getUser(userEmail);
-        return userLiveData;
-    }
-    public LiveData<String> getText() {
-        return mText;
-    }
 }

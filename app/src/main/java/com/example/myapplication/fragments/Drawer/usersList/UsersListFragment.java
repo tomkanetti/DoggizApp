@@ -93,7 +93,7 @@ public class UsersListFragment extends Fragment {
             }
         });
 
-        final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.users_list_swipe_refresh);
+        final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.friends_list_swipe_refresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
