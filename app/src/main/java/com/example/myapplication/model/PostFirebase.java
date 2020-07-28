@@ -81,7 +81,7 @@ public class PostFirebase {
     public static void getAllPostsSince(long lastUpdated, final PostModel.Listener<List<Post>> listListener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts = new Timestamp(new Date(lastUpdated));
-        db.collection(POST_COLLECTION).whereGreaterThanOrEqualTo("last update", ts)
+        db.collection(POST_COLLECTION).whereEqualTo("is delete",false).whereGreaterThanOrEqualTo("last update", ts)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -97,7 +97,6 @@ public class PostFirebase {
                     }
                 }
                 listListener.onComplete(posts);
-                Log.d("TAG","refresh " + posts.size());
             }
         });
     }
