@@ -4,17 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.MyApplication;
 
-import java.util.LinkedList;
 import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class UserModel {
     public static final UserModel instance = new UserModel();
@@ -90,8 +85,9 @@ public class UserModel {
         });
     }
 
-
-
+    public String getCurrentUserEmail() {
+        return UserFirebase.getCurrentUserEmail();
+    }
 
 
 

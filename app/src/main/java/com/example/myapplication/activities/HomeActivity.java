@@ -1,17 +1,11 @@
 package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import android.os.Bundle;
 import android.view.Menu;
 
 import com.example.myapplication.R;
-import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
-import com.example.myapplication.fragments.Drawer.usersList.UsersListFragmentDirections;
-import com.example.myapplication.model.User;
-import com.example.myapplication.model.UserModel;
 
 public class HomeActivity extends AppCompatActivity {
 
