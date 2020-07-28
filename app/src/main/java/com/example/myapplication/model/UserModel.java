@@ -1,14 +1,20 @@
 package com.example.myapplication.model;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.myapplication.MyApplication;
+
 import java.util.LinkedList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class UserModel {
     public static final UserModel instance = new UserModel();
@@ -50,16 +56,25 @@ public class UserModel {
         return UserFirebase.isSignedIn();
     }
 
-    public void refreshUserList(final CompListener listener) {
-        UserFirebase.getAllUsers(new Listener<List<User>>() {
+    public void refreshUserList(final CompListener listener){
+        long lastUpdated = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE)
+                .getLong("ReportsLastUpdateDate", 0);
+        UserFirebase.getAllUsersSince(lastUpdated, new Listener<List<User>>() {
             @SuppressLint("StaticFieldLeak")
             @Override
             public void onComplete(final List<User> data) {
                 new AsyncTask<String, String, String>() {
                     @Override
                     protected String doInBackground(String... strings) {
-                        for(User u : data) {
-                            AppLocalDb.db.userDao().insertAll(u);
+                        long lastUpdated = 0;
+                        if (data != null) {
+                            for (User user : data) {
+                                AppLocalDb.db.userDao().insertAll(user);
+                                if (user.getLastUpdated() > lastUpdated)
+                                    lastUpdated = user.getLastUpdated();
+                            }
+                            SharedPreferences.Editor editor = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE).edit();
+                            editor.putLong("ReportsLastUpdateDate", lastUpdated).commit();
                         }
                         return "";
                     }
@@ -67,48 +82,72 @@ public class UserModel {
                     @Override
                     protected void onPostExecute(String s) {
                         super.onPostExecute(s);
-                        if (listener != null){
-                            listener.onComplete();
-                        }
-
+                        if (listener != null) listener.onComplete();
                     }
-                }.execute("");
+                }.execute();
+
             }
         });
     }
 
+
+
+
+
+
+
+
+
     // local dataBase
     public LiveData<List<User>> getAllUsers() {
-//        // MutableLiveData can be update on progress
-//        final MutableLiveData<List<User>> ldata = new MutableLiveData<List<User>>();
-//        // initiate data
-//        ldata.setValue(new LinkedList<User>());
         LiveData<List<User>> liveData = AppLocalDb.db.userDao().getAll();
         refreshUserList(null);
-//        UserFirebase.getAllUsers(new Listener<List<User>>() {
-//            @Override
-//            public void onComplete(List<User> data) {
-//                ldata.setValue(data);
-//            }
-//        });
-
         return liveData;
+    }
+    public void getCurrentUserDetails(Listener<User> listener) {
+        UserFirebase.getCurrentUserDetails(listener);
+    }
 
-//        UserFirebase.getAllUsers(listener);
+    public LiveData<User> getUser(String userEmail) {
+        LiveData<User> userLiveData = AppLocalDb.db.userDao().getUser(userEmail);
+        refreshUserDetails(userEmail);
+        return userLiveData;
+    }
 
-        // local dataBase
-//        @SuppressLint("StaticFieldLeak")
-//        AsyncTask<String, String, List<User>> taskA = new AsyncTask<String, String, List<User>>(){
-//            @Override
-//            protected List<User> doInBackground(String... strings) {
-//                return AppLocalDb.db.userDao().getAll();
-//            }
-//            @Override
-//            protected void onPostExecute(List<User> users) {
-//                super.onPostExecute(users);
-//                listener.onComplete(users);
-//            }
-//        };
-//        taskA.execute();
+    @SuppressLint("StaticFieldLeak")
+    private void refreshUserDetails(String spotName) {
+        UserFirebase.getUserByEmail(spotName, new Listener<User>() {
+            @Override
+            public void onComplete(final User data) {
+                if (data != null) {
+                    new AsyncTask<String, String, String>() {
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            AppLocalDb.db.userDao().insertAll(data);
+                            return null;
+                        }
+                    }.execute();
+                }
+            }
+        });
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    public void refreshReportDetails() {
+        UserFirebase.getCurrentUserDetails(new Listener<User>() {
+            @Override
+            public void onComplete(final User data) {
+                if (data != null) {
+                    new AsyncTask<String, String, String>() {
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            AppLocalDb.db.userDao().insertAll(data);
+                            return null;
+                        }
+                    }.execute("");
+                }
+            }
+        });
     }
 }

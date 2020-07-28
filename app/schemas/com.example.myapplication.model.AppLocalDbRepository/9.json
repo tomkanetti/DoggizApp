@@ -2,23 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 9,
-    "identityHash": "9e86769f098ec3cc09c64f66b8001e96",
+    "identityHash": "c9f4e63640e95b3e1c7c2ed26a2c6d04",
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `dogName` TEXT, `ownerName` TEXT, `email` TEXT, `password` TEXT, `imgUrl` TEXT, `lastUpdated` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`dogName` TEXT NOT NULL, `ownerName` TEXT, `email` TEXT NOT NULL, `password` TEXT, `imgUrl` TEXT, PRIMARY KEY(`email`))",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "TEXT",
-            "notNull": true
-          },
           {
             "fieldPath": "dogName",
             "columnName": "dogName",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "ownerName",
@@ -30,7 +24,7 @@
             "fieldPath": "email",
             "columnName": "email",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "password",
@@ -43,17 +37,11 @@
             "columnName": "imgUrl",
             "affinity": "TEXT",
             "notNull": false
-          },
-          {
-            "fieldPath": "lastUpdated",
-            "columnName": "lastUpdated",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "email"
           ],
           "autoGenerate": false
         },
@@ -64,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9e86769f098ec3cc09c64f66b8001e96')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c9f4e63640e95b3e1c7c2ed26a2c6d04')"
     ]
   }
 }

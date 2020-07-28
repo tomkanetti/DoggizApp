@@ -25,7 +25,9 @@ tools:context=".fragments.MainFragment">
     android:layout_width="223dp"
     android:layout_height="55dp"
     android:layout_marginTop="16dp"
-    android:background="#409DDCC6"
+
+    android:background="@drawable/main_login_btn_style"
+
     android:shadowColor="#C5ACAC"
     android:text="@string/login"
     android:textColor="#0C0B0B"
@@ -40,7 +42,7 @@ tools:context=".fragments.MainFragment">
     android:layout_width="223dp"
     android:layout_height="55dp"
     android:layout_marginTop="100dp"
-    android:background="#D5F1DDA9"
+    android:background="@drawable/main_singup_btn_style"
     android:text="@string/sing_up"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"

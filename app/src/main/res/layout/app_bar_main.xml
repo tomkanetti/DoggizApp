@@ -4,31 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.PostActivity">
+    tools:context="fragments.SharePostFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="59dp"
+        android:background="#F3E7D3"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#DCCAAB"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_width="340dp"
+            android:layout_height="match_parent"
+            android:background="#F3E7D3"
+            android:visibility="visible"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="TODO"
+                app:srcCompat="@drawable/logo__2_" />
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/app_bar_writePost_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="#EDA5D0"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

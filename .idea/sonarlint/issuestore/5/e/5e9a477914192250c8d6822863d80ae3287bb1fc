@@ -1,0 +1,13 @@
+
+Q	java:S110"<This class has 9 parents which is greater than 5 authorized.(••“¬
+B
+java:S1481b"'Remove this unused "id" local variable.(ªÙğúÿÿÿÿ
+N
+java:S1068"8Remove this unused "mAppBarConfiguration" private field.(ÒËşØ
+V	java:S1254"<This block of commented-out lines of code should be removed.(†øÈíÿÿÿÿÿ
+^
+java:S1128"<Remove this unused import 'android.annotation.SuppressLint'.(ÕƒóÏûÿÿÿÿ8ãèãå¸.
+Q
+java:S1854b"6Remove this useless assignment to local variable "id".(ªÙğúÿÿÿÿ
+W	java:S125D"<This block of commented-out lines of code should be removed.(‚ïñ8ëíå¸.
+X	java:S125F"<This block of commented-out lines of code should be removed.(·Ü¸ê8ëíå¸.

@@ -1,0 +1,13 @@
+
+
+java:S1186–"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½÷ìùÿÿÿÿ
+R	java:S125¹"<This block of commented-out lines of code should be removed.(‚Áƒ
+>
+java:S1185["(Remove this method to simply inherit it.(ßìê¯
+
+java:S2681›"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(´Á¿‡
+]
+java:S2259k"BA "NullPointerException" could be thrown; "data" is nullable here.(Š›É¹üÿÿÿÿ
+Q	java:S125O"<This block of commented-out lines of code should be removed.(¼«´¦
+U
+java:S1161g":Add the "@Override" annotation above this method signature(™­²©ùÿÿÿÿ
