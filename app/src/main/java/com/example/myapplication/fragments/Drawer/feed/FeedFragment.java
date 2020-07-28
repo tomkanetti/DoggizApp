@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,7 +59,7 @@ public class FeedFragment extends DialogFragment {
     View view;
     LiveData<User> postLiveData;
     Dialog popAddPost ;
-    ImageView popupUserImage, popupAddImageBtn,  popupPostImage;
+    ImageView popupUserImage, popupAddImageBtn, popupPostImage;
     Button popUpShareBtn;
     TextView popupTitle,popupDescription;
     User user;
@@ -68,7 +69,6 @@ public class FeedFragment extends DialogFragment {
     PostListAdapter adapter;
     FeedViewModel viewModel;
     LiveData<List<Post>> liveData;
-
 
 
     private Bitmap pickedImgBit = null;
@@ -84,6 +84,7 @@ public class FeedFragment extends DialogFragment {
         writePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clearPostData();
                 popAddPost.show();
             }
         });
@@ -191,7 +192,6 @@ public class FeedFragment extends DialogFragment {
                 popAddPost.dismiss();
             }
         });
-
     }
 
     public void sharePost() {
@@ -210,7 +210,6 @@ public class FeedFragment extends DialogFragment {
             });
         }
     }
-
 
     public void savePost(final String imageUrl) {
         final String title = popupTitle.getText().toString();
@@ -357,4 +356,12 @@ public class FeedFragment extends DialogFragment {
             return data.size();
         }
     }
+
+    public void clearPostData() {
+        popupTitle.setText("");
+        popupDescription.setText("");
+        popupPostImage.setImageBitmap(null);
+
+    }
+
 }
