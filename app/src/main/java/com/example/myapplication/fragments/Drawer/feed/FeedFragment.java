@@ -202,13 +202,11 @@ public class FeedFragment extends DialogFragment {
                 public void onSuccess(String url) {
                     savePost(url);
                 }
-
                 @Override
                 public void onFail() {
-
                 }
             });
-        }
+        }else {savePost("");}
     }
 
     public void savePost(final String imageUrl) {
@@ -226,7 +224,6 @@ public class FeedFragment extends DialogFragment {
                 post.setDescription(description);
                 post.setImage(imageUrl);
                 post.setDelete(false);
-//                post.setId(post.getLastUpdate().toString());
                 PostModel.instance.addPost(post, new PostModel.Listener<Boolean>() {
                     @Override
                     public void onComplete(Boolean data) {
