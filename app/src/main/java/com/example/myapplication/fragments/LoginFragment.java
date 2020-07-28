@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -17,8 +16,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.HomeActivity;
-import com.example.myapplication.activities.PostActivityDirections;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.snackbar.Snackbar;
 

@@ -178,5 +178,12 @@ public class UserFirebase {
             }
         });
     }
+
+    public static String getCurrentUserEmail() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null)
+            return firebaseUser.getEmail();
+        return null;
+    }
 }
 

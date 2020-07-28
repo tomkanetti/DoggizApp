@@ -3,7 +3,6 @@ package com.example.myapplication.fragments.Drawer.feed;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
@@ -17,24 +16,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.LiveData;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.room.Dao;
 
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.Post;
+import com.example.myapplication.model.PostModel;
+import com.example.myapplication.model.StoreModel;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -47,10 +52,12 @@ public class FeedFragment extends DialogFragment {
     LiveData<User> userLiveData;
 
     Dialog popAddPost ;
-    ImageView popupUserImage,popupPostImage,popupAddImageBtn;
+    ImageView popupUserImage, popupAddImageBtn,  popupPostImage;
     Button popUpShareBtn;
     TextView popupTitle,popupDescription;
     User user;
+
+
     private Bitmap pickedImgBit = null;
 
 
@@ -68,8 +75,6 @@ public class FeedFragment extends DialogFragment {
                 popAddPost.show();
             }
         });
-
-
 
         return view;
     }
@@ -105,6 +110,7 @@ public class FeedFragment extends DialogFragment {
                 }
             }
         });
+
         popupAddImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,10 +118,59 @@ public class FeedFragment extends DialogFragment {
             }
         });
 
+        popUpShareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharePost();
+                popAddPost.dismiss();
+            }
+        });
+
+    }
+
+    public void sharePost() {
+        Date d = new Date();
+        if (popupPostImage != null) {
+            StoreModel.uploadImage(pickedImgBit, "post_image" + d.getTime(), new StoreModel.Listener() {
+                @Override
+                public void onSuccess(String url) {
+                    savePost(url);
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            });
+        }
+    }
 
 
+    public void savePost(final String imageUrl) {
+        final String title = popupTitle.getText().toString();
+        final String description = popupDescription.getText().toString();
 
+        UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
+            @Override
+            public void onComplete(User data) {
+                Post post = new Post();
 
+                post.setUserEmail(data.getEmail());
+                post.setUserImage(data.getImgUrl());
+                post.setTitle(title);
+                post.setDescription(description);
+                post.setImage(imageUrl);
+                post.setDelete(false);
+//                post.setId(post.getLastUpdate().toString());
+                PostModel.instance.addPost(post, new PostModel.Listener<Boolean>() {
+                    @Override
+                    public void onComplete(Boolean data) {
+                        NavController navController = Navigation.findNavController(view);
+                        navController.navigateUp();
+                    }
+                });
+            }
+        });
     }
 
 
@@ -151,19 +206,8 @@ public class FeedFragment extends DialogFragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
     }
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE && data!=null) {
-//            Bundle extras= data.getExtras();
-//            pickedImgBit = rotateImage((Bitmap) extras.get("data"));
-//            popupPostImage.setImageBitmap(pickedImgBit);}
-//        }
-
 
     public static Bitmap rotateImage(Bitmap source) {
         Matrix matrix = new Matrix();
