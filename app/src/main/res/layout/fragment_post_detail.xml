@@ -148,7 +148,10 @@
             app:layout_constraintStart_toEndOf="@+id/post_detail_date_name_txt"
             app:layout_constraintTop_toTopOf="@+id/post_detail_date_name_txt"
             tools:srcCompat="@tools:sample/avatars" />
-
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/post_details_comments_swipe_refresh">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/comment_list_recycleView"
             android:layout_width="0dp"
@@ -157,6 +160,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_detail_comment_txt" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
