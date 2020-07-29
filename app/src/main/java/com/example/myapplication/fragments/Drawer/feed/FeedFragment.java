@@ -120,7 +120,7 @@ public class FeedFragment extends DialogFragment {
                 Log.d("TAG","row was clicked" + position);
                 Post post = data.get(position);
 
-                parent.onItemSelected(post);
+                //parent.onItemSelected(post);
             }
         });
 
@@ -154,12 +154,12 @@ public class FeedFragment extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof Delegate) {
-            parent = (Delegate) getActivity();
-        } else {
-            throw new RuntimeException(context.toString()
-                    + "student list parent activity must implement dtudent ;list fragment Delegate");
-        }
+//        if (context instanceof Delegate) {
+//            parent = (Delegate) getActivity();
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+//        }
 
         setHasOptionsMenu(true);
         super.onAttach(context);

@@ -141,7 +141,7 @@ public class UserFirebase {
         return null;
     }
 
-    public static boolean isSignedIn() {
+    public static boolean isLoggedIn() {
         return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 

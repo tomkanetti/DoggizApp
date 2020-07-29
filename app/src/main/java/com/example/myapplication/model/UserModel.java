@@ -48,7 +48,7 @@ public class UserModel {
     }
 
     public boolean isLoggedIn() {
-        return UserFirebase.isSignedIn();
+        return UserFirebase.isLoggedIn();
     }
 
     public void refreshUserList(final CompListener listener){
@@ -146,4 +146,5 @@ public class UserModel {
             }
         });
     }
+
 }

@@ -3,34 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fragments.SharePostFragment">
+    android:layout_height="match_parent">
+<!--    tools:context="fragments.SharePostFragment">-->
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:background="#F3E7D3"
-        android:theme="@style/AppTheme.AppBarOverlay">
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="59dp"-->
+<!--        android:background="#F3E7D3"-->
+<!--        android:theme="@style/AppTheme.AppBarOverlay">-->
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="340dp"
-            android:layout_height="match_parent"
-            android:background="#F3E7D3"
-            android:visibility="visible"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="75dp"-->
+<!--            android:layout_height="74dp"-->
+<!--            android:background="#F3E7D3"-->
+<!--            android:visibility="visible"-->
+<!--            app:popupTheme="@style/AppTheme.PopupOverlay">-->
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="TODO"
-                app:srcCompat="@drawable/logo__2_" />
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+<!--        </androidx.appcompat.widget.Toolbar>-->
 
-    <include layout="@layout/content_main" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:contentDescription="TODO"-->
+<!--            app:srcCompat="@drawable/logo__2_" />-->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <include-->
+<!--        android:id="@+id/include"-->
+<!--        layout="@layout/content_main" />-->
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
