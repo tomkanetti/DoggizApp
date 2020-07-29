@@ -89,7 +89,11 @@ public class UserModel {
         return UserFirebase.getCurrentUserEmail();
     }
 
-
+//    public LiveData<User> getCurrentUserDetails() {
+//        LiveData<User> liveData = AppLocalDb.db.userDao().getAll();
+//        getCurrentUserDetails(null);
+//        return liveData;
+//    }
 
 
 

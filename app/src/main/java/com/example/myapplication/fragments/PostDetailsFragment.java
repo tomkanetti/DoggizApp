@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -27,6 +29,7 @@ import com.example.myapplication.model.CommentModel;
 import com.example.myapplication.model.Post;
 import com.example.myapplication.model.PostModel;
 import com.example.myapplication.model.User;
+import com.example.myapplication.model.UserModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
@@ -43,6 +46,7 @@ public class PostDetailsFragment extends Fragment {
     ImageView authorCommentImg;
     TextView comment;
     Button addComment;
+    LiveData<User> UserLiveData;
 
 
     View view;
@@ -52,6 +56,7 @@ public class PostDetailsFragment extends Fragment {
     PostDetailsViewModel viewModel;
     LiveData<List<Comment>> liveData;
     Post post;
+    User user;
 
     @Nullable
     @Override
@@ -77,23 +82,22 @@ public class PostDetailsFragment extends Fragment {
         list.setAdapter(adapter);
 
         post= PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
+        user=PostDetailsFragmentArgs.fromBundle(getArguments()).getUser();
         if(post!=null){
             update_Post_display();
         }
 
+        addComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addComment();
+            }
+        });
 
 
 
-//        liveData = viewModel.getData();
-//        // when tha values in liveData changes this function observes
-//        liveData.observe(getViewLifecycleOwner(), new Observer<List<Comment>>() {
-//            @Override
-//            public void onChanged(List<Comment> comments) {
-//                data = comments;
-//                adapter.notifyDataSetChanged(); //refresh
-//            }
-//        });
-//
+
+
 //        final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.post_details_comments_swipe_refresh);
 //        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -120,12 +124,39 @@ public class PostDetailsFragment extends Fragment {
         if (post.getImage() != null && !post.getImage().equals(""))
             Picasso.get().load(post.getImage()).placeholder(R.drawable.f).into(postImg);
          else postImg.setImageResource(R.drawable.f);
+        if (user.getImgUrl() != null && !user.getImgUrl().equals(""))
+            Picasso.get().load(user.getImgUrl()).placeholder(R.drawable.f).into(authorCommentImg);
+        else authorCommentImg.setImageResource(R.drawable.f);
 
+        liveData = viewModel.getData(post.getId().toString());
+        // when tha values in liveData changes this function observes
+        liveData.observe(getViewLifecycleOwner(), new Observer<List<Comment>>() {
+            @Override
+            public void onChanged(List<Comment> comments) {
+                data = comments;
+                adapter.notifyDataSetChanged(); //refresh
+            }
+        });
 
 
     }
 
-
+    public void addComment(){
+        String theComment=comment.getText().toString();
+        Comment newComment=new Comment();
+        newComment.setPostId(post.getId());
+        newComment.setAuthorImg(user.getImgUrl());
+        newComment.setAuthorName(user.getOwnerName());
+        newComment.setCommentContent(theComment);
+        newComment.setCommentId(user.getOwnerName()+theComment);
+        CommentModel.instance.addComment(newComment, new CommentModel.Listener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+//                NavController navController = Navigation.findNavController(view);
+//                navController.navigateUp();
+            }
+        });
+    }
 
 
 

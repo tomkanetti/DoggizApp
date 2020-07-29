@@ -28,6 +28,8 @@ import com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragmen
 import com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragmentDirections;
 import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
 import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
+import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
+import com.example.myapplication.fragments.Drawer.usersList.UsersListFragmentDirections;
 import com.example.myapplication.model.Post;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
@@ -35,7 +37,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate   {
+public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate, UsersListFragment.Delegate {
     NavController navController;
     NavigationView navigationView;
     DrawerLayout drawer;
@@ -89,7 +91,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     @Override
     protected void onStart() {
         super.onStart();
-        //hideAppBar();
+        hideAppBar();
     }
 
     public void hideAppBar(){
@@ -137,11 +139,21 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if(menuItem.getItemId()==R.id.userProfileFragment) {
+            Log.d("TAG", "herrrrrrrre");
+            navController.navigate(UserProfileFragmentDirections.actionGlobalUserProfileFragment(user));
+        }
         return true;
     }
 
     @Override
     public void onItemSelected(Post post) {
-        navController.navigate(FeedFragmentDirections.actionGlobalPostDetailsFragment(post));
+        navController.navigate(FeedFragmentDirections.actionGlobalPostDetailsFragment(post,user));
+    }
+
+    @Override
+    public void onItemSelected(User user) {
+        navController.navigate(UsersListFragmentDirections.actionGlobalUserProfileFragment(user));
+
     }
 }

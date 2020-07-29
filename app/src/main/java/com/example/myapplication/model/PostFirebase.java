@@ -52,7 +52,7 @@ public class PostFirebase {
 
     private static Map<String,Object> toJson(Post post) {
         HashMap<String,Object> json = new HashMap<>();
-        json.put("post id", post.getTitle()+post.getDescription());
+        json.put("post id", post.getId());
         json.put("title", post.getTitle());
         json.put("description", post.getDescription());
         json.put("image", post.getImage());
@@ -71,6 +71,7 @@ public class PostFirebase {
         post.setDescription((String)json.get("description"));
         post.setImage((String)json.get("image"));
         post.setUserEmail((String)json.get("user email"));
+        post.setUserImage((String)json.get("user image"));
         post.setUsername((String)json.get("user name"));
         post.setDelete((Boolean) json.get("is delete"));
         Timestamp timestamp = (Timestamp)json.get("last update");
