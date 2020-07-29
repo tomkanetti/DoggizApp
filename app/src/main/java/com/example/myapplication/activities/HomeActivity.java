@@ -35,7 +35,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener   {
+public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate   {
     NavController navController;
     NavigationView navigationView;
     DrawerLayout drawer;
@@ -46,6 +46,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     ImageView userImage;
     Boolean isHide=false;
     AppBarConfiguration appBarConfiguration;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +59,8 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         navigationView = findViewById(R.id.nav_view);
         appBarLayout=findViewById(R.id.appBarLayout);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                return true;
-            }
-        });
 
+        //setupDrawerContent(navigationView);
 
 
 
@@ -83,48 +79,10 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
                 getSupportActionBar().setTitle(destination.getLabel());
             }
         });
-        //setOnNavControllerDestinationChanged();
+//        setOnNavControllerDestinationChanged();
 
     }
 
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.home_nav_host);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-    private void setOnNavControllerDestinationChanged() {
-        if (!isHide) {
-            navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-                @Override
-                public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                    ActionBar actionBar = getSupportActionBar();
-                    if (actionBar != null) {
-                        actionBar.setTitle(destination.getLabel());
-                        if (destination.getId() != navController.getGraph().getStartDestination()) {
-                            actionBar.setDisplayHomeAsUpEnabled(true);
-                            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    onBackPressed();
-                                }
-                            });
-                        } else {
-                            actionBar.setDisplayHomeAsUpEnabled(false);
-                            toggle.syncState();
-                            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    drawer.openDrawer(GravityCompat.START);
-                                }
-                            });
-                        }
-                    }
-                }
-            });
-        }
-    }
 
 
 
@@ -156,6 +114,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
             @Override
             public void onComplete(User data) {
+                user=data;
                 email.setText(data.getEmail());
                 dogName.setText(data.dogName);
                 ownerName.setText(data.ownerName);
@@ -173,17 +132,16 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         return true;
+    }
+
+    @Override
+    public void onItemSelected(Post post) {
+        navController.navigate(FeedFragmentDirections.actionGlobalPostDetailsFragment(post));
     }
 }

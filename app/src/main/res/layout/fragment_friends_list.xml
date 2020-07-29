@@ -11,7 +11,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.Drawer.usersList.UsersListFragment">
+    tools:context=".fragments.Drawer.usersList.UsersListFragment"
+    android:layout_marginTop="?android:attr/actionBarSize"
+    >
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"

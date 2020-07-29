@@ -15,10 +15,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/applogo_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.PostActivity"
-            android:label="@string/title_activity_post" />
+        android:theme="@style/AppTheme"
+        android:layout_marginTop="?android:attr/actionBarSize">
+
         <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

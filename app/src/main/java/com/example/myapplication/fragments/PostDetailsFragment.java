@@ -118,8 +118,11 @@ public class PostDetailsFragment extends Fragment {
             Picasso.get().load(post.getUserImage()).placeholder(R.drawable.f).into(authorPostImg);
          else authorPostImg.setImageResource(R.drawable.f);
         if (post.getImage() != null && !post.getImage().equals(""))
-            Picasso.get().load(post.getUserImage()).placeholder(R.drawable.f).into(postImg);
+            Picasso.get().load(post.getImage()).placeholder(R.drawable.f).into(postImg);
          else postImg.setImageResource(R.drawable.f);
+
+
+
     }
 
 

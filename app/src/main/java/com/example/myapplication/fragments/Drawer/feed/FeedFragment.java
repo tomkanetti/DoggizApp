@@ -83,7 +83,7 @@ public class FeedFragment extends DialogFragment {
 
     private Bitmap pickedImgBit = null;
 
-
+    public FeedFragment(){}
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_feed,container,false);
@@ -120,7 +120,7 @@ public class FeedFragment extends DialogFragment {
                 Log.d("TAG","row was clicked" + position);
                 Post post = data.get(position);
 
-                //parent.onItemSelected(post);
+                parent.onItemSelected(post);
             }
         });
 
@@ -154,12 +154,12 @@ public class FeedFragment extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-//        if (context instanceof Delegate) {
-//            parent = (Delegate) getActivity();
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + "student list parent activity must implement dtudent ;list fragment Delegate");
-//        }
+        if (context instanceof Delegate) {
+            parent = (Delegate) getActivity();
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+        }
 
         setHasOptionsMenu(true);
         super.onAttach(context);
@@ -272,10 +272,7 @@ public class FeedFragment extends DialogFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    public boolean onNavigationItemSelected(MenuItem item) {
-        return true;
-    }
+
 
 
     private void openGallery() {
