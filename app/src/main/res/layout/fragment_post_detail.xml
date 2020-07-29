@@ -61,27 +61,25 @@
             app:layout_constraintTop_toBottomOf="@+id/post_detail_PostTitle" />
 
         <TextView
-            android:textSize="12sp"
-            android:id="@+id/post_detail_date_name_txt"
+            android:id="@+id/post_detail_postAuthorName_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:text="TextView"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view"
-            tools:text="18 jan 2018 | by Arun Larrson " />
+            tools:text="Arun Larrson " />
 
         <TextView
 
             android:textColor="#373737"
             android:lineSpacingExtra="8dp"
-            android:id="@+id/post_detail_desc"
+            android:id="@+id/post_detail_postContent_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -92,18 +90,18 @@
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,rum eiusmod tempor incididunt ut labore et dolore magna aliqua"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_detail_date_name_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/post_detail_postAuthorName_txt" />
 
             <de.hdodenhof.circleimageview.CircleImageView
 
-            android:id="@+id/post_detail_currentUser_img"
+            android:id="@+id/post_detail_commentUser_img"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_detail_desc"
+            app:layout_constraintTop_toBottomOf="@+id/post_detail_postContent_txt"
             tools:srcCompat="@tools:sample/avatars" />
 
         <EditText
@@ -117,9 +115,9 @@
             android:layout_marginLeft="16dp"
             android:ems="10"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="@+id/post_detail_currentUser_img"
-            app:layout_constraintStart_toEndOf="@+id/post_detail_currentUser_img"
-            app:layout_constraintTop_toTopOf="@+id/post_detail_currentUser_img" />
+            app:layout_constraintBottom_toBottomOf="@+id/post_detail_commentUser_img"
+            app:layout_constraintStart_toEndOf="@+id/post_detail_commentUser_img"
+            app:layout_constraintTop_toTopOf="@+id/post_detail_commentUser_img" />
 
         <Button
             android:id="@+id/post_detail_add_comment_btn"
@@ -139,14 +137,14 @@
             app:layout_constraintVertical_bias="0.529" />
 
         <ImageView
-            android:id="@+id/post_detail_user_img"
+            android:id="@+id/post_detail_postAuthorImg_img"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/post_detail_date_name_txt"
-            app:layout_constraintStart_toEndOf="@+id/post_detail_date_name_txt"
-            app:layout_constraintTop_toTopOf="@+id/post_detail_date_name_txt"
+            app:layout_constraintBottom_toBottomOf="@+id/post_detail_postAuthorName_txt"
+            app:layout_constraintStart_toEndOf="@+id/post_detail_postAuthorName_txt"
+            app:layout_constraintTop_toTopOf="@+id/post_detail_postAuthorName_txt"
             tools:srcCompat="@tools:sample/avatars" />
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"

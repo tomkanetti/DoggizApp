@@ -1,13 +1,19 @@
 package com.example.myapplication.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication.NavGraphDirections;
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
+import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
+import com.example.myapplication.model.Post;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.navigation.NavigationView;
@@ -25,13 +31,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class PostActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+import static com.example.myapplication.activities.HomeActivity.navControllerS;
+
+public class PostActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate{
 
     private AppBarConfiguration mAppBarConfiguration;
     NavController navController;
     TextView dogName,ownerName,email;
     ImageView userImage;
     User user;
+    HomeActivity HomeActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +121,16 @@ public class PostActivity extends AppCompatActivity  implements NavigationView.O
 
 
     }
+    @Override
+    public void onItemSelected(Post post) {
+//        NavController navCtrl = Navigation.findNavController(HomeActivity, R.id.home_nav_host);
+//
+//        NavController navCtrl = Navigation.findNavController(HomeActivity, R.id.home_nav_host);
+        super.onPostResume();
+        Activity v=getParent();
+        navControllerS.navigate(FeedFragmentDirections.actionGlobalPostDetailsFragment(post));
+    }
+
 
 
 

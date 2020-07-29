@@ -20,12 +20,20 @@ public class Post implements Serializable {
     private String image;
     @NonNull
     private String userEmail;
+    private String username;
     private String userImage;
     private Long lastUpdate;
     private Boolean isDelete;
 
     public Post() {}
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @NonNull
     public String getId() {

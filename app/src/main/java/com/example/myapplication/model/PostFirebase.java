@@ -57,6 +57,7 @@ public class PostFirebase {
         json.put("description", post.getDescription());
         json.put("image", post.getImage());
         json.put("user email", post.getUserEmail());
+        json.put("user name", post.getUsername());
         json.put("user image", post.getUserImage());
         json.put("last update", FieldValue.serverTimestamp());
         json.put("is delete", post.getDelete());
@@ -70,6 +71,7 @@ public class PostFirebase {
         post.setDescription((String)json.get("description"));
         post.setImage((String)json.get("image"));
         post.setUserEmail((String)json.get("user email"));
+        post.setUsername((String)json.get("user name"));
         post.setDelete((Boolean) json.get("is delete"));
         Timestamp timestamp = (Timestamp)json.get("last update");
         if (timestamp != null) {

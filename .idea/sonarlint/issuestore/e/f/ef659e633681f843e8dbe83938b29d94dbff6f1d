@@ -1,0 +1,42 @@
+
+Y
+java:S1854Œ"6Remove this useless assignment to local variable "id".(ªÙğúÿÿÿÿ8÷óŠÎ¹.
+c	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±8ÕòºÓ¹.
+P
+java:S1659?".Declare "popupAddImageBtn" on a separate line.(´à Âüÿÿÿÿ8÷óŠÎ¹.
+I
+java:S1481™"&Remove this unused "v" local variable.(Ê­îñùÿÿÿÿ8ÚÉìÓ¹.
+\
+java:S1161T":Add the "@Override" annotation above this method signature(ÿ£º¡ÿÿÿÿÿ8÷óŠÎ¹.
+n
+java:S3252±"PUse static access with "android.view.ViewGroup$LayoutParams" for "WRAP_CONTENT".(ÌùÊ„8÷óŠÎ¹.
+€
+java:S1128'"cRemove this unused import 'com.example.myapplication.fragments.Drawer.usersList.UsersListFragment'.(¬ö®å8÷óŠÎ¹.
+N
+java:S1659?",Declare "popupPostImage" on a separate line.(´à Âüÿÿÿÿ8÷óŠÎ¹.
+Q
+java:S1128"4Remove this unused import 'android.widget.EditText'.(†Å›Ú8÷óŠÎ¹.
+w
+java:S1488ğ"ZImmediately return this expression instead of assigning it to the temporary variable "vh".(·îıQ8÷óŠÎ¹.
+{
+java:S2293E"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ú…Ì–şÿÿÿÿ8÷óŠÎ¹.
+]
+java:S1161œ":Add the "@Override" annotation above this method signature(ÉÎÍïıÿÿÿÿ8÷óŠÎ¹.
+K
+java:S1659A".Declare "popupDescription" on a separate line.(¡¤Ë÷8÷óŠÎ¹.
+S
+java:S1068;"1Remove this unused "feedViewModel" private field.(¹¹ççøÿÿÿÿ8Ì×ÀÒ¹.
+J
+java:S1481Œ"'Remove this unused "id" local variable.(ªÙğúÿÿÿÿ8Ì×ÀÒ¹.
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(©Õ¬°
+[
+java:S10689"9Remove this unused "REQUEST_IMAGE_CAPTURE" private field.(á³şòÿÿÿÿÿ8Ì×ÀÒ¹.
+¤
+java:S1186å"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½÷ìùÿÿÿÿ8÷óŠÎ¹.
+X
+java:S1854™"5Remove this useless assignment to local variable "v".(Ê­îñùÿÿÿÿ8ÚÉìÓ¹.
+X	java:S125i"<This block of commented-out lines of code should be removed.(†ÂÊŠ8Ì×ÀÒ¹.
+n
+java:S3252±"PUse static access with "android.view.ViewGroup$LayoutParams" for "MATCH_PARENT".(ÌùÊ„8÷óŠÎ¹.
+G
+java:S1905¢")Remove this unnecessary cast to "Bitmap".(Å–Â8÷óŠÎ¹.

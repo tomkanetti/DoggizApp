@@ -1,0 +1,15 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Öµáè
+o
+java:S1450"YRemove the "mViewModel" field and declare it as a local variable in the relevant methods.(àş˜İ
+–
+java:S1186#"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(áF
+U
+java:S1161&":Add the "@Override" annotation above this method signature(î•Éğûÿÿÿÿ
+P
+java:S1874)":Remove this use of "ViewModelProviders"; it is deprecated.(¸Ø‹¥
+@
+java:S1874)"*Remove this use of "of"; it is deprecated.(¸Ø‹¥
+D
+java:S1068".Remove this unused "mViewModel" private field.(àş˜İ
+Q	java:S1257"<This block of commented-out lines of code should be removed.(†ıúƒ

@@ -1,12 +1,14 @@
 
+V	java:S125?"<This block of commented-out lines of code should be removed.(âØÜ¼úÿÿÿÿ
+Q	java:S125A"<This block of commented-out lines of code should be removed.(Ž®ƒ÷
+`
+java:S1128">Remove this unused import 'androidx.navigation.NavController'.(ˆç×ƒÿÿÿÿÿ8½Æ‡Ó¹.
+V	java:S1257"<This block of commented-out lines of code should be removed.(Í¨ß™øÿÿÿÿ
+Q	java:S1253"<This block of commented-out lines of code should be removed.(¦¶ºç
+V	java:S125"<This block of commented-out lines of code should be removed.(Á¡øƒüÿÿÿÿ
+Q	java:S1259"<This block of commented-out lines of code should be removed.(Ž®ƒ÷
 C
-java:S1185"(Remove this method to simply inherit it.(¯Œìùÿÿÿÿ
-Q	java:S1256"<This block of commented-out lines of code should be removed.(Ž®ƒ÷
-V	java:S125B"<This block of commented-out lines of code should be removed.(Ôù•þÿÿÿÿ
-Q	java:S125D"<This block of commented-out lines of code should be removed.(¦¶ºç
-Q	java:S125J"<This block of commented-out lines of code should be removed.(Ž®ƒ÷
-Q	java:S125R"<This block of commented-out lines of code should be removed.(Ž®ƒ÷
-V	java:S1254"<This block of commented-out lines of code should be removed.(âØÜ¼úÿÿÿÿ
-V	java:S125H"<This block of commented-out lines of code should be removed.(Í¨ß™øÿÿÿÿ
-V	java:S125"<This block of commented-out lines of code should be removed.(Á¡øƒüÿÿÿÿ
-V	java:S125P"<This block of commented-out lines of code should be removed.(âØÜ¼úÿÿÿÿ
+java:S1185"(Remove this method to simply inherit it.(¯Œìùÿÿÿÿ
+c
+java:S1128"ARemove this unused import 'com.example.myapplication.model.Post'.(¢•Õ¼þÿÿÿÿ8½Æ‡Ó¹.
+V	java:S1251"<This block of commented-out lines of code should be removed.(Ôù•þÿÿÿÿ

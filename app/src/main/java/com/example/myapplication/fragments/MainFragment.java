@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.Post;
 
 public class MainFragment extends Fragment {
 //    Button loginBtn;
@@ -39,6 +41,8 @@ public class MainFragment extends Fragment {
         return view;
 
     }
+
+
 
 
 
