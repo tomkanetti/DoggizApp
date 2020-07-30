@@ -45,18 +45,12 @@ public class LoginFragment extends Fragment {
         emailTv=view.findViewById(R.id.login_email_text);
         passwordTv=view.findViewById(R.id.login_password_text);
         activity= (HomeActivity) getActivity();
-        activity.hideAppBar();
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //check the data
                 if (validateForm()) {
                     login();
-                    if (flag) {
-                        Navigation.findNavController(v).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
-                        activity.updateUI();
-                    }
-                    //Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_postActivity2);
                 } else {
                     loginError(INVALID_FORM_MESSAGE);
                 }
@@ -66,20 +60,18 @@ public class LoginFragment extends Fragment {
     }
 
     void login() {
-
         UserModel.instance.login(emailTv.getText().toString(), passwordTv.getText().toString(), new UserModel.Listener<Boolean>() {
             @Override
             public void onComplete(Boolean data) {
-//                NavController navCtrl = Navigation.findNavController(view);
-//                navCtrl.navigateUp();
                 if (data) {
+                    Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
+                    activity.updateUI();
                 } else {
                     loginError(AUTHENTICATION_FAILED_MESSAGE);
                 }
                 flag = data;
             }
         });
-
     }
 
     private void loginError(String errorMsg) {

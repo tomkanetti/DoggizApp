@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -38,12 +40,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PostDetailsFragment extends Fragment {
+    private static final CharSequence CANT_EDIT = "You can't edit this post";
 
     ImageView postImg;
     TextView postTile;
     TextView authorPostName;
     ImageView authorPostImg;
     TextView postContent;
+    Button editPostBtn;
 
     ImageView authorCommentImg;
     TextView comment;
@@ -59,6 +63,13 @@ public class PostDetailsFragment extends Fragment {
     LiveData<List<Comment>> liveData;
     Post post;
     User user;
+
+
+    public interface Delegate{
+        void onItemSelectedFromPostDetail(Post post);
+    }
+
+    PostDetailsFragment.Delegate parent;
 
     @Nullable
     @Override
@@ -76,6 +87,19 @@ public class PostDetailsFragment extends Fragment {
         authorCommentImg= view.findViewById(R.id.post_detail_commentUser_img);
         comment= view.findViewById(R.id.post_detail_comment_txt);
         addComment= view.findViewById(R.id.post_detail_add_comment_btn);
+        editPostBtn = view.findViewById(R.id.post_details_edit_btn);
+
+        editPostBtn.setCursorVisible(false);
+        editPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(user.getEmail().equals(post.getUserEmail()))
+                    parent.onItemSelectedFromPostDetail(post);
+                else {
+                    editPostBtn.setError(CANT_EDIT);
+                }
+            }
+        });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
@@ -83,8 +107,8 @@ public class PostDetailsFragment extends Fragment {
         adapter = new CommentListAdapter();
         list.setAdapter(adapter);
 
-        post= PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
-        user=PostDetailsFragmentArgs.fromBundle(getArguments()).getUser();
+        post = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
+        user = PostDetailsFragmentArgs.fromBundle(getArguments()).getUser();
         if(post!=null){
             update_Post_display();
         }
@@ -93,9 +117,16 @@ public class PostDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addComment();
+                comment.setText("");
+                viewModel.refresh(post.getId(), new CommentModel.CompListener() {
+                    @Override
+                    public void onComplete() {
+                        getAllowEnterTransitionOverlap();
+                    }
+                });
+
             }
         });
-
 
 
         final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.post_details_comments_swipe_refresh);
@@ -114,9 +145,25 @@ public class PostDetailsFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onDetach() {
+        //Log.d("TAG", "4");
+        super.onDetach();
+        parent = null;
+    }
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        if (context instanceof PostDetailsFragment.Delegate) {
+            parent = (PostDetailsFragment.Delegate) getActivity();
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+        }
+        setHasOptionsMenu(true);
         viewModel = new ViewModelProvider(this).get(PostDetailsViewModel.class);
     }
 
@@ -241,83 +288,7 @@ public class PostDetailsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
 
-// ------------------------------------------------------------------------------
-
-//    interface OnItemClickListener {
-//        void onClick (int position);
-//    }
-//
-//    static class CommentRowViewHolder extends RecyclerView.ViewHolder {
-//        TextView authorName;
-//        TextView content;
-//        ImageView authorImage;
-//
-//
-//        public CommentRowViewHolder(@NonNull View itemView, final PostDetailsFragment.OnItemClickListener listener) {
-//            super(itemView);
-//            authorName = itemView.findViewById(R.id.comment_list_authorName_txt);
-//            content = itemView.findViewById(R.id.comment_list_content_txt);
-//            authorImage = itemView.findViewById(R.id.comment_list_user_img);
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (listener != null){
-//                        int position = getAdapterPosition();
-//                        if (position != RecyclerView.NO_POSITION){
-//                            listener.onClick(position);
-//                        }
-//                    }
-//                }
-//            });
-//        }
-//
-//        public void bind(Comment c) {
-//            Log.d("TAG-COMMENT", "Comment: "+ c);
-//            authorName.setText(c.getAuthorName());
-//            content.setText(c.getCommentContent());
-//
-//            if (c.getAuthorImg() != null && !c.getAuthorImg().equals("")) {
-//                Picasso.get().load(c.getAuthorImg()).placeholder(R.drawable.f).into(authorImage);
-//            } else {
-//                authorImage.setImageResource(R.drawable.f);
-//            }
-//
-//        }
-//    }
-//
-//    class CommentListAdapter extends RecyclerView.Adapter<PostDetailsFragment.CommentRowViewHolder>{
-//        private PostDetailsFragment.OnItemClickListener listener;
-//
-//        void setOnItemClickListener(PostDetailsFragment.OnItemClickListener listener) {
-//            this.listener = listener;
-//        }
-//
-//
-//        @NonNull
-//        @Override
-//        public PostDetailsFragment.CommentRowViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//            View v = LayoutInflater.from(getActivity()).inflate(R.layout.post_list_row, viewGroup,false );
-//            PostDetailsFragment.CommentRowViewHolder vh = new PostDetailsFragment.CommentRowViewHolder(v, listener);
-//            return vh;
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull PostDetailsFragment.CommentRowViewHolder commentRowViewHolder, int position) {
-//            Comment c = data.get(position);
-//            commentRowViewHolder.bind(c);
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return data.size();
-//        }
-//    }
 
 
 

@@ -7,16 +7,9 @@
         android:id="@+id/group">
         <item
             android:id="@+id/feedFragment"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/home_icon"
             android:title="@string/menu_feed" />
-        <item
-            android:id="@+id/nav_gallery2"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow2"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+
         <item
             android:id="@+id/userProfileFragment"
             android:icon="@drawable/ic_menu_slideshow"
@@ -26,6 +19,11 @@
             android:id="@+id/usersListFragment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Friends" />
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout_icon"
+         android:title="Log Out" />
     </group>
 
     <group android:id="@+id/non">

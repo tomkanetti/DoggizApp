@@ -39,7 +39,7 @@ public class UsersListFragment extends Fragment {
     LiveData<List<User>> liveData;
 
 
-    public interface Delegate{
+    public interface Delegate {
         void onItemSelected(User user);
     }
 
@@ -84,8 +84,9 @@ public class UsersListFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Log.d("TAG","row was clicked" + position);
+                Log.d("TAG","row was clicked - " + position);
                 User user = data.get(position);
+                Log.d("TAG","user in UserListFragment onCreateView: " + user);
                 parent.onItemSelected(user);
             }
         });

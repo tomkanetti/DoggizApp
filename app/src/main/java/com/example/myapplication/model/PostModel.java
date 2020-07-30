@@ -57,6 +57,71 @@ public class PostModel {
         });
     }
 
+    @SuppressLint("StaticFieldLeak")
+    public void updatePostChanges(final Post p, final CompListener listener) {
+        PostFirebase.updatePostChanges(p, new Listener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+                if (data) {
+                    new AsyncTask<String,String,String>(){
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            AppLocalDb.db.postDao().insertAll(p);
+                            return null;
+                        }
+                    }.execute("");
+                }
+                listener.onComplete();
+            }
+        });
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void deletePost(final Post p, Listener<Boolean> listener) {
+        PostFirebase.deletePost(p, listener);
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                AppLocalDb.db.postDao().delete(p);
+                return null;
+            }
+        }.execute();
+
+    }
+
+    public LiveData<List<Post>> getMyPosts(User u) {
+        LiveData<List<Post>> liveData = AppLocalDb.db.postDao().getMyPosts(u.getEmail());
+        refreshMyPostList(u, null);
+        return liveData;
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void refreshMyPostList(User u, final CompListener listener) {
+        PostFirebase.getAllMyPosts(u.getEmail(), new Listener<List<Post>>() {
+            @Override
+            public void onComplete(final List<Post> data) {
+                new AsyncTask<String,String,String>()  {
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        if (data != null) {
+                            for (Post p: data) {
+                                AppLocalDb.db.postDao().insertAll(p);
+                            }
+                        }
+                        return "";
+                    }
+
+                    @Override
+                    protected void onPostExecute(String s) {
+                        super.onPostExecute(s);
+                        if (listener != null)
+                            listener.onComplete();
+                    }
+                }.execute();
+            }
+        });
+    }
+
     public interface Listener<T>{
         void onComplete(T data);
     }
@@ -65,8 +130,13 @@ public class PostModel {
         void onComplete();
     }
 
-    public void addPost(Post post, Listener<Boolean> listener) {
-        PostFirebase.addPost(post,listener);
+    public void addPost(Post post, Listener<Post> listener) {
+        PostFirebase.addPost(post, new Listener<Post>() {
+            @Override
+            public void onComplete(Post data) {
+                AppLocalDb.db.postDao().insertAll(data);
+            }
+        });
     }
 
 }

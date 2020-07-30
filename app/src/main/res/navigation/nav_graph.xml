@@ -75,4 +75,21 @@
     <action
         android:id="@+id/action_global_feedFragment"
         app:destination="@id/feedFragment" />
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.myapplication.fragments.EditPostFragment"
+        android:label="EditPostFragment" >
+        <argument
+            android:name="post"
+            app:argType="com.example.myapplication.model.Post" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_editPostFragment"
+        app:destination="@id/editPostFragment" />
+    <action
+        android:id="@+id/action_global_mainFragment"
+        app:destination="@id/mainFragment" />
+    <action
+        android:id="@+id/action_global_usersListFragment"
+        app:destination="@id/usersListFragment" />
 </navigation>

@@ -1,8 +1,10 @@
 package com.example.myapplication.model;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.room.Database;
 import androidx.room.PrimaryKey;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -10,8 +12,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,22 +34,29 @@ public class PostFirebase {
 
 
 
-    public static void addPost(final Post post, final PostModel.Listener<Boolean> listener) {
+    public static void addPost(final Post post, final PostModel.Listener<Post> listener) {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection(POST_COLLECTION).add(toJson(post)).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
-                    if (task.isSuccessful()) {
-                        DocumentReference result = task.getResult();
-                        if (result != null) {
+                public void onComplete(@NonNull final Task<DocumentReference> task) {
+                    new AsyncTask<String, String, String>() {
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            if (task != null) {
+                                DocumentReference result = task.getResult();
+                                if (result != null) {
+                                    post.setId(result.getId());
+                                }
+                                if (listener != null)
+                                    listener.onComplete(post);
+                            } else {
+                                listener.onComplete(null);
+                            }
+                            return "";
                         }
-                        if (listener != null)
-                            listener.onComplete(task.isSuccessful());
-                    } else {
-                        listener.onComplete(null);
-                    }
+                    }.execute();
                 }
             });
         }
@@ -85,6 +97,48 @@ public class PostFirebase {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts = new Timestamp(new Date(lastUpdated));
         db.collection(POST_COLLECTION).whereEqualTo("is delete",false).whereGreaterThanOrEqualTo("last update", ts)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Post> posts = null;
+                if (task.isSuccessful()) {
+                    posts = new LinkedList<Post>();
+                    if (task.getResult() != null) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            Map<String, Object> json = doc.getData();
+                            Post post = factory(json);
+                            posts.add(post);
+                        }
+                    }
+                }
+                listListener.onComplete(posts);
+            }
+        });
+    }
+
+    public static void updatePostChanges(final Post p, final PostModel.Listener<Boolean> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(POST_COLLECTION).document(p.getId()).set(toJson(p)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                listener.onComplete(task.isSuccessful());
+            }
+        });
+    }
+
+    public static void deletePost(final Post p, final PostModel.Listener<Boolean> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(POST_COLLECTION).document(p.getId()).update("is delete",true).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                listener.onComplete(task.isSuccessful());
+            }
+        });
+    }
+
+    public static void getAllMyPosts(String userEmail, final PostModel.Listener<List<Post>> listListener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(POST_COLLECTION).whereEqualTo("user email",userEmail)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

@@ -77,6 +77,7 @@ public class UserFirebase {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (listener != null) {
+
                         listener.onComplete(task.isSuccessful());
                     }
                 }
@@ -184,6 +185,10 @@ public class UserFirebase {
         if (firebaseUser != null)
             return firebaseUser.getEmail();
         return null;
+    }
+
+    public static void logout() {
+        FirebaseAuth.getInstance().signOut();
     }
 }
 

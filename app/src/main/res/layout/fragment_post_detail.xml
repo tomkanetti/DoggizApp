@@ -11,8 +11,8 @@
     >
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/testing"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -48,7 +48,6 @@
             app:layout_constraintTop_toBottomOf="@+id/post_detail_PostImg" />
 
         <View
-            android:background="#2e2e2e"
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -57,6 +56,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:background="#2e2e2e"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,8 +79,6 @@
 
         <TextView
 
-            android:textColor="#373737"
-            android:lineSpacingExtra="8dp"
             android:id="@+id/post_detail_postContent_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -89,12 +87,14 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:lineSpacingExtra="8dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,rum eiusmod tempor incididunt ut labore et dolore magna aliqua"
+            android:textColor="#373737"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_detail_postAuthorName_txt" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+        <de.hdodenhof.circleimageview.CircleImageView
 
             android:id="@+id/post_detail_commentUser_img"
             android:layout_width="36dp"
@@ -108,14 +108,14 @@
 
         <EditText
 
-            android:hint="Write Comment"
-            android:background="@drawable/edittext_button_style_rounded"
             android:id="@+id/post_detail_comment_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:background="@drawable/edittext_button_style_rounded"
             android:ems="10"
+            android:hint="Write Comment"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="@+id/post_detail_commentUser_img"
             app:layout_constraintStart_toEndOf="@+id/post_detail_commentUser_img"
@@ -150,18 +150,31 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comment_list_recycleView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_detail_comment_txt" />
+            android:id="@+id/comment_list_recycleView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/post_detail_comment_txt" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/post_details_comments_swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/post_details_comments_swipe_refresh"></androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent">
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <Button
+            android:id="@+id/post_details_edit_btn"
+            android:layout_width="44dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/ic_create_black_24dp"
+            android:backgroundTint="@color/fui_bgGoogle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
