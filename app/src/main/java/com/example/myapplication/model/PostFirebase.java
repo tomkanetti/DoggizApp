@@ -124,20 +124,15 @@ public class PostFirebase {
                 listener.onComplete(task.isSuccessful());
             }
         });
-//
-//        db.collection(POST_COLLECTION).add(toJson(p)).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentReference> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentReference result = task.getResult();
-//                    if (result != null) {
-//                    }
-//                    if (listener != null)
-//                        listener.onComplete(task.isSuccessful());
-//                } else {
-//                    listener.onComplete(null);
-//                }
-//            }
-//        });
+    }
+
+    public static void deletePost(final Post p, final PostModel.Listener<Boolean> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(POST_COLLECTION).document(p.getId()).update("is delete",true).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                listener.onComplete(task.isSuccessful());
+            }
+        });
     }
 }

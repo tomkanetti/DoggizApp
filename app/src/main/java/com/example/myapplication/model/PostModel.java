@@ -57,6 +57,7 @@ public class PostModel {
         });
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void updatePostChanges(final Post p, final CompListener listener) {
         PostFirebase.updatePostChanges(p, new Listener<Boolean>() {
             @Override
@@ -73,6 +74,19 @@ public class PostModel {
                 listener.onComplete();
             }
         });
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void deletePost(final Post p, Listener<Boolean> listener) {
+        PostFirebase.deletePost(p, listener);
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                AppLocalDb.db.postDao().delete(p);
+                return null;
+            }
+        }.execute();
+
     }
 
     public interface Listener<T>{

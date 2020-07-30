@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
+import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Post;
@@ -73,12 +74,19 @@ public class EditPostFragment extends Fragment {
             }
         });
 
-//        deletePostBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                viewModel.deletePost();
-//            }
-//        });
+        deletePostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PostModel.instance.deletePost(post, new PostModel.Listener<Boolean>() {
+                    @Override
+                    public void onComplete(Boolean data) {
+                        if (data) {
+                            Navigation.findNavController(view).navigateUp();
+                        }
+                    }
+                });
+            }
+        });
 
 
         return view;
@@ -111,6 +119,7 @@ public class EditPostFragment extends Fragment {
         PostModel.instance.updatePostChanges(post, new PostModel.CompListener() {
             @Override
             public void onComplete() {
+                Navigation.findNavController(view).navigateUp();
             }
         });
 
