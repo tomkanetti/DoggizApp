@@ -17,7 +17,6 @@ public class CommentModel {
 
 
 
-
     public LiveData<List<Comment>> getAllPostComments(String postId) {
         LiveData<List<Comment>> liveData = AppLocalDb.db.commentDao().getAll(postId);
         refreshPostCommentList(postId, null);
@@ -25,8 +24,6 @@ public class CommentModel {
     }
 
     public void refreshPostCommentList(String postId,final CompListener listener) {
-        long lastUpdated = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE)
-                .getLong("PostsLastUpdateDate", 0);
         CommentFirebase.getAllPostComments(postId, new Listener<List<Comment>>() {
             @SuppressLint("StaticFieldLeak")
             @Override
@@ -38,11 +35,7 @@ public class CommentModel {
                         if (data != null) {
                             for (Comment comment : data) {
                                 AppLocalDb.db.commentDao().insertAll(comment);
-                                if (comment.getTime() > lastUpdated)
-                                    lastUpdated = comment.getTime();
                             }
-                            SharedPreferences.Editor editor = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE).edit();
-                            editor.putLong("PostsLastUpdateDate", lastUpdated).commit();
                         }
                         return "";
                     }
@@ -56,8 +49,6 @@ public class CommentModel {
             }
         });
     }
-
-
 
 
     public interface Listener<T>{

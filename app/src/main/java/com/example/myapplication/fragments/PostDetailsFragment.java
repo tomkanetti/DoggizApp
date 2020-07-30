@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -93,9 +94,16 @@ public class PostDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addComment();
+                comment.setText("");
+                viewModel.refresh(post.getId(), new CommentModel.CompListener() {
+                    @Override
+                    public void onComplete() {
+                        getAllowEnterTransitionOverlap();
+                    }
+                });
+
             }
         });
-
 
 
         final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.post_details_comments_swipe_refresh);
@@ -246,78 +254,6 @@ public class PostDetailsFragment extends Fragment {
         super.onDetach();
     }
 
-// ------------------------------------------------------------------------------
-
-//    interface OnItemClickListener {
-//        void onClick (int position);
-//    }
-//
-//    static class CommentRowViewHolder extends RecyclerView.ViewHolder {
-//        TextView authorName;
-//        TextView content;
-//        ImageView authorImage;
-//
-//
-//        public CommentRowViewHolder(@NonNull View itemView, final PostDetailsFragment.OnItemClickListener listener) {
-//            super(itemView);
-//            authorName = itemView.findViewById(R.id.comment_list_authorName_txt);
-//            content = itemView.findViewById(R.id.comment_list_content_txt);
-//            authorImage = itemView.findViewById(R.id.comment_list_user_img);
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (listener != null){
-//                        int position = getAdapterPosition();
-//                        if (position != RecyclerView.NO_POSITION){
-//                            listener.onClick(position);
-//                        }
-//                    }
-//                }
-//            });
-//        }
-//
-//        public void bind(Comment c) {
-//            Log.d("TAG-COMMENT", "Comment: "+ c);
-//            authorName.setText(c.getAuthorName());
-//            content.setText(c.getCommentContent());
-//
-//            if (c.getAuthorImg() != null && !c.getAuthorImg().equals("")) {
-//                Picasso.get().load(c.getAuthorImg()).placeholder(R.drawable.f).into(authorImage);
-//            } else {
-//                authorImage.setImageResource(R.drawable.f);
-//            }
-//
-//        }
-//    }
-//
-//    class CommentListAdapter extends RecyclerView.Adapter<PostDetailsFragment.CommentRowViewHolder>{
-//        private PostDetailsFragment.OnItemClickListener listener;
-//
-//        void setOnItemClickListener(PostDetailsFragment.OnItemClickListener listener) {
-//            this.listener = listener;
-//        }
-//
-//
-//        @NonNull
-//        @Override
-//        public PostDetailsFragment.CommentRowViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//            View v = LayoutInflater.from(getActivity()).inflate(R.layout.post_list_row, viewGroup,false );
-//            PostDetailsFragment.CommentRowViewHolder vh = new PostDetailsFragment.CommentRowViewHolder(v, listener);
-//            return vh;
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull PostDetailsFragment.CommentRowViewHolder commentRowViewHolder, int position) {
-//            Comment c = data.get(position);
-//            commentRowViewHolder.bind(c);
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return data.size();
-//        }
-//    }
 
 
 

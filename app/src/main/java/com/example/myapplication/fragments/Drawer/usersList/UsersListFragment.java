@@ -51,12 +51,12 @@ public class UsersListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof FeedFragment.Delegate) {
-            parent = (UsersListFragment.Delegate) getActivity();
-        } else {
-            throw new RuntimeException(context.toString()
-                    + "student list parent activity must implement dtudent ;list fragment Delegate");
-        }
+//        if (context instanceof FeedFragment.Delegate) {
+//            parent = (UsersListFragment.Delegate) getActivity();
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+//        }
 
         setHasOptionsMenu(true);        // create one instance of viewModel
         viewModel = new ViewModelProvider(this).get(UsersListViewModel.class);

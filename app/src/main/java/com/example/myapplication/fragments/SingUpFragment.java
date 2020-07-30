@@ -74,7 +74,7 @@ public class SingUpFragment extends Fragment {
         emailTv=view.findViewById(R.id.singup_email_text);
         passwordTv=view.findViewById(R.id.singup_password_text);
         activity = (HomeActivity) getActivity();
-        activity.hideAppBar();
+        //activity.hideAppBar();
 
         singUpBtn=view.findViewById((R.id.singup_singup_btn));
         singUpBtn.setOnClickListener(new View.OnClickListener() {

@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment {
         emailTv=view.findViewById(R.id.login_email_text);
         passwordTv=view.findViewById(R.id.login_password_text);
         activity= (HomeActivity) getActivity();
-        activity.hideAppBar();
+        //activity.hideAppBar();
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

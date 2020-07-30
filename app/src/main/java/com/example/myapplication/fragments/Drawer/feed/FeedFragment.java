@@ -1,5 +1,5 @@
 package com.example.myapplication.fragments.Drawer.feed;
-
+//
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -100,7 +100,6 @@ public class FeedFragment extends DialogFragment {
         });
 
         //------------------- FEED -------------------------
-
         list = view.findViewById(R.id.feed_recycleView);
         list.setHasFixedSize(true);
 
@@ -130,6 +129,7 @@ public class FeedFragment extends DialogFragment {
         liveData.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
+                //Log.d("TAG", "3");
                 data = posts;
                 adapter.notifyDataSetChanged(); //refresh
             }
@@ -168,6 +168,7 @@ public class FeedFragment extends DialogFragment {
 
     @Override
     public void onDetach() {
+        //Log.d("TAG", "4");
         super.onDetach();
         parent = null;
     }
@@ -214,11 +215,18 @@ public class FeedFragment extends DialogFragment {
             public void onClick(View v) {
                 sharePost();
                 popAddPost.dismiss();
+//                viewModel.refresh(new PostModel.CompListener() {
+//                    @Override
+//                    public void onComplete() {
+//                        getAllowEnterTransitionOverlap();
+//                    }
+//                });
             }
         });
     }
 
     public void sharePost() {
+        //Log.d("TAG", "5");
         Date d = new Date();
         if (popupPostImage != null) {
             StoreModel.uploadImage(pickedImgBit, "post_image" + d.getTime(), new StoreModel.Listener() {
@@ -230,10 +238,11 @@ public class FeedFragment extends DialogFragment {
                 public void onFail() {
                 }
             });
-        }else {savePost("");}
+        } else {savePost("");}
     }
 
     public void savePost(final String imageUrl) {
+        //Log.d("TAG", "6");
         final String title = popupTitle.getText().toString();
         final String description = popupDescription.getText().toString();
 
@@ -253,8 +262,8 @@ public class FeedFragment extends DialogFragment {
                 PostModel.instance.addPost(post, new PostModel.Listener<Boolean>() {
                     @Override
                     public void onComplete(Boolean data) {
-                        NavController navController = Navigation.findNavController(view);
-                        navController.navigateUp();
+//                        NavController navController = Navigation.findNavController(view);
+//                        navController.navigateUp();
                     }
                 });
             }
@@ -267,6 +276,8 @@ public class FeedFragment extends DialogFragment {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        //Log.d("TAG", "7");
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
@@ -275,13 +286,16 @@ public class FeedFragment extends DialogFragment {
 
 
     private void openGallery() {
+        //Log.d("TAG", "8");
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Log.d("TAG", "INSIDE onActivityResult - UPLOAD PIC");
         super.onActivityResult(requestCode, resultCode, data);
+        //Log.d("TAG", "1");
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             Uri uri=data.getData();
             try {
@@ -293,9 +307,8 @@ public class FeedFragment extends DialogFragment {
             }
         }
         nav=true;
+        //Log.d("TAG", "2");
     }
-
-
 
 
     public static Bitmap rotateImage(Bitmap source) {
@@ -392,3 +405,5 @@ public class FeedFragment extends DialogFragment {
     }
 
 }
+
+

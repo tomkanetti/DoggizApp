@@ -83,18 +83,23 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         });
 //        setOnNavControllerDestinationChanged();
 
+        if (user == null) {
+            hideAppBar();
+        }
     }
 
 
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        hideAppBar();
-    }
+//    @Override
+//    protected void onStart() {
+//        Log.d("TAG", "ON START");
+//        super.onStart();
+//        hideAppBar();
+//    }
 
-    public void hideAppBar(){
+    public void hideAppBar() {
+        Log.d("TAG","hideAppBar");
         appBarLayout.setExpanded(false,false);
         appBarLayout.setVisibility(View.GONE);
         isHide=true;
