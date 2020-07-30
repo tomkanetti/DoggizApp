@@ -1,5 +1,6 @@
 package com.example.myapplication.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -96,8 +98,6 @@ public class PostDetailsFragment extends Fragment {
 
 
 
-
-
 //        final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.post_details_comments_swipe_refresh);
 //        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -112,6 +112,12 @@ public class PostDetailsFragment extends Fragment {
 //        });
 
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(PostDetailsViewModel.class);
     }
 
     private void update_Post_display() {
