@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -74,7 +76,7 @@ public class CommentFirebase {
 
 
 
-    public static void getAllPostComments(String postId, final PostModel.Listener<List<Comment>> listListener) {
+    public static void getAllPostComments(String postId, final CommentModel.Listener<List<Comment>> listListener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(COMMENTS_COLLECTION).whereEqualTo("post id", postId)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -87,6 +89,7 @@ public class CommentFirebase {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             Map<String, Object> json = doc.getData();
                             Comment comment = factory(json);
+                            Log.d("TAG", "CommentFirebase -> getAllComents -> onComplete -> comments: "+ comment.getCommentContent());
                             comments.add(comment);
                         }
                     listListener.onComplete(comments);
@@ -95,9 +98,5 @@ public class CommentFirebase {
                 }
             }
         });
-
-
-
-
     }
 }

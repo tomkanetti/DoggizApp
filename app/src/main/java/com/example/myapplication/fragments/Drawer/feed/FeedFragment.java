@@ -194,10 +194,8 @@ public class FeedFragment extends DialogFragment {
                 user=u;
                 if (user != null){
                     if (user.imgUrl != null && !user.imgUrl.equals("")) {
-                        Log.d("TAG", " if - UsersListFragment - bind");
                         Picasso.get().load(user.imgUrl).placeholder(R.drawable.f).into(popupUserImage);
                     } else {
-                        Log.d("TAG", " else - UsersListFragment - bind");
                         popupUserImage.setImageResource(R.drawable.f);
                     }
                 }

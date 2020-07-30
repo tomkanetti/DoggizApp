@@ -35,10 +35,11 @@ public class PostDetailsViewModel extends ViewModel {
         }
         return liveData;
     }
-//
-//    public void refresh(CommentModel.CompListener listener) {
-//        CommentModel.instance.refreshCommentList(listener);
-//    }
+
+
+    public void refresh(String postId,CommentModel.CompListener listener) {
+        CommentModel.instance.refreshPostCommentList(postId,listener);
+    }
 
 
 }

@@ -152,10 +152,8 @@ public class UsersListFragment extends Fragment {
             dogName.setText(u.dogName);
             ownerName.setText(u.ownerName);
             if (u.imgUrl != null && !u.imgUrl.equals("")) {
-                Log.d("TAG"," if - UsersListFragment - bind");
                 Picasso.get().load(u.imgUrl).placeholder(R.drawable.f).into(userImage);
             } else {
-                Log.d("TAG"," else - UsersListFragment - bind");
                 userImage.setImageResource(R.drawable.f);
             }
 

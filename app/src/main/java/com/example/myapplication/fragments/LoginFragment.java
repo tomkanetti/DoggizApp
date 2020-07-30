@@ -73,9 +73,7 @@ public class LoginFragment extends Fragment {
 //                NavController navCtrl = Navigation.findNavController(view);
 //                navCtrl.navigateUp();
                 if (data) {
-                    Log.d("TAG","loginFragment - login - if");
                 } else {
-                    Log.d("TAG","loginFragment - login - else");
                     loginError(AUTHENTICATION_FAILED_MESSAGE);
                 }
                 flag = data;

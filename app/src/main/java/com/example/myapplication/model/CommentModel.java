@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -15,8 +16,7 @@ public class CommentModel {
     public static final CommentModel instance = new CommentModel();
 
 
-    private void refreshCommentsList(Object o) {
-    }
+
 
     public LiveData<List<Comment>> getAllPostComments(String postId) {
         LiveData<List<Comment>> liveData = AppLocalDb.db.commentDao().getAll(postId);
@@ -24,18 +24,25 @@ public class CommentModel {
         return liveData;
     }
 
-    private void refreshPostCommentList(String postId, final CompListener listener) {
-        CommentFirebase.getAllPostComments(postId, new PostModel.Listener<List<Comment>>() {
+    public void refreshPostCommentList(String postId,final CompListener listener) {
+        long lastUpdated = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE)
+                .getLong("PostsLastUpdateDate", 0);
+        CommentFirebase.getAllPostComments(postId, new Listener<List<Comment>>() {
+            @SuppressLint("StaticFieldLeak")
             @Override
             public void onComplete(final List<Comment> data) {
                 new AsyncTask<String, String, String>() {
-                    @SuppressLint("StaticFieldLeak")
                     @Override
                     protected String doInBackground(String... strings) {
+                        long lastUpdated = 0;
                         if (data != null) {
                             for (Comment comment : data) {
                                 AppLocalDb.db.commentDao().insertAll(comment);
+                                if (comment.getTime() > lastUpdated)
+                                    lastUpdated = comment.getTime();
                             }
+                            SharedPreferences.Editor editor = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE).edit();
+                            editor.putLong("PostsLastUpdateDate", lastUpdated).commit();
                         }
                         return "";
                     }
@@ -48,8 +55,9 @@ public class CommentModel {
                 }.execute();
             }
         });
-
     }
+
+
 
 
     public interface Listener<T>{

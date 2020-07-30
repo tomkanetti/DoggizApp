@@ -155,7 +155,6 @@ public class SingUpFragment extends Fragment {
                 }
             });
         } else
-            Log.d("TAG","signUp ELSE");
             saveUser("");
     }
 
