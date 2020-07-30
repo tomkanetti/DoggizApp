@@ -135,4 +135,26 @@ public class PostFirebase {
             }
         });
     }
+
+    public static void getAllMyPosts(String userEmail, final PostModel.Listener<List<Post>> listListener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(POST_COLLECTION).whereEqualTo("user email",userEmail)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Post> posts = null;
+                if (task.isSuccessful()) {
+                    posts = new LinkedList<Post>();
+                    if (task.getResult() != null) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            Map<String, Object> json = doc.getData();
+                            Post post = factory(json);
+                            posts.add(post);
+                        }
+                    }
+                }
+                listListener.onComplete(posts);
+            }
+        });
+    }
 }

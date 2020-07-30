@@ -89,6 +89,39 @@ public class PostModel {
 
     }
 
+    public LiveData<List<Post>> getMyPosts(User u) {
+        LiveData<List<Post>> liveData = AppLocalDb.db.postDao().getMyPosts(u.getEmail());
+        refreshMyPostList(u, null);
+        return liveData;
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void refreshMyPostList(User u, final CompListener listener) {
+        PostFirebase.getAllMyPosts(u.getEmail(), new Listener<List<Post>>() {
+            @Override
+            public void onComplete(final List<Post> data) {
+                new AsyncTask<String,String,String>()  {
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        if (data != null) {
+                            for (Post p: data) {
+                                AppLocalDb.db.postDao().insertAll(p);
+                            }
+                        }
+                        return "";
+                    }
+
+                    @Override
+                    protected void onPostExecute(String s) {
+                        super.onPostExecute(s);
+                        if (listener != null)
+                            listener.onComplete();
+                    }
+                }.execute();
+            }
+        });
+    }
+
     public interface Listener<T>{
         void onComplete(T data);
     }

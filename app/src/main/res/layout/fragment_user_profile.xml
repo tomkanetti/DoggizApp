@@ -12,6 +12,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="324dp"
+        android:text="noa feldberg"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +26,6 @@
         android:id="@+id/profile_image"
         android:layout_width="0dp"
         android:layout_height="213dp"
-        android:layout_marginBottom="380dp"
         android:background="#FFFFFF"
         android:src="@drawable/f"
         app:civ_border_width="7dp"
@@ -33,7 +33,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18" />
 
     <TextView
         android:id="@+id/profile_dogName_text"
@@ -41,12 +43,24 @@
         android:layout_height="52dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="324dp"
+        android:text="Jessie"
         android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image"
+        app:layout_constraintVertical_bias="0.13" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_posts_recycleView"
+        android:layout_width="407dp"
+        android:layout_height="298dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

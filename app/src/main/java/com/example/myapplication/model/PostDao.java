@@ -25,4 +25,9 @@ public interface PostDao {
 
     @Delete
     void delete(Post post);
+
+    @Query("select * from Posts WHERE userEmail LIKE :uEmail")
+    LiveData<List<Post>> getMyPosts(String uEmail);
+
+
 }

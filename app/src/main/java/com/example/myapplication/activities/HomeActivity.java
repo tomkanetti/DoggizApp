@@ -175,4 +175,5 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         navController.navigate(PostDetailsFragmentDirections.actionGlobalEditPostFragment(post));
     }
 
+
 }

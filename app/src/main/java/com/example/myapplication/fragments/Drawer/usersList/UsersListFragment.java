@@ -39,7 +39,7 @@ public class UsersListFragment extends Fragment {
     LiveData<List<User>> liveData;
 
 
-    public interface Delegate{
+    public interface Delegate {
         void onItemSelected(User user);
     }
 
@@ -51,12 +51,12 @@ public class UsersListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof FeedFragment.Delegate) {
-//            parent = (UsersListFragment.Delegate) getActivity();
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + "student list parent activity must implement dtudent ;list fragment Delegate");
-//        }
+        if (context instanceof FeedFragment.Delegate) {
+            parent = (UsersListFragment.Delegate) getActivity();
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+        }
 
         setHasOptionsMenu(true);        // create one instance of viewModel
         viewModel = new ViewModelProvider(this).get(UsersListViewModel.class);
@@ -84,8 +84,9 @@ public class UsersListFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Log.d("TAG","row was clicked" + position);
+                Log.d("TAG","row was clicked - " + position);
                 User user = data.get(position);
+                Log.d("TAG","user in UserListFragment onCreateView: " + user);
                 parent.onItemSelected(user);
             }
         });
