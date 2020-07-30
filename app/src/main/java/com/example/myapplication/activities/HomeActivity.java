@@ -124,15 +124,15 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
             @Override
             public void onComplete(User data) {
                 user=data;
-                email.setText(data.getEmail());
-                dogName.setText(data.dogName);
-                ownerName.setText(data.ownerName);
-
-                if (data.imgUrl != null && !data.imgUrl.equals("")) {
-                    Picasso.get().load(data.imgUrl).placeholder(R.drawable.f).into(userImage);
-                } else {
-                    userImage.setImageResource(R.drawable.f);
-                }
+//                email.setText(data.getEmail());
+//                dogName.setText(data.dogName);
+//                ownerName.setText(data.ownerName);
+//
+//                if (data.imgUrl != null && !data.imgUrl.equals("")) {
+//                    Picasso.get().load(data.imgUrl).placeholder(R.drawable.f).into(userImage);
+//                } else {
+//                    userImage.setImageResource(R.drawable.f);
+//                }
             }
         });
     }

@@ -3,6 +3,7 @@ package com.example.myapplication.model;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.room.Database;
 import androidx.room.PrimaryKey;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -10,8 +11,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,7 +43,8 @@ public class PostFirebase {
                     if (task.isSuccessful()) {
                         DocumentReference result = task.getResult();
                         if (result != null) {
-                        }
+                            //post.setId(result.getId());
+                  }
                         if (listener != null)
                             listener.onComplete(task.isSuccessful());
                     } else {
@@ -102,5 +107,30 @@ public class PostFirebase {
                 listListener.onComplete(posts);
             }
         });
+    }
+
+    public static void updatePostChanges(final Post p, final PostModel.Listener<Boolean> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(POST_COLLECTION).document(p.getId()).set(toJson(p)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                listener.onComplete(task.isSuccessful());
+            }
+        });
+//
+//        db.collection(POST_COLLECTION).add(toJson(p)).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentReference> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentReference result = task.getResult();
+//                    if (result != null) {
+//                    }
+//                    if (listener != null)
+//                        listener.onComplete(task.isSuccessful());
+//                } else {
+//                    listener.onComplete(null);
+//                }
+//            }
+//        });
     }
 }

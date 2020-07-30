@@ -57,6 +57,24 @@ public class PostModel {
         });
     }
 
+    public void updatePostChanges(final Post p, final CompListener listener) {
+        PostFirebase.updatePostChanges(p, new Listener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+                if (data) {
+                    new AsyncTask<String,String,String>(){
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            AppLocalDb.db.postDao().insertAll(p);
+                            return null;
+                        }
+                    }.execute("");
+                }
+                listener.onComplete();
+            }
+        });
+    }
+
     public interface Listener<T>{
         void onComplete(T data);
     }
