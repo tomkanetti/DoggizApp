@@ -30,6 +30,8 @@ import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
 import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragmentDirections;
+import com.example.myapplication.fragments.PostDetailsFragment;
+import com.example.myapplication.fragments.PostDetailsFragmentDirections;
 import com.example.myapplication.model.Post;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
@@ -37,7 +39,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate, UsersListFragment.Delegate {
+public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate {
     NavController navController;
     NavigationView navigationView;
     DrawerLayout drawer;
@@ -158,4 +160,10 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         navController.navigate(UsersListFragmentDirections.actionGlobalUserProfileFragment(user));
 
     }
+
+    @Override
+    public void onItemSelectedFromPostDetail(Post post) {
+        navController.navigate(PostDetailsFragmentDirections.actionGlobalEditPostFragment(post));
+    }
+
 }

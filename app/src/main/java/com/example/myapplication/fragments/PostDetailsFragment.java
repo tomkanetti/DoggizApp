@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class PostDetailsFragment extends Fragment {
     TextView authorPostName;
     ImageView authorPostImg;
     TextView postContent;
+    Button editPostBtn;
 
     ImageView authorCommentImg;
     TextView comment;
@@ -60,6 +62,13 @@ public class PostDetailsFragment extends Fragment {
     LiveData<List<Comment>> liveData;
     Post post;
     User user;
+
+
+    public interface Delegate{
+        void onItemSelectedFromPostDetail(Post post);
+    }
+
+    PostDetailsFragment.Delegate parent;
 
     @Nullable
     @Override
@@ -77,6 +86,16 @@ public class PostDetailsFragment extends Fragment {
         authorCommentImg= view.findViewById(R.id.post_detail_commentUser_img);
         comment= view.findViewById(R.id.post_detail_comment_txt);
         addComment= view.findViewById(R.id.post_detail_add_comment_btn);
+        editPostBtn = view.findViewById(R.id.post_details_edit_btn);
+
+        editPostBtn.setCursorVisible(false);
+        editPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: CHECK IF THE POSR IS CONNECTED TO USER
+                parent.onItemSelectedFromPostDetail(post);
+            }
+        });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
@@ -84,8 +103,8 @@ public class PostDetailsFragment extends Fragment {
         adapter = new CommentListAdapter();
         list.setAdapter(adapter);
 
-        post= PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
-        user=PostDetailsFragmentArgs.fromBundle(getArguments()).getUser();
+        post = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
+        user = PostDetailsFragmentArgs.fromBundle(getArguments()).getUser();
         if(post!=null){
             update_Post_display();
         }
@@ -122,9 +141,25 @@ public class PostDetailsFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onDetach() {
+        //Log.d("TAG", "4");
+        super.onDetach();
+        parent = null;
+    }
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        if (context instanceof PostDetailsFragment.Delegate) {
+            parent = (PostDetailsFragment.Delegate) getActivity();
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+        }
+        setHasOptionsMenu(true);
         viewModel = new ViewModelProvider(this).get(PostDetailsViewModel.class);
     }
 
@@ -249,10 +284,6 @@ public class PostDetailsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
 
 
 

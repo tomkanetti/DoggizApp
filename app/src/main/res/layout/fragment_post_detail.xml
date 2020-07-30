@@ -165,6 +165,17 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+        <Button
+            android:id="@+id/post_details_edit_btn"
+            android:layout_width="44dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/ic_create_black_24dp"
+            android:backgroundTint="@color/fui_bgGoogle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
