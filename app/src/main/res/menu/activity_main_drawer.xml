@@ -3,27 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/group">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/feedFragment"
             android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_feed" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_gallery2"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_gallery" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_slideshow2"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
         <item
-            android:id="@+id/nav_my_profile"
+            android:id="@+id/userProfileFragment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="My Profile" />
 
         <item
-            android:id="@+id/nav_my_friends"
+            android:id="@+id/usersListFragment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Friends" />
+    </group>
+
+    <group android:id="@+id/non">
     </group>
 </menu>

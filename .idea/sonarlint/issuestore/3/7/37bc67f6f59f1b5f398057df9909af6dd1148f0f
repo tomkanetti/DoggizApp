@@ -1,5 +1,13 @@
 
-h
-java:S1128	"FRemove this unused import 'com.example.myapplication.model.UserModel'.(ê±ˆ™ýÿÿÿÿ8ûáÞã¸.
-]	java:S125"<This block of commented-out lines of code should be removed.(Å‚ŸÄþÿÿÿÿ8ûáÞã¸.
-X	java:S110"<This class has 9 parents which is greater than 5 authorized.(Æ¼¾Î8ûáÞã¸.
+v
+java:S1128"YRemove this unused import 'com.example.myapplication.fragments.Drawer.feed.FeedFragment'.(£„ÿ›8¶öñÓ¹.
+X	java:S125"<This block of commented-out lines of code should be removed.(ºŠú÷8íÝâÓ¹.
+S
+java:S2696"6Make the enclosing method "static" or remove this set.(ò°¹ò8å«Ô¹.
+…
+java:S1128"cRemove this unused import 'com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections'.(ó×ï×úÿÿÿÿ8üÏòÓ¹.
+k
+java:S1128"IRemove this unused import 'com.example.myapplication.NavGraphDirections'.(¿µïÌÿÿÿÿÿ8Ý¤µÓ¹.
+c
+java:S1128"ARemove this unused import 'com.example.myapplication.model.Post'.(¢•Õ¼þÿÿÿÿ8üÏòÓ¹.
+X	java:S110"<This class has 9 parents which is greater than 5 authorized.(Æ¼¾Î8¬”‘Ó¹.

@@ -1,16 +1,4 @@
 
-M
-java:S1128"1Remove this unused import 'java.util.LinkedList'.(»Äğ18Üú¸İ¸.
-]	java:S125B"<This block of commented-out lines of code should be removed.(ÕÅìÊıÿÿÿÿ8ë†´İ¸.
-W	java:S125P"<This block of commented-out lines of code should be removed.(ª¯°q8ë†´İ¸.
-X	java:S125;"<This block of commented-out lines of code should be removed.(ûïá”8ë†´İ¸.
-V	java:S125"<This block of commented-out lines of code should be removed.(ĞÔªşÿÿÿÿ
-k	java:S114""QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(îƒÁÚúÿÿÿÿ
-a
-java:S1128
-"?Remove this unused import 'androidx.lifecycle.MutableLiveData'.(Íèæâıÿÿÿÿ8Üú¸İ¸.
-H
-java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ
-X	java:S125J"<This block of commented-out lines of code should be removed.(Ÿ‘¼è8ë†´İ¸.
-V	java:S125"<This block of commented-out lines of code should be removed.(ìÔÀ»ÿÿÿÿÿ
-]	java:S125?"<This block of commented-out lines of code should be removed.(ÀÉóïüÿÿÿÿ8ë†´İ¸.
+r	java:S114"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(îƒÁÚúÿÿÿÿ8Ô…ŠÎ¹.
+]	java:S125"<This block of commented-out lines of code should be removed.(ìÔÀ»ÿÿÿÿÿ8Ô…ŠÎ¹.
+]	java:S125"<This block of commented-out lines of code should be removed.(ĞÔªşÿÿÿÿ8Ô…ŠÎ¹.

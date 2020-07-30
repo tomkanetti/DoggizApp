@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.HomeActivity;
+import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -32,7 +34,7 @@ public class LoginFragment extends Fragment {
     TextView passwordTv;
     View view;
     Boolean flag = false;
-
+    HomeActivity activity;
     public LoginFragment(){}
 
     @Nullable
@@ -42,15 +44,18 @@ public class LoginFragment extends Fragment {
         loginBtn = view.findViewById(R.id.login_login_btn);
         emailTv=view.findViewById(R.id.login_email_text);
         passwordTv=view.findViewById(R.id.login_password_text);
-
+        activity= (HomeActivity) getActivity();
+        activity.hideAppBar();
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //check the data
                 if (validateForm()) {
                     login();
-                    if (flag)
-                        Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalPostActivity());
+                    if (flag) {
+                        Navigation.findNavController(v).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
+                        activity.updateUI();
+                    }
                     //Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_postActivity2);
                 } else {
                     loginError(INVALID_FORM_MESSAGE);

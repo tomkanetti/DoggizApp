@@ -6,8 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Comment {
+public class Comment implements Serializable {
     @NonNull
     String postId;
     @NonNull

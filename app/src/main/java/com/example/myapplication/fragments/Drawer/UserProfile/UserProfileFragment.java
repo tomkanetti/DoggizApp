@@ -44,21 +44,17 @@ public class UserProfileFragment extends Fragment {
         dogName=view.findViewById(R.id.profile_dogName_text);
         ownerName=view.findViewById(R.id.profile_ownerName_text);
         userImage=view.findViewById(R.id.profile_image);
-        UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
-            @Override
-            public void onComplete(User u) {
-                bind(u);
-                user=u;
-            }
-        });
+//        UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
+//            @Override
+//            public void onComplete(User u) {
+//                bind(u);
+//                user=u;
+//            }
+//        });
 //
-//        if (user == null){
-//            user=UserProfileFragmentArgs.fromBundle((getArguments())).getUser();
-//            if(user!=null)
-//                bind(user);
-//        }
-
-
+        user=UserProfileFragmentArgs.fromBundle((getArguments())).getUser();
+        if(user!=null)
+            bind(user);
 
         return view;
     }

@@ -1,0 +1,27 @@
+
+v
+java:S22932"YReplace the type specification in this constructor call with the diamond operator ("<>").(’®°÷8¬Ò¹.
+]	java:S125["<This block of commented-out lines of code should be removed.(öùÄğıÿÿÿÿ8¬Ò¹.
+^
+java:S1128"ARemove this unused import 'com.example.myapplication.model.User'.(®Æ„¾8ôÊÑ¹.
+€
+java:S1128"cRemove this unused import 'com.example.myapplication.fragments.Drawer.usersList.UsersListFragment'.(¬ö®å8ôÊÑ¹.
+c
+java:S1128"FRemove this unused import 'com.example.myapplication.model.PostModel'.(¶ñÂñ8ôÊÑ¹.
+x
+java:S1488·"ZImmediately return this expression instead of assigning it to the temporary variable "vh".(öùÕÌ8ôÊÑ¹.
+]	java:S125g"<This block of commented-out lines of code should be removed.(’ÀñËıÿÿÿÿ8¬Ò¹.
+]	java:S125a"<This block of commented-out lines of code should be removed.(«˜Ë†ÿÿÿÿÿ8¬Ò¹.
+]	java:S125^"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8¬Ò¹.
+]	java:S125W"<This block of commented-out lines of code should be removed.(·÷½ıÿÿÿÿ8¬Ò¹.
+O
+java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8øÜøÒ¹.
+i	java:S100q"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÄöT8¬Ò¹.
+†
+java:S1128"dRemove this unused import 'com.example.myapplication.fragments.Drawer.usersList.UsersListViewModel'.(Á‚Ã÷ùÿÿÿÿ8ôÊÑ¹.
+]	java:S125Y"<This block of commented-out lines of code should be removed.(„œøéûÿÿÿÿ8¬Ò¹.
+X	java:S125d"<This block of commented-out lines of code should be removed.(–¹Îà8¬Ò¹.
+v
+java:S1128"YRemove this unused import 'com.example.myapplication.fragments.Drawer.feed.FeedFragment'.(£„ÿ›8ôÊÑ¹.
+Y
+java:S2589P"7Remove this expression which always evaluates to "true"(Àìõëÿÿÿÿÿ8ÅŞÙÔ¹.

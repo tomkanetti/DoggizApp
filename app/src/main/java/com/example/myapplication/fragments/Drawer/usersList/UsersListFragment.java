@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
 import com.example.myapplication.model.UserModel;
 import com.example.myapplication.R;
 
@@ -50,7 +51,14 @@ public class UsersListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        // create one instance of viewModel
+        if (context instanceof FeedFragment.Delegate) {
+            parent = (UsersListFragment.Delegate) getActivity();
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+        }
+
+        setHasOptionsMenu(true);        // create one instance of viewModel
         viewModel = new ViewModelProvider(this).get(UsersListViewModel.class);
     }
 
@@ -78,7 +86,7 @@ public class UsersListFragment extends Fragment {
             public void onClick(int position) {
                 Log.d("TAG","row was clicked" + position);
                 User user = data.get(position);
-//                parent.onItemSelected(user);
+                parent.onItemSelected(user);
             }
         });
 
@@ -108,11 +116,12 @@ public class UsersListFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        parent = null;
-//    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        parent = null;
+    }
+
 
     static class FriendsRowViewHolder extends RecyclerView.ViewHolder {
         TextView dogName;

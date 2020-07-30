@@ -48,7 +48,7 @@ public class UserModel {
     }
 
     public boolean isLoggedIn() {
-        return UserFirebase.isSignedIn();
+        return UserFirebase.isLoggedIn();
     }
 
     public void refreshUserList(final CompListener listener){
@@ -89,7 +89,11 @@ public class UserModel {
         return UserFirebase.getCurrentUserEmail();
     }
 
-
+//    public LiveData<User> getCurrentUserDetails() {
+//        LiveData<User> liveData = AppLocalDb.db.userDao().getAll();
+//        getCurrentUserDetails(null);
+//        return liveData;
+//    }
 
 
 
@@ -146,4 +150,5 @@ public class UserModel {
             }
         });
     }
+
 }

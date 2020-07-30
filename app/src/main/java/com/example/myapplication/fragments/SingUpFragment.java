@@ -27,7 +27,8 @@ import androidx.navigation.Navigation;
 import static android.app.Activity.RESULT_OK;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.PostActivityDirections;
+import com.example.myapplication.activities.HomeActivity;
+import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
 import com.example.myapplication.model.StoreModel;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
@@ -53,7 +54,7 @@ public class SingUpFragment extends Fragment {
     TextView emailTv;
     TextView passwordTv;
     Bitmap imageBitmap;
-
+    HomeActivity activity;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,6 +73,8 @@ public class SingUpFragment extends Fragment {
         dogNameTv=view.findViewById(R.id.singup_dogName_text);
         emailTv=view.findViewById(R.id.singup_email_text);
         passwordTv=view.findViewById(R.id.singup_password_text);
+        activity = (HomeActivity) getActivity();
+        activity.hideAppBar();
 
         singUpBtn=view.findViewById((R.id.singup_singup_btn));
         singUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +83,8 @@ public class SingUpFragment extends Fragment {
                 //hideKeyboard();
                 if(validateForm() ) {
                     signUp();
-                    Navigation.findNavController(v).navigate(PostActivityDirections.actionGlobalPostActivity());
+                    Navigation.findNavController(v).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
+                        activity.updateUI();
                 }
             }
         });
@@ -131,8 +135,7 @@ public class SingUpFragment extends Fragment {
                     UserModel.instance.addUser(user, new UserModel.Listener<Boolean>() {
                         @Override
                         public void onComplete(Boolean data) {
-                            NavController navCtrl = Navigation.findNavController(view);
-                            navCtrl.navigateUp();
+
                         }
                     });
                  }

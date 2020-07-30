@@ -1,0 +1,20 @@
+
+o
+java:S2293\"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÁŸô‚
+`
+java:S1128"JRemove this unused import 'com.google.firebase.database.FirebaseDatabase'.(◊Àçó
+H
+java:S1128"-Remove this unused import 'android.util.Log'.(‘¶ÿ≤¯ˇˇˇˇ
+P
+java:S1118":Add a private constructor to hide the implicit public one.(Û ¯ç
+>	java:S108)")Either remove or fill this block of code.(Àƒ“Ç
+P
+java:S1128"5Remove this unused import 'androidx.room.PrimaryKey'.(®ø·Á¸ˇˇˇˇ
+e
+java:S1192?"JDefine a constant instead of duplicating this literal "is delete" 3 times.(çΩÉ◊¸ˇˇˇˇ
+`
+java:S1128"KRemove this unused import 'com.google.firebase.database.DatabaseReference'.(…”π
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ÅÍ¨Êˇˇˇˇˇ
+a
+java:S1192>"LDefine a constant instead of duplicating this literal "last update" 3 times.(∑≈Úo

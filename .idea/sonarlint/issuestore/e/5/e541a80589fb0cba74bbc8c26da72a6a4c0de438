@@ -1,9 +1,0 @@
-
-^
-java:S1128"ARemove this unused import 'com.example.myapplication.model.User'.(®Æ„¾8êšÓä¸.
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(–½ù¿ýÿÿÿÿ
-M
-java:S1128
-"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ÛŽÑä¸.
-h
-java:S1128"FRemove this unused import 'com.example.myapplication.model.UserModel'.(ê±ˆ™ýÿÿÿÿ8êšÓä¸.

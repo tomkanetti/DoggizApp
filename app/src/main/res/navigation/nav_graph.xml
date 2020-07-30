@@ -28,19 +28,12 @@
             android:name="user"
             app:argType="com.example.myapplication.model.User" />
     </fragment>
-    <activity
-        android:id="@+id/postActivity"
-        android:name="com.example.myapplication.activities.PostActivity"
-        android:label="PostActivity" />
     <action
         android:id="@+id/action_global_singUpFragment"
         app:destination="@id/singUpFragment" />
     <action
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment" />
-    <action
-        android:id="@+id/action_global_postActivity"
-        app:destination="@id/postActivity" />
     <fragment
         android:id="@+id/usersListFragment"
         android:name="com.example.myapplication.fragments.Drawer.usersList.UsersListFragment"
@@ -60,4 +53,26 @@
     <action
         android:id="@+id/action_global_sharePostFragment"
         app:destination="@id/sharePostFragment" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.myapplication.fragments.Drawer.feed.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.example.myapplication.fragments.PostDetailsFragment"
+        android:label="PostDetailsFragment" >
+        <argument
+            android:name="post"
+            app:argType="com.example.myapplication.model.Post" />
+        <argument
+            android:name="user"
+            app:argType="com.example.myapplication.model.User" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_postDetailsFragment"
+        app:destination="@id/postDetailsFragment" />
+    <action
+        android:id="@+id/action_global_feedFragment"
+        app:destination="@id/feedFragment" />
 </navigation>

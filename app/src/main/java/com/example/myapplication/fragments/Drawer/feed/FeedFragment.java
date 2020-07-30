@@ -1,5 +1,6 @@
 package com.example.myapplication.fragments.Drawer.feed;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.HomeActivity;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
 import com.example.myapplication.model.Post;
 import com.example.myapplication.model.PostModel;
@@ -70,10 +72,18 @@ public class FeedFragment extends DialogFragment {
     FeedViewModel viewModel;
     LiveData<List<Post>> liveData;
 
+    static Boolean nav;
+
+
+    public interface Delegate{
+        void onItemSelected(Post post);
+    }
+
+    Delegate parent;
 
     private Bitmap pickedImgBit = null;
 
-
+    public FeedFragment(){}
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_feed,container,false);
@@ -109,7 +119,8 @@ public class FeedFragment extends DialogFragment {
             public void onClick(int position) {
                 Log.d("TAG","row was clicked" + position);
                 Post post = data.get(position);
-//                parent.onItemSelected(user);
+
+                parent.onItemSelected(post);
             }
         });
 
@@ -143,7 +154,22 @@ public class FeedFragment extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        if (context instanceof Delegate) {
+            parent = (Delegate) getActivity();
+        } else {
+            throw new RuntimeException(context.toString()
+                    + "student list parent activity must implement dtudent ;list fragment Delegate");
+        }
+
+        setHasOptionsMenu(true);
+        super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        parent = null;
     }
 
     private void iniPopup() {
@@ -202,13 +228,11 @@ public class FeedFragment extends DialogFragment {
                 public void onSuccess(String url) {
                     savePost(url);
                 }
-
                 @Override
                 public void onFail() {
-
                 }
             });
-        }
+        }else {savePost("");}
     }
 
     public void savePost(final String imageUrl) {
@@ -223,10 +247,11 @@ public class FeedFragment extends DialogFragment {
                 post.setUserEmail(data.getEmail());
                 post.setUserImage(data.getImgUrl());
                 post.setTitle(title);
+                post.setUsername(data.ownerName);
                 post.setDescription(description);
                 post.setImage(imageUrl);
                 post.setDelete(false);
-//                post.setId(post.getLastUpdate().toString());
+                post.setId(post.getTitle()+post.getDescription());
                 PostModel.instance.addPost(post, new PostModel.Listener<Boolean>() {
                     @Override
                     public void onComplete(Boolean data) {
@@ -248,10 +273,7 @@ public class FeedFragment extends DialogFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    public boolean onNavigationItemSelected(MenuItem item) {
-        return true;
-    }
+
 
 
     private void openGallery() {
@@ -259,7 +281,7 @@ public class FeedFragment extends DialogFragment {
         startActivityForResult(gallery, PICK_IMAGE);
     }
 
-
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
@@ -272,7 +294,11 @@ public class FeedFragment extends DialogFragment {
                 e.printStackTrace();
             }
         }
+        nav=true;
     }
+
+
+
 
     public static Bitmap rotateImage(Bitmap source) {
         Matrix matrix = new Matrix();
@@ -289,14 +315,17 @@ public class FeedFragment extends DialogFragment {
 
     static class PostsRowViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+        TextView authorName;
         ImageView userImage;
         ImageView postImage;
+
 
         public PostsRowViewHolder(@NonNull View itemView, final FeedFragment.OnItemClickListener listener) {
             super(itemView);
             title = itemView.findViewById(R.id.post_list_PostTitle);
             userImage = itemView.findViewById(R.id.post_list_profile_img);
             postImage = itemView.findViewById(R.id.post_list_postImg);
+            authorName = itemView.findViewById(R.id.post_list_PostAuthorName);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -313,7 +342,7 @@ public class FeedFragment extends DialogFragment {
 
         public void bind(Post p) {
             title.setText(p.getTitle());
-
+            authorName.setText(p.getUsername());
             if (p.getImage() != null && !p.getImage().equals("")) {
                 Picasso.get().load(p.getImage()).placeholder(R.drawable.f).into(postImage);
             } else {

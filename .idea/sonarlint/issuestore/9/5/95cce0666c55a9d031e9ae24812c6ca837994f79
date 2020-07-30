@@ -1,27 +1,17 @@
 
-Q	java:S125J"<This block of commented-out lines of code should be removed.(¶¥ýË
-Q	java:S125~"<This block of commented-out lines of code should be removed.(–¹Îà
-V	java:S125>"<This block of commented-out lines of code should be removed.(ÙÌúßþÿÿÿÿ
-V	java:S125r"<This block of commented-out lines of code should be removed.(·÷½ýÿÿÿÿ
-W	java:S125"<This block of commented-out lines of code should be removed.(’ÀñËýÿÿÿÿ
-R	java:S125¢"<This block of commented-out lines of code should be removed.(Î©“¥
-R	java:S125ˆ"<This block of commented-out lines of code should be removed.(÷ªÄ§
-V	java:S1252"<This block of commented-out lines of code should be removed.(æ ¯¢úÿÿÿÿ
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¥¸²êùÿÿÿÿ
-V	java:S125u"<This block of commented-out lines of code should be removed.(ÇÒòÎþÿÿÿÿ
-Q	java:S125<"<This block of commented-out lines of code should be removed.(Ó–Çü
-Q	java:S1255"<This block of commented-out lines of code should be removed.(ºÀ³Ž
-R	java:S125Œ"<This block of commented-out lines of code should be removed.(ÜîæÝ
-W	java:S125þ"<This block of commented-out lines of code should be removed.(Þÿ±›ùÿÿÿÿ
-P	java:S125N"<This block of commented-out lines of code should be removed.(ùÑÕ.
-R	java:S125"<This block of commented-out lines of code should be removed.(÷ªÄ§
-V	java:S1250"<This block of commented-out lines of code should be removed.(¨©âùÿÿÿÿ
 v
-java:S1488å"ZImmediately return this expression instead of assigning it to the temporary variable "vh".(óÕ”Õýÿÿÿÿ
-o
-java:S2293#"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿ´…•
-Q	java:S125`"<This block of commented-out lines of code should be removed.(†ÂÊŠ
-R	java:S125Ì"<This block of commented-out lines of code should be removed.(°‘¶Ê
-Q	java:S125m"<This block of commented-out lines of code should be removed.(Þ§æ§
-R	java:S125÷"<This block of commented-out lines of code should be removed.(ú•íõ
-V	java:S125{"<This block of commented-out lines of code should be removed.(Í¨ð—ûÿÿÿÿ
+java:S1488³"ZImmediately return this expression instead of assigning it to the temporary variable "vh".(óÕ”Õýÿÿÿÿ
+Q	java:S125p"<This block of commented-out lines of code should be removed.(Î©“¥
+]	java:S125Q"<This block of commented-out lines of code should be removed.(ùº‡Óûÿÿÿÿ8ëË‹Î¹.
+X	java:S125C"<This block of commented-out lines of code should be removed.(†ÂÊŠ8ëË‹Î¹.
+F
+java:S1481P")Remove this unused "user" local variable.(Žñ…Ú8ëË‹Î¹.
+R	java:S125š"<This block of commented-out lines of code should be removed.(°‘¶Ê
+R	java:S125Å"<This block of commented-out lines of code should be removed.(ú•íõ
+ž
+java:S1186/"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¢“ŽÃ8ëË‹Î¹.
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¥¸²êùÿÿÿÿ
+v
+java:S2293#"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿ´…•8ëË‹Î¹.
+U
+java:S1854P"8Remove this useless assignment to local variable "user".(Žñ…Ú8ëË‹Î¹.

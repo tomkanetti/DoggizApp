@@ -12,8 +12,8 @@ import java.util.List;
 @Dao
 public interface CommentDao {
 
-    @Query("select * from Comment")
-    LiveData<List<Comment>> getAll();
+    @Query("select * from Comment WHERE postId LIKE :postId ")
+    LiveData<List<Comment>> getAll(String postId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Comment... comments);

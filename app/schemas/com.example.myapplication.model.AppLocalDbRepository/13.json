@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 11,
-    "identityHash": "6b88525fd7dd4e99d44f70c13724f9ce",
+    "version": 13,
+    "identityHash": "8612f8b7f5fa5b3e64d11a8de137d8b7",
     "entities": [
       {
         "tableName": "User",
@@ -121,12 +121,62 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Comment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`postId` TEXT NOT NULL, `authorName` TEXT NOT NULL, `commentContent` TEXT NOT NULL, `commentId` TEXT NOT NULL, `authorImg` TEXT, `time` INTEGER, PRIMARY KEY(`commentId`))",
+        "fields": [
+          {
+            "fieldPath": "postId",
+            "columnName": "postId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorName",
+            "columnName": "authorName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "commentContent",
+            "columnName": "commentContent",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "commentId",
+            "columnName": "commentId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorImg",
+            "columnName": "authorImg",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "commentId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6b88525fd7dd4e99d44f70c13724f9ce')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8612f8b7f5fa5b3e64d11a8de137d8b7')"
     ]
   }
 }
