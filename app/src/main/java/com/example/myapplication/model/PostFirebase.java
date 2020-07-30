@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -33,23 +34,29 @@ public class PostFirebase {
 
 
 
-    public static void addPost(final Post post, final PostModel.Listener<Boolean> listener) {
+    public static void addPost(final Post post, final PostModel.Listener<Post> listener) {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection(POST_COLLECTION).add(toJson(post)).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
-                    if (task.isSuccessful()) {
-                        DocumentReference result = task.getResult();
-                        if (result != null) {
-                            //post.setId(result.getId());
-                  }
-                        if (listener != null)
-                            listener.onComplete(task.isSuccessful());
-                    } else {
-                        listener.onComplete(null);
-                    }
+                public void onComplete(@NonNull final Task<DocumentReference> task) {
+                    new AsyncTask<String, String, String>() {
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            if (task != null) {
+                                DocumentReference result = task.getResult();
+                                if (result != null) {
+                                    post.setId(result.getId());
+                                }
+                                if (listener != null)
+                                    listener.onComplete(post);
+                            } else {
+                                listener.onComplete(null);
+                            }
+                            return "";
+                        }
+                    }.execute();
                 }
             });
         }

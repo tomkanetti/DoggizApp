@@ -259,9 +259,9 @@ public class FeedFragment extends DialogFragment {
                 post.setImage(imageUrl);
                 post.setDelete(false);
                 post.setId(post.getTitle()+post.getDescription());
-                PostModel.instance.addPost(post, new PostModel.Listener<Boolean>() {
+                PostModel.instance.addPost(post, new PostModel.Listener<Post>() {
                     @Override
-                    public void onComplete(Boolean data) {
+                    public void onComplete(Post data) {
 //                        NavController navController = Navigation.findNavController(view);
 //                        navController.navigateUp();
                     }

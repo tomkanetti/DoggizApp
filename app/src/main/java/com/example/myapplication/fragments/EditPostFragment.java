@@ -73,6 +73,13 @@ public class EditPostFragment extends Fragment {
             }
         });
 
+//        deletePostBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                viewModel.deletePost();
+//            }
+//        });
+
 
         return view;
     }
@@ -98,16 +105,15 @@ public class EditPostFragment extends Fragment {
                 }
                 @Override
                 public void onFail() {
-
                 }
             });
         }
         PostModel.instance.updatePostChanges(post, new PostModel.CompListener() {
             @Override
             public void onComplete() {
-
             }
         });
+
     }
 
 

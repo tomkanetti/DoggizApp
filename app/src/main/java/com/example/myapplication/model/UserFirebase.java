@@ -77,6 +77,7 @@ public class UserFirebase {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (listener != null) {
+
                         listener.onComplete(task.isSuccessful());
                     }
                 }

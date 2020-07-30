@@ -83,8 +83,13 @@ public class PostModel {
         void onComplete();
     }
 
-    public void addPost(Post post, Listener<Boolean> listener) {
-        PostFirebase.addPost(post,listener);
+    public void addPost(Post post, Listener<Post> listener) {
+        PostFirebase.addPost(post, new Listener<Post>() {
+            @Override
+            public void onComplete(Post data) {
+                AppLocalDb.db.postDao().insertAll(data);
+            }
+        });
     }
 
 }
