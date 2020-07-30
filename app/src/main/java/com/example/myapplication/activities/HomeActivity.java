@@ -122,10 +122,8 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
                 ownerName.setText(data.ownerName);
 
                 if (data.imgUrl != null && !data.imgUrl.equals("")) {
-                    Log.d("TAG", " if - UsersListFragment - bind");
                     Picasso.get().load(data.imgUrl).placeholder(R.drawable.f).into(userImage);
                 } else {
-                    Log.d("TAG", " else - UsersListFragment - bind");
                     userImage.setImageResource(R.drawable.f);
                 }
             }
@@ -140,7 +138,6 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if(menuItem.getItemId()==R.id.userProfileFragment) {
-            Log.d("TAG", "herrrrrrrre");
             navController.navigate(UserProfileFragmentDirections.actionGlobalUserProfileFragment(user));
         }
         return true;

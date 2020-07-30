@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -21,6 +22,7 @@ public class PostModel {
         refreshPostList(null);
         return liveData;
     }
+
 
     public void refreshPostList(final CompListener listener) {
         long lastUpdated = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE)
@@ -51,7 +53,6 @@ public class PostModel {
                         if (listener != null) listener.onComplete();
                     }
                 }.execute();
-
             }
         });
     }

@@ -51,6 +51,8 @@ public class UserModel {
         return UserFirebase.isLoggedIn();
     }
 
+
+
     public void refreshUserList(final CompListener listener){
         long lastUpdated = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE)
                 .getLong("ReportsLastUpdateDate", 0);
