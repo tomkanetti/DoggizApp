@@ -26,6 +26,11 @@ public class UserModel {
         //AppLocalDb.db.userDao().insertAll(user);
     }
 
+    public void logout() {
+        UserFirebase.logout();
+
+    }
+
     public interface getAllUsersListener {
         void onComplete(List<User> data);
     }

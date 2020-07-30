@@ -186,5 +186,9 @@ public class UserFirebase {
             return firebaseUser.getEmail();
         return null;
     }
+
+    public static void logout() {
+        FirebaseAuth.getInstance().signOut();
+    }
 }
 

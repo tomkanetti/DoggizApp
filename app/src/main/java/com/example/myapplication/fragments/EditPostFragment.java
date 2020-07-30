@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
 import com.example.myapplication.model.Post;
 import com.example.myapplication.model.PostModel;
 import com.example.myapplication.model.StoreModel;
@@ -81,7 +82,7 @@ public class EditPostFragment extends Fragment {
                     @Override
                     public void onComplete(Boolean data) {
                         if (data) {
-                            Navigation.findNavController(view).navigateUp();
+                            Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                         }
                     }
                 });

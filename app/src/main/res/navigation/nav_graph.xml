@@ -86,4 +86,7 @@
     <action
         android:id="@+id/action_global_editPostFragment"
         app:destination="@id/editPostFragment" />
+    <action
+        android:id="@+id/action_global_mainFragment"
+        app:destination="@id/mainFragment" />
 </navigation>

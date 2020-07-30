@@ -40,6 +40,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PostDetailsFragment extends Fragment {
+    private static final CharSequence CANT_EDIT = "You can't edit this post";
 
     ImageView postImg;
     TextView postTile;
@@ -92,8 +93,11 @@ public class PostDetailsFragment extends Fragment {
         editPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: CHECK IF THE POSR IS CONNECTED TO USER
-                parent.onItemSelectedFromPostDetail(post);
+                if(user.getEmail().equals(post.getUserEmail()))
+                    parent.onItemSelectedFromPostDetail(post);
+                else {
+                    editPostBtn.setError(CANT_EDIT);
+                }
             }
         });
 

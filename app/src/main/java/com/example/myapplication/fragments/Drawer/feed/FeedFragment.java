@@ -214,13 +214,8 @@ public class FeedFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 sharePost();
+                //Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                 popAddPost.dismiss();
-//                viewModel.refresh(new PostModel.CompListener() {
-//                    @Override
-//                    public void onComplete() {
-//                        getAllowEnterTransitionOverlap();
-//                    }
-//                });
             }
         });
     }

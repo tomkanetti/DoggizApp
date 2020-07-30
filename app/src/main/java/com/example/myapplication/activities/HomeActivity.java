@@ -30,6 +30,8 @@ import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
 import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragmentDirections;
+import com.example.myapplication.fragments.MainFragment;
+import com.example.myapplication.fragments.MainFragmentDirections;
 import com.example.myapplication.fragments.PostDetailsFragment;
 import com.example.myapplication.fragments.PostDetailsFragmentDirections;
 import com.example.myapplication.model.Post;
@@ -63,11 +65,6 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         navigationView = findViewById(R.id.nav_view);
         appBarLayout=findViewById(R.id.appBarLayout);
 
-
-        //setupDrawerContent(navigationView);
-
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
 //        toggle.setDrawerIndicatorEnabled(true);
@@ -88,9 +85,22 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
         if (user == null) {
             hideAppBar();
         }
+
+        navigationView.getMenu().findItem(R.id.logout).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                logout();
+                return true;
+            }
+        });
     }
 
-
+    private void logout() {
+        UserModel.instance.logout();
+        navController.navigate(MainFragmentDirections.actionGlobalMainFragment());
+        drawer.closeDrawers();
+        hideAppBar();
+    }
 
 
 //    @Override
@@ -124,15 +134,15 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
             @Override
             public void onComplete(User data) {
                 user=data;
-//                email.setText(data.getEmail());
-//                dogName.setText(data.dogName);
-//                ownerName.setText(data.ownerName);
-//
-//                if (data.imgUrl != null && !data.imgUrl.equals("")) {
-//                    Picasso.get().load(data.imgUrl).placeholder(R.drawable.f).into(userImage);
-//                } else {
-//                    userImage.setImageResource(R.drawable.f);
-//                }
+                email.setText(data.getEmail());
+                dogName.setText(data.dogName);
+                ownerName.setText(data.ownerName);
+
+                if (data.imgUrl != null && !data.imgUrl.equals("")) {
+                    Picasso.get().load(data.imgUrl).placeholder(R.drawable.f).into(userImage);
+                } else {
+                    userImage.setImageResource(R.drawable.f);
+                }
             }
         });
     }
@@ -158,7 +168,6 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public void onItemSelected(User user) {
         navController.navigate(UsersListFragmentDirections.actionGlobalUserProfileFragment(user));
-
     }
 
     @Override
