@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class UserProfileFragment extends Fragment {
     RecyclerView list;
     UserPostListAdapter adapter;
     ProgressBar progressBar;
+    Button editProfileBtn;
 
 
     public UserProfileFragment() {

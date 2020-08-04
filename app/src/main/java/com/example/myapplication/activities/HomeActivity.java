@@ -105,6 +105,8 @@ public class  HomeActivity extends AppCompatActivity implements FeedFragment.Del
                     navController.navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                 if(menuItem.getItemId()==R.id.usersListFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalUsersListFragment());
+                if(menuItem.getItemId()==R.id.editProfileFragment)
+                    navController.navigate(FeedFragmentDirections.actionGlobalEditProfileFragment(user));
                 drawer.close();
                 return true;
             }
