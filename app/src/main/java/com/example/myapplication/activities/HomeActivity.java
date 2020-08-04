@@ -41,7 +41,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate, UserProfileFragment.Delegate {
+public class  HomeActivity extends AppCompatActivity implements FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate, UserProfileFragment.Delegate {
     NavController navController;
     NavigationView navigationView;
     DrawerLayout drawer;
@@ -83,6 +83,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
 //        setOnNavControllerDestinationChanged();
 
         if (user == null) {
+            Log.d("TAG", "USER == NULL ?");
             hideAppBar();
         }
 
@@ -90,6 +91,21 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 logout();
+                return true;
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if(menuItem.getItemId()==R.id.userProfileFragment)
+                    Log.d("TAG", "ENTER TO FUNCTIONS- IF");
+                    navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
+                if(menuItem.getItemId()==R.id.feedFragment)
+                    navController.navigate(FeedFragmentDirections.actionGlobalFeedFragment());
+                if(menuItem.getItemId()==R.id.usersListFragment)
+                    navController.navigate(FeedFragmentDirections.actionGlobalUsersListFragment());
+                drawer.close();
                 return true;
             }
         });
@@ -150,14 +166,6 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if(menuItem.getItemId()==R.id.userProfileFragment) {
-            navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
-        }
-        return true;
     }
 
     @Override
