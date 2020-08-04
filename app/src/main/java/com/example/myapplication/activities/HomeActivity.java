@@ -41,7 +41,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate {
+public class  HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate, UserProfileFragment.Delegate {
     NavController navController;
     NavigationView navigationView;
     DrawerLayout drawer;
@@ -155,7 +155,7 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if(menuItem.getItemId()==R.id.userProfileFragment) {
-            navController.navigate(UserProfileFragmentDirections.actionGlobalUserProfileFragment(user));
+            navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
         }
         return true;
     }
@@ -176,4 +176,8 @@ public class  HomeActivity extends AppCompatActivity implements NavigationView.O
     }
 
 
+    @Override
+    public void onItemSelectedFromUserProfile(Post post) {
+        navController.navigate(UserProfileFragmentDirections.actionGlobalPostDetailsFragment(post,user));
+    }
 }

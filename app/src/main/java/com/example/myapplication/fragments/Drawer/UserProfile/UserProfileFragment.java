@@ -87,14 +87,14 @@ public class UserProfileFragment extends Fragment {
         adapter = new UserPostListAdapter();
         list.setAdapter(adapter);
 
-//        adapter.setOnItemClickListener(new UserProfileFragment.OnItemClickListener() {
-//            @Override
-//            public void onClick(int position) {
-//                Log.d("TAG","row was clicked" + position);
-//                Post p = myPostsList.get(position);
-//                parent.onItemSelectedFromUserProfile(p);
-//            }
-//        });
+        adapter.setOnItemClickListener(new UserProfileFragment.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Log.d("TAG","row was clicked" + position);
+                Post p = myPostsList.get(position);
+                parent.onItemSelectedFromUserProfile(p);
+            }
+        });
 
         liveData = viewModel.getData(user);
         // when tha values in liveData changes this function observes
@@ -206,11 +206,11 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-//        if (context instanceof Delegate) {
-//            parent = (Delegate) getActivity();
-//        } else {
-//            throw new RuntimeException(context.toString() + "student list parent activity must implement dtudent ;list fragment Delegate");
-//        }
+        if (context instanceof Delegate) {
+            parent = (Delegate) getActivity();
+        } else {
+            throw new RuntimeException(context.toString() + "student list parent activity must implement dtudent ;list fragment Delegate");
+        }
         setHasOptionsMenu(true);
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);

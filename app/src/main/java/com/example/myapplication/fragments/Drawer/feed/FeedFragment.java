@@ -223,7 +223,7 @@ public class FeedFragment extends DialogFragment {
     public void sharePost() {
         //Log.d("TAG", "5");
         Date d = new Date();
-        if (popupPostImage != null) {
+        if (pickedImgBit != null) {
             StoreModel.uploadImage(pickedImgBit, "post_image" + d.getTime(), new StoreModel.Listener() {
                 @Override
                 public void onSuccess(String url) {
