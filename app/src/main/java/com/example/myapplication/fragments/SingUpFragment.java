@@ -90,8 +90,7 @@ public class SingUpFragment extends Fragment {
                 //hideKeyboard();
                 if(validateForm() ) {
                     signUp();
-                    Navigation.findNavController(v).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
-                        activity.updateUI();
+
                 }
             }
         });
@@ -142,6 +141,8 @@ public class SingUpFragment extends Fragment {
                     UserModel.instance.addUser(user, new UserModel.Listener<Boolean>() {
                         @Override
                         public void onComplete(Boolean data) {
+                            Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
+                            activity.updateUI();
 
                         }
                     });
