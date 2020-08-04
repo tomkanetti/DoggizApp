@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -33,11 +34,11 @@ public class PostFirebase {
     final static String POST_COLLECTION = "posts";
 
 
-
+    @SuppressLint("StaticFieldLeak")
     public static void addPost(final Post post, final PostModel.Listener<Post> listener) {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            final FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection(POST_COLLECTION).add(toJson(post)).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
                 public void onComplete(@NonNull final Task<DocumentReference> task) {
@@ -48,6 +49,7 @@ public class PostFirebase {
                                 DocumentReference result = task.getResult();
                                 if (result != null) {
                                     post.setId(result.getId());
+                                    db.collection(POST_COLLECTION).document(result.getId()).update("post id", result.getId());
                                 }
                                 if (listener != null)
                                     listener.onComplete(post);
@@ -138,7 +140,7 @@ public class PostFirebase {
 
     public static void getAllMyPosts(String userEmail, final PostModel.Listener<List<Post>> listListener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(POST_COLLECTION).whereEqualTo("user email",userEmail)
+        db.collection(POST_COLLECTION).whereEqualTo("is delete", false).whereEqualTo("user email",userEmail)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

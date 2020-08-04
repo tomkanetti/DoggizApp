@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,7 @@ public class PostDetailsFragment extends Fragment {
     TextView comment;
     Button addComment;
     LiveData<User> UserLiveData;
+    ProgressBar progressBar;
 
 
     View view;
@@ -88,6 +90,9 @@ public class PostDetailsFragment extends Fragment {
         comment= view.findViewById(R.id.post_detail_comment_txt);
         addComment= view.findViewById(R.id.post_detail_add_comment_btn);
         editPostBtn = view.findViewById(R.id.post_details_edit_btn);
+
+        progressBar = view.findViewById(R.id.post_detail_progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         editPostBtn.setCursorVisible(false);
         editPostBtn.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +203,8 @@ public class PostDetailsFragment extends Fragment {
 
 
 
-    public void addComment(){
+    public void addComment() {
+        progressBar.setVisibility(View.VISIBLE);
         String theComment=comment.getText().toString();
         Comment newComment=new Comment();
         newComment.setPostId(post.getId());
@@ -209,6 +215,7 @@ public class PostDetailsFragment extends Fragment {
         CommentModel.instance.addComment(newComment, new CommentModel.Listener<Boolean>() {
             @Override
             public void onComplete(Boolean data) {
+                progressBar.setVisibility(View.INVISIBLE);
 //                NavController navController = Navigation.findNavController(view);
 //                navController.navigateUp();
             }

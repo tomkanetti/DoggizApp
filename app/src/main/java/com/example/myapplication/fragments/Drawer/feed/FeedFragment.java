@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ import com.example.myapplication.model.StoreModel;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -71,17 +73,17 @@ public class FeedFragment extends DialogFragment {
     PostListAdapter adapter;
     FeedViewModel viewModel;
     LiveData<List<Post>> liveData;
-
+    LiveData<User> liveDataUser;
+    ProgressBar progressBar;
     static Boolean nav;
+    Delegate parent;
+    private Bitmap pickedImgBit = null;
 
 
     public interface Delegate{
         void onItemSelected(Post post);
     }
 
-    Delegate parent;
-
-    private Bitmap pickedImgBit = null;
 
     public FeedFragment(){}
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -188,6 +190,8 @@ public class FeedFragment extends DialogFragment {
         popupDescription = popAddPost.findViewById(R.id.sharePost_description_txt);
         popupAddImageBtn = popAddPost.findViewById(R.id.sharePost_addImg_B);
         popUpShareBtn = popAddPost.findViewById(R.id.sharePost_share_btn);
+//        progressBar= popAddPost.findViewById(R.id.popup_progressBar);
+//        progressBar.setVisibility(View.INVISIBLE);
 
         UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
             @Override
@@ -221,23 +225,24 @@ public class FeedFragment extends DialogFragment {
     }
 
     public void sharePost() {
-        //Log.d("TAG", "5");
+        //progressBar.setVisibility(View.VISIBLE);
         Date d = new Date();
-        if (popupPostImage != null) {
+        if (pickedImgBit != null) {
             StoreModel.uploadImage(pickedImgBit, "post_image" + d.getTime(), new StoreModel.Listener() {
                 @Override
                 public void onSuccess(String url) {
+                    //progressBar.setVisibility(View.INVISIBLE);
                     savePost(url);
                 }
                 @Override
                 public void onFail() {
+
                 }
             });
         } else {savePost("");}
     }
 
     public void savePost(final String imageUrl) {
-        //Log.d("TAG", "6");
         final String title = popupTitle.getText().toString();
         final String description = popupDescription.getText().toString();
 

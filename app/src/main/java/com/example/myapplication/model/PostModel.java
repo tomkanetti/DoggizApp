@@ -37,9 +37,10 @@ public class PostModel {
                         long lastUpdated = 0;
                         if (data != null) {
                             for (Post post : data) {
-                                AppLocalDb.db.postDao().insertAll(post);
-                                if (post.getLastUpdate() > lastUpdated)
-                                    lastUpdated = post.getLastUpdate();
+                                if(!post.getDelete()){
+                                    AppLocalDb.db.postDao().insertAll(post);
+                                    if (post.getLastUpdate() > lastUpdated)
+                                        lastUpdated = post.getLastUpdate();}
                             }
                             SharedPreferences.Editor editor = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE).edit();
                             editor.putLong("PostsLastUpdateDate", lastUpdated).commit();
@@ -83,7 +84,7 @@ public class PostModel {
             @Override
             protected String doInBackground(String... strings) {
                 AppLocalDb.db.postDao().delete(p);
-                return null;
+                return "";
             }
         }.execute();
 
@@ -96,7 +97,7 @@ public class PostModel {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void refreshMyPostList(User u, final CompListener listener) {
+    public void refreshMyPostList(User u, final CompListener listener) {
         PostFirebase.getAllMyPosts(u.getEmail(), new Listener<List<Post>>() {
             @Override
             public void onComplete(final List<Post> data) {

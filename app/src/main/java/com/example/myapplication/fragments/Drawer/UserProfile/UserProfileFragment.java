@@ -12,18 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
 import com.example.myapplication.fragments.Drawer.feed.FeedViewModel;
 import com.example.myapplication.model.Post;
+import com.example.myapplication.model.PostModel;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.squareup.picasso.Picasso;
@@ -45,6 +49,8 @@ public class UserProfileFragment extends Fragment {
     List<Post> myPostsList = new LinkedList<Post>();
     RecyclerView list;
     UserPostListAdapter adapter;
+    ProgressBar progressBar;
+    Button editProfileBtn;
 
 
     public UserProfileFragment() {
@@ -87,16 +93,17 @@ public class UserProfileFragment extends Fragment {
         adapter = new UserPostListAdapter();
         list.setAdapter(adapter);
 
-//        adapter.setOnItemClickListener(new UserProfileFragment.OnItemClickListener() {
-//            @Override
-//            public void onClick(int position) {
-//                Log.d("TAG","row was clicked" + position);
-//                Post p = myPostsList.get(position);
-//                parent.onItemSelectedFromUserProfile(p);
-//            }
-//        });
+        adapter.setOnItemClickListener(new UserProfileFragment.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Log.d("TAG","row was clicked" + position);
+                Post p = myPostsList.get(position);
+                parent.onItemSelectedFromUserProfile(p);
+            }
+        });
 
         liveData = viewModel.getData(user);
+
         // when tha values in liveData changes this function observes
         liveData.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
@@ -106,6 +113,20 @@ public class UserProfileFragment extends Fragment {
                 adapter.notifyDataSetChanged(); //refresh
             }
         });
+
+        final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.profile_swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewModel.refresh(user, new PostModel.CompListener() {
+                    @Override
+                    public void onComplete() {
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+            }
+        });
+
 
         return view;
     }
@@ -206,11 +227,11 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-//        if (context instanceof Delegate) {
-//            parent = (Delegate) getActivity();
-//        } else {
-//            throw new RuntimeException(context.toString() + "student list parent activity must implement dtudent ;list fragment Delegate");
-//        }
+        if (context instanceof Delegate) {
+            parent = (Delegate) getActivity();
+        } else {
+            throw new RuntimeException(context.toString() + "student list parent activity must implement dtudent ;list fragment Delegate");
+        }
         setHasOptionsMenu(true);
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);

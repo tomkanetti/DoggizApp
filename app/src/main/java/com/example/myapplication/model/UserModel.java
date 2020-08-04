@@ -57,7 +57,6 @@ public class UserModel {
     }
 
 
-
     public void refreshUserList(final CompListener listener){
         long lastUpdated = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE)
                 .getLong("ReportsLastUpdateDate", 0);
@@ -115,6 +114,7 @@ public class UserModel {
         UserFirebase.getCurrentUserDetails(listener);
     }
 
+    //TODO - FIX
     public LiveData<User> getUser(String userEmail) {
         LiveData<User> userLiveData = AppLocalDb.db.userDao().getUser(userEmail);
         refreshUserDetails(userEmail);
@@ -134,25 +134,6 @@ public class UserModel {
                             return null;
                         }
                     }.execute();
-                }
-            }
-        });
-    }
-
-
-    @SuppressLint("StaticFieldLeak")
-    public void refreshReportDetails() {
-        UserFirebase.getCurrentUserDetails(new Listener<User>() {
-            @Override
-            public void onComplete(final User data) {
-                if (data != null) {
-                    new AsyncTask<String, String, String>() {
-                        @Override
-                        protected String doInBackground(String... strings) {
-                            AppLocalDb.db.userDao().insertAll(data);
-                            return null;
-                        }
-                    }.execute("");
                 }
             }
         });

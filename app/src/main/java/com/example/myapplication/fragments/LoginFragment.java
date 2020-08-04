@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
@@ -34,6 +35,7 @@ public class LoginFragment extends Fragment {
     TextView passwordTv;
     View view;
     Boolean flag = false;
+    ProgressBar progressBar;
     HomeActivity activity;
     public LoginFragment(){}
 
@@ -44,6 +46,9 @@ public class LoginFragment extends Fragment {
         loginBtn = view.findViewById(R.id.login_login_btn);
         emailTv=view.findViewById(R.id.login_email_text);
         passwordTv=view.findViewById(R.id.login_password_text);
+        progressBar = view.findViewById(R.id.login_progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
         activity= (HomeActivity) getActivity();
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +65,7 @@ public class LoginFragment extends Fragment {
     }
 
     void login() {
+        progressBar.setVisibility(View.VISIBLE);
         UserModel.instance.login(emailTv.getText().toString(), passwordTv.getText().toString(), new UserModel.Listener<Boolean>() {
             @Override
             public void onComplete(Boolean data) {
@@ -67,6 +73,7 @@ public class LoginFragment extends Fragment {
                     Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                     activity.updateUI();
                 } else {
+                    progressBar.setVisibility(View.INVISIBLE);
                     loginError(AUTHENTICATION_FAILED_MESSAGE);
                 }
                 flag = data;

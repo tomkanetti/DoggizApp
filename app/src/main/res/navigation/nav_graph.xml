@@ -92,4 +92,15 @@
     <action
         android:id="@+id/action_global_usersListFragment"
         app:destination="@id/usersListFragment" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.myapplication.fragments.Drawer.editProfile.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <argument
+            android:name="user"
+            app:argType="com.example.myapplication.model.User" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_editProfileFragment"
+        app:destination="@id/editProfileFragment" />
 </navigation>

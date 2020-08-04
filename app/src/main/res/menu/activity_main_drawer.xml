@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/group">
+    <group
+        android:id="@+id/group"
+        android:checkableBehavior="all">
         <item
             android:id="@+id/feedFragment"
             android:icon="@drawable/home_icon"
@@ -15,16 +16,28 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="My Profile" />
 
+
         <item
             android:id="@+id/usersListFragment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Friends" />
 
+    </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group2">
+        <item
+            android:id="@+id/editProfileFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Edit Profile" />
         <item
             android:id="@+id/logout"
             android:icon="@drawable/logout_icon"
-         android:title="Log Out" />
+            android:title="Log Out" />
+
     </group>
+
 
     <group android:id="@+id/non">
     </group>

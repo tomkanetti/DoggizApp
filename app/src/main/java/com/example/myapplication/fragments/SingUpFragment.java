@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ import com.example.myapplication.model.StoreModel;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Date;
 
@@ -55,6 +57,9 @@ public class SingUpFragment extends Fragment {
     TextView passwordTv;
     Bitmap imageBitmap;
     HomeActivity activity;
+    ProgressBar progressBar;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,6 +78,8 @@ public class SingUpFragment extends Fragment {
         dogNameTv=view.findViewById(R.id.singup_dogName_text);
         emailTv=view.findViewById(R.id.singup_email_text);
         passwordTv=view.findViewById(R.id.singup_password_text);
+        progressBar = view.findViewById(R.id.signup_progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
         activity = (HomeActivity) getActivity();
         //activity.hideAppBar();
 
@@ -83,8 +90,7 @@ public class SingUpFragment extends Fragment {
                 //hideKeyboard();
                 if(validateForm() ) {
                     signUp();
-                    Navigation.findNavController(v).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
-                        activity.updateUI();
+
                 }
             }
         });
@@ -135,6 +141,8 @@ public class SingUpFragment extends Fragment {
                     UserModel.instance.addUser(user, new UserModel.Listener<Boolean>() {
                         @Override
                         public void onComplete(Boolean data) {
+                            Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
+                            activity.updateUI();
 
                         }
                     });
@@ -143,6 +151,7 @@ public class SingUpFragment extends Fragment {
     }
 
     void signUp() {
+        progressBar.setVisibility(View.VISIBLE);
         Date d = new Date();
         if (imageBitmap != null) {
             StoreModel.uploadImage(imageBitmap, "my_photo" + d.getTime(), new StoreModel.Listener() {
@@ -152,6 +161,9 @@ public class SingUpFragment extends Fragment {
                 }
                 @Override
                 public void onFail() {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Snackbar snackbar = Snackbar.make(view, "Fail to sign up", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }
             });
         } else
