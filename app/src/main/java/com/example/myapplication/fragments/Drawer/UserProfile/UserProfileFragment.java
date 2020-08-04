@@ -96,7 +96,7 @@ public class UserProfileFragment extends Fragment {
 //            }
 //        });
 
-        liveData = viewModel.getData(data);
+        liveData = viewModel.getData(user);
         // when tha values in liveData changes this function observes
         liveData.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
