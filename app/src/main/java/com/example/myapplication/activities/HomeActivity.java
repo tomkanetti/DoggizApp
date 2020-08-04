@@ -183,7 +183,6 @@ public class  HomeActivity extends AppCompatActivity implements FeedFragment.Del
         navController.navigate(PostDetailsFragmentDirections.actionGlobalEditPostFragment(post));
     }
 
-
     @Override
     public void onItemSelectedFromUserProfile(Post post) {
         navController.navigate(UserProfileFragmentDirections.actionGlobalPostDetailsFragment(post,user));

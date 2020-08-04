@@ -36,4 +36,8 @@ public class UserProfileViewModel extends ViewModel {
         }
         return liveData;
     }
+
+    public void refresh(User u, PostModel.CompListener listener) {
+        PostModel.instance.refreshMyPostList(u, listener);
+    }
 }

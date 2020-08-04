@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ public class EditPostFragment extends Fragment {
     TextView postTitle, postDescription;
     ImageView postImg;
     Post post;
+    ProgressBar progressBar;
 
     Bitmap imageBitmap;
 
@@ -54,6 +56,8 @@ public class EditPostFragment extends Fragment {
         postTitle = view.findViewById(R.id.edit_post_title);
         postDescription = view.findViewById(R.id.edit_post_description);
         postImg = view.findViewById(R.id.edit_post_image);
+        progressBar = view.findViewById(R.id.edit_post_progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         post = EditPostFragmentArgs.fromBundle(getArguments()).getPost();
 
@@ -78,10 +82,12 @@ public class EditPostFragment extends Fragment {
         deletePostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 PostModel.instance.deletePost(post, new PostModel.Listener<Boolean>() {
                     @Override
                     public void onComplete(Boolean data) {
                         if (data) {
+                            progressBar.setVisibility(View.INVISIBLE);
                             Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                         }
                     }
@@ -102,6 +108,7 @@ public class EditPostFragment extends Fragment {
     }
 
     private void saveEditChanges() {
+        progressBar.setVisibility(View.VISIBLE);
         post.setTitle(postTitle.getText().toString());
         post.setDescription(postDescription.getText().toString());
 
@@ -114,6 +121,7 @@ public class EditPostFragment extends Fragment {
                 }
                 @Override
                 public void onFail() {
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             });
         }
@@ -153,8 +161,6 @@ public class EditPostFragment extends Fragment {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
-
-
 
 
 }

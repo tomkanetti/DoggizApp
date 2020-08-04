@@ -97,7 +97,7 @@ public class PostModel {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void refreshMyPostList(User u, final CompListener listener) {
+    public void refreshMyPostList(User u, final CompListener listener) {
         PostFirebase.getAllMyPosts(u.getEmail(), new Listener<List<Post>>() {
             @Override
             public void onComplete(final List<Post> data) {
