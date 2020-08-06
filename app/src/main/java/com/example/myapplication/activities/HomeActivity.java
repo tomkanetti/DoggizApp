@@ -27,7 +27,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myapplication.NavGraphDirections;
 import com.example.myapplication.R;
 import com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragment;
 import com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragmentDirections;
@@ -35,7 +34,6 @@ import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
 import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragmentDirections;
-import com.example.myapplication.fragments.MainFragment;
 import com.example.myapplication.fragments.MainFragmentDirections;
 import com.example.myapplication.fragments.PostDetailsFragment;
 import com.example.myapplication.fragments.PostDetailsFragmentDirections;
@@ -51,12 +49,10 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
     NavigationView navigationView;
     DrawerLayout drawer;
     Toolbar toolbar;
-    ActionBarDrawerToggle toggle;
     AppBarLayout appBarLayout;
     TextView dogName,ownerName,email;
     ImageView userImage;
     Boolean isHide=false;
-    AppBarConfiguration appBarConfiguration;
     User user;
 
     @Override
@@ -72,9 +68,8 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-//        toggle.setDrawerIndicatorEnabled(true);
+
         toggle.syncState();
-        //navigationView.setNavigationItemSelectedListener(this);
 
         navController = Navigation.findNavController(this, R.id.home_nav_host);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -85,7 +80,6 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
                 getSupportActionBar().setTitle(destination.getLabel());
             }
         });
-//        setOnNavControllerDestinationChanged();
 
         if (user == null) {
             Log.d("TAG", "USER == NULL ?");
@@ -128,19 +122,11 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
     }
 
 
-//    @Override
-//    protected void onStart() {
-//        Log.d("TAG", "ON START");
-//        super.onStart();
-//        hideAppBar();
-//    }
-
     public void hideAppBar() {
         Log.d("TAG","hideAppBar");
         appBarLayout.setExpanded(false,false);
         appBarLayout.setVisibility(View.GONE);
         isHide=true;
-
     }
 
     public void updateUI() {

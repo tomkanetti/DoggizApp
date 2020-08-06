@@ -27,24 +27,6 @@ import java.util.Map;
 public class UserFirebase {
     final static String USER_COLLECTION = "users";
 
-    public static void getAllUsers(final UserModel.Listener<List<User>> listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(USER_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<User> userData = null;
-                if (task.isSuccessful()) {
-                    //userData = new LinkedList<User>();
-
-                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                        User user = doc.toObject(User.class);
-                        userData.add(user);
-                    }
-                }
-                listener.onComplete(userData);
-            }
-        });
-    }
     public static void getAllUsersSince(long since, final UserModel.Listener<List<User>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts = new Timestamp(new Date(since));

@@ -42,7 +42,6 @@ public class EditPostFragment extends Fragment {
     ImageView postImg;
     Post post;
     ProgressBar progressBar;
-
     Bitmap imageBitmap;
 
     @Nullable
