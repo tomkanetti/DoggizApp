@@ -2,16 +2,13 @@ package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
@@ -22,7 +19,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myapplication.NavGraphDirections;
 import com.example.myapplication.R;
 import com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragment;
 import com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragmentDirections;
@@ -30,7 +26,6 @@ import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
 import com.example.myapplication.fragments.Drawer.feed.FeedFragmentDirections;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
 import com.example.myapplication.fragments.Drawer.usersList.UsersListFragmentDirections;
-import com.example.myapplication.fragments.MainFragment;
 import com.example.myapplication.fragments.MainFragmentDirections;
 import com.example.myapplication.fragments.PostDetailsFragment;
 import com.example.myapplication.fragments.PostDetailsFragmentDirections;
@@ -41,17 +36,15 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-public class  HomeActivity extends AppCompatActivity implements FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate, UserProfileFragment.Delegate {
+public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate, UserProfileFragment.Delegate {
     NavController navController;
     NavigationView navigationView;
     DrawerLayout drawer;
     Toolbar toolbar;
-    ActionBarDrawerToggle toggle;
     AppBarLayout appBarLayout;
     TextView dogName,ownerName,email;
     ImageView userImage;
     Boolean isHide=false;
-    AppBarConfiguration appBarConfiguration;
     User user;
 
     @Override
@@ -67,9 +60,8 @@ public class  HomeActivity extends AppCompatActivity implements FeedFragment.Del
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-//        toggle.setDrawerIndicatorEnabled(true);
+
         toggle.syncState();
-        //navigationView.setNavigationItemSelectedListener(this);
 
         navController = Navigation.findNavController(this, R.id.home_nav_host);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -80,10 +72,8 @@ public class  HomeActivity extends AppCompatActivity implements FeedFragment.Del
                 getSupportActionBar().setTitle(destination.getLabel());
             }
         });
-//        setOnNavControllerDestinationChanged();
 
         if (user == null) {
-            Log.d("TAG", "USER == NULL ?");
             hideAppBar();
         }
 
@@ -98,42 +88,35 @@ public class  HomeActivity extends AppCompatActivity implements FeedFragment.Del
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if(menuItem.getItemId()==R.id.userProfileFragment)
-                    Log.d("TAG", "ENTER TO FUNCTIONS- IF");
-                    navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
                 if(menuItem.getItemId()==R.id.feedFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                 if(menuItem.getItemId()==R.id.usersListFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalUsersListFragment());
-                if(menuItem.getItemId()==R.id.editProfileFragment)
-                    navController.navigate(FeedFragmentDirections.actionGlobalEditProfileFragment(user));
+//                if(menuItem.getItemId()==R.id.editProfileFragment)
+//                    navController.navigate(FeedFragmentDirections.actionGlobalEditProfileFragment(user));
+                if (menuItem.getItemId()==R.id.userProfileFragment)
+                    navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
+
                 drawer.close();
                 return true;
             }
         });
     }
 
+
     private void logout() {
         UserModel.instance.logout();
         navController.navigate(MainFragmentDirections.actionGlobalMainFragment());
         drawer.closeDrawers();
         hideAppBar();
+        user = null;
     }
 
 
-//    @Override
-//    protected void onStart() {
-//        Log.d("TAG", "ON START");
-//        super.onStart();
-//        hideAppBar();
-//    }
-
     public void hideAppBar() {
-        Log.d("TAG","hideAppBar");
         appBarLayout.setExpanded(false,false);
         appBarLayout.setVisibility(View.GONE);
         isHide=true;
-
     }
 
     public void updateUI() {

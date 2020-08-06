@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragment"
-        android:label="profile"
+        android:label="userProfileFragment"
         tools:layout="@layout/fragment_user_profile">
         <argument
             android:name="user"
@@ -30,14 +30,18 @@
     </fragment>
     <action
         android:id="@+id/action_global_singUpFragment"
-        app:destination="@id/singUpFragment" />
+        app:destination="@id/singUpFragment"
+        app:enterAnim="@anim/fui_slide_in_right"
+        app:popExitAnim="@anim/fui_slide_out_left" />
     <action
         android:id="@+id/action_global_loginFragment"
-        app:destination="@id/loginFragment" />
+        app:destination="@id/loginFragment"
+        app:enterAnim="@anim/fui_slide_in_right"
+        app:popExitAnim="@anim/fui_slide_out_left" />
     <fragment
         android:id="@+id/usersListFragment"
         android:name="com.example.myapplication.fragments.Drawer.usersList.UsersListFragment"
-        android:label="fragment_friends_list"
+        android:label="usersListFragment"
         tools:layout="@layout/fragment_friends_list" />
     <action
         android:id="@+id/action_global_userProfileFragment"

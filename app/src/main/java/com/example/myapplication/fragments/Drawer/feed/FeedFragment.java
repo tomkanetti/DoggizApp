@@ -1,6 +1,5 @@
 package com.example.myapplication.fragments.Drawer.feed;
-//
-import android.app.Activity;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,23 +27,18 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.HomeActivity;
-import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
 import com.example.myapplication.model.Post;
 import com.example.myapplication.model.PostModel;
 import com.example.myapplication.model.StoreModel;
 import com.example.myapplication.model.User;
 import com.example.myapplication.model.UserModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -57,11 +50,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class FeedFragment extends DialogFragment {
     private static final int PICK_IMAGE = 100;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    private FeedViewModel feedViewModel;
     View view;
-    LiveData<User> postLiveData;
     Dialog popAddPost ;
     ImageView popupUserImage, popupAddImageBtn, popupPostImage;
     Button popUpShareBtn;
@@ -73,8 +63,6 @@ public class FeedFragment extends DialogFragment {
     PostListAdapter adapter;
     FeedViewModel viewModel;
     LiveData<List<Post>> liveData;
-    LiveData<User> liveDataUser;
-    ProgressBar progressBar;
     static Boolean nav;
     Delegate parent;
     private Bitmap pickedImgBit = null;
@@ -105,9 +93,6 @@ public class FeedFragment extends DialogFragment {
         list = view.findViewById(R.id.feed_recycleView);
         list.setHasFixedSize(true);
 
-        // for displaying the rows and contents of them
-        //data = Model.instance.getUserLst();
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
 
@@ -118,9 +103,7 @@ public class FeedFragment extends DialogFragment {
         adapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Log.d("TAG","row was clicked" + position);
                 Post post = data.get(position);
-
                 parent.onItemSelected(post);
             }
         });
@@ -131,7 +114,6 @@ public class FeedFragment extends DialogFragment {
         liveData.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
-                //Log.d("TAG", "3");
                 data = posts;
                 adapter.notifyDataSetChanged(); //refresh
             }
@@ -170,7 +152,6 @@ public class FeedFragment extends DialogFragment {
 
     @Override
     public void onDetach() {
-        //Log.d("TAG", "4");
         super.onDetach();
         parent = null;
     }
@@ -190,8 +171,6 @@ public class FeedFragment extends DialogFragment {
         popupDescription = popAddPost.findViewById(R.id.sharePost_description_txt);
         popupAddImageBtn = popAddPost.findViewById(R.id.sharePost_addImg_B);
         popUpShareBtn = popAddPost.findViewById(R.id.sharePost_share_btn);
-//        progressBar= popAddPost.findViewById(R.id.popup_progressBar);
-//        progressBar.setVisibility(View.INVISIBLE);
 
         UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
             @Override
@@ -218,20 +197,17 @@ public class FeedFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 sharePost();
-                //Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                 popAddPost.dismiss();
             }
         });
     }
 
     public void sharePost() {
-        //progressBar.setVisibility(View.VISIBLE);
         Date d = new Date();
         if (pickedImgBit != null) {
             StoreModel.uploadImage(pickedImgBit, "post_image" + d.getTime(), new StoreModel.Listener() {
                 @Override
                 public void onSuccess(String url) {
-                    //progressBar.setVisibility(View.INVISIBLE);
                     savePost(url);
                 }
                 @Override
@@ -262,8 +238,6 @@ public class FeedFragment extends DialogFragment {
                 PostModel.instance.addPost(post, new PostModel.Listener<Post>() {
                     @Override
                     public void onComplete(Post data) {
-//                        NavController navController = Navigation.findNavController(view);
-//                        navController.navigateUp();
                     }
                 });
             }
@@ -276,26 +250,18 @@ public class FeedFragment extends DialogFragment {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
-        //Log.d("TAG", "7");
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
 
-
-
     private void openGallery() {
-        //Log.d("TAG", "8");
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //Log.d("TAG", "INSIDE onActivityResult - UPLOAD PIC");
         super.onActivityResult(requestCode, resultCode, data);
-        //Log.d("TAG", "1");
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             Uri uri=data.getData();
             try {
@@ -306,8 +272,6 @@ public class FeedFragment extends DialogFragment {
                 e.printStackTrace();
             }
         }
-        nav=true;
-        //Log.d("TAG", "2");
     }
 
 

@@ -27,24 +27,6 @@ import java.util.Map;
 public class UserFirebase {
     final static String USER_COLLECTION = "users";
 
-    public static void getAllUsers(final UserModel.Listener<List<User>> listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(USER_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<User> userData = null;
-                if (task.isSuccessful()) {
-                    //userData = new LinkedList<User>();
-
-                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                        User user = doc.toObject(User.class);
-                        userData.add(user);
-                    }
-                }
-                listener.onComplete(userData);
-            }
-        });
-    }
     public static void getAllUsersSince(long since, final UserModel.Listener<List<User>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts = new Timestamp(new Date(since));
@@ -64,7 +46,6 @@ public class UserFirebase {
                     }
                 }
                 listener.onComplete(users);
-                Log.d("TAG","refresh " + users.size());
             }
         });
     }
@@ -97,7 +78,7 @@ public class UserFirebase {
         return json;
     }
 
-    private static User factory( Map<String, Object> json) {
+    private static User factory(Map<String, Object> json) {
         User user = new User();
         user.setDogName((String) json.get("dog name"));
         user.setOwnerName((String) json.get("owner name"));
@@ -126,9 +107,8 @@ public class UserFirebase {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("TAG", "signInWithEmail:success");
                         } else {
-                            Log.w("TAG", "signInWithEmail:failure", task.getException());
+                            Log.w("TAG", "loginWithEmail:failure", task.getException());
                         }
                         listener.onComplete(task.isSuccessful());
                     }
@@ -174,7 +154,7 @@ public class UserFirebase {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot res = task.getResult();
-                if (res != null && res.getData()!=null)
+                if (res != null && res.getData() != null)
                     listener.onComplete(factory(res.getData()));
             }
         });
@@ -189,6 +169,18 @@ public class UserFirebase {
 
     public static void logout() {
         FirebaseAuth.getInstance().signOut();
+    }
+
+    public static void updateUserChanges(User user, final UserModel.Listener<Boolean> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        db.collection(USER_COLLECTION).document(firebaseUser.getUid()).set(toJson(user)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                listener.onComplete(task.isSuccessful());
+            }
+        });
     }
 }
 

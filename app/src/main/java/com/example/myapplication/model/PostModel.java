@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -111,7 +110,6 @@ public class PostModel {
                         }
                         return "";
                     }
-
                     @Override
                     protected void onPostExecute(String s) {
                         super.onPostExecute(s);

@@ -15,16 +15,7 @@ public class UserProfileViewModel extends ViewModel {
     LiveData<List<Post>> liveData;
 
     public UserProfileViewModel() {
-
     }
-    //public LiveData<User> getData( )
-//    public LiveData<User> getDataa() {
-//        if (liveData == null) {
-//            liveData = UserModel.instance.getCurrentUserDetails();
-//        }
-//        return liveData;
-//    }
-
 
     public LiveData<String> getText() {
         return mText;
