@@ -68,7 +68,6 @@ public class SingUpFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                takePhoto();
                 openGallery();
             }
         });
@@ -80,7 +79,6 @@ public class SingUpFragment extends Fragment {
         progressBar = view.findViewById(R.id.signup_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         activity = (HomeActivity) getActivity();
-        //activity.hideAppBar();
 
         singUpBtn=view.findViewById((R.id.singup_singup_btn));
         singUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,23 +98,23 @@ public class SingUpFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-//    void takePhoto() {
-//        Intent takePictureIntent = new Intent(
-//                MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        }
-//    }
 
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE &&
-                resultCode == RESULT_OK) {
-            Bundle extras= data.getExtras();
-            imageBitmap = rotateImage((Bitmap) extras.get("data"));
-            imageView.setImageBitmap(imageBitmap);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            Uri uri=data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                //imageBitmap = activity.rotateImage((Bitmap) bitmap);
+                imageBitmap =rotateImage((Bitmap) bitmap);
+                imageView.setImageBitmap(imageBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
