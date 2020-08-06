@@ -34,10 +34,12 @@ import com.example.myapplication.model.UserModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.util.Date;
 
 
 public class SingUpFragment extends Fragment {
+    private static final int PICK_IMAGE = 100;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final String INVALID_EMAIL_MESSAGE = "Email is not valid";
@@ -66,7 +68,8 @@ public class SingUpFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takePhoto();
+//                takePhoto();
+                openGallery();
             }
         });
 
@@ -97,13 +100,13 @@ public class SingUpFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    void takePhoto() {
-        Intent takePictureIntent = new Intent(
-                MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
+//    void takePhoto() {
+//        Intent takePictureIntent = new Intent(
+//                MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//        }
+//    }
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -114,6 +117,13 @@ public class SingUpFragment extends Fragment {
             imageView.setImageBitmap(imageBitmap);
         }
     }
+
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+
 
     public static Bitmap rotateImage(Bitmap source) {
         Matrix matrix = new Matrix();
@@ -178,7 +188,7 @@ public class SingUpFragment extends Fragment {
 
     private boolean checkPassword(TextView passwordTv) {
         String pwd = passwordTv.getText().toString();
-        if (pwd.length() < 7) {
+        if (pwd.length() < 6) {
             passwordTv.setError(INVALID_PASSWORD_MESSAGE);
             return false;
         }
