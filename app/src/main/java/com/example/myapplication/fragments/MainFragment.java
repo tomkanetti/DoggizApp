@@ -30,7 +30,7 @@ public class MainFragment extends Fragment {
         View singUpBtn=view.findViewById(R.id.main_singUp_btn);
 
         loginBtn.setOnClickListener(Navigation.createNavigateOnClickListener(LoginFragmentDirections.actionGlobalLoginFragment()));
-        singUpBtn.setOnClickListener(Navigation.createNavigateOnClickListener(SingUpFragmentDirections.actionGlobalSingUpFragment()));
+        singUpBtn.setOnClickListener(Navigation.createNavigateOnClickListener(SignUpFragmentDirections.actionGlobalSingUpFragment()));
 
         return view;
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SingUpFragment">
+    tools:context=".fragments.SignUpFragment">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <EditText
-            android:id="@+id/singup_ownerName_text"
+            android:id="@+id/signup_ownerName_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -72,7 +72,7 @@
             app:layout_constraintVertical_bias="0.136" />
 
         <EditText
-            android:id="@+id/singup_dogName_text"
+            android:id="@+id/signup_dogName_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -85,11 +85,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/singup_ownerName_text"
+            app:layout_constraintTop_toBottomOf="@+id/signup_ownerName_text"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/singup_email_text"
+            android:id="@+id/signup_email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -102,11 +102,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/singup_dogName_text"
+            app:layout_constraintTop_toBottomOf="@+id/signup_dogName_text"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/singup_password_text"
+            android:id="@+id/signup_password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -122,18 +122,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/singup_email_text"
+            app:layout_constraintTop_toBottomOf="@+id/signup_email_text"
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/singup_singup_btn"
+            android:id="@+id/signup_singup_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="108dp"
             android:background="@drawable/reg_btn_style"
             android:backgroundTint="#B6EDD8A2"
 
-            android:text="SING UP"
+            android:text="SIGN UP"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -148,7 +148,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/singup_singup_btn"
+            app:layout_constraintTop_toBottomOf="@+id/signup_singup_btn"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
