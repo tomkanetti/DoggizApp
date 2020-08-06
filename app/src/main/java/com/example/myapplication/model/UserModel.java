@@ -14,30 +14,18 @@ import java.util.List;
 public class UserModel {
     public static final UserModel instance = new UserModel();
 
-    private UserModel() {
-//        for(int i=0; i<10; i++){
-//            User u = new User("jessi"+i, "noa"+i, " "+i, null, null, null);
-//            addUser(u,null);
-//        }
-    }
+    private UserModel() { }
 
     public void addUser(User user, Listener<Boolean> listener) {
         UserFirebase.addUser(user, listener);
-        //AppLocalDb.db.userDao().insertAll(user);
     }
 
     public void logout() {
         UserFirebase.logout();
-
-    }
-
-    public interface getAllUsersListener {
-        void onComplete(List<User> data);
     }
 
     public void signUp(String email, String password,Listener<String> listener) {
         UserFirebase.signUp(email,password,listener);
-
     }
 
     public void login(String email, String password, Listener<Boolean> listener) {
@@ -51,11 +39,6 @@ public class UserModel {
     public interface CompListener{
         void onComplete();
     }
-
-    public boolean isLoggedIn() {
-        return UserFirebase.isLoggedIn();
-    }
-
 
     public void refreshUserList(final CompListener listener){
         long lastUpdated = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE)
@@ -91,19 +74,6 @@ public class UserModel {
         });
     }
 
-    public String getCurrentUserEmail() {
-        return UserFirebase.getCurrentUserEmail();
-    }
-
-//    public LiveData<User> getCurrentUserDetails() {
-//        LiveData<User> liveData = AppLocalDb.db.userDao().getAll();
-//        getCurrentUserDetails(null);
-//        return liveData;
-//    }
-
-
-
-
     // local dataBase
     public LiveData<List<User>> getAllUsers() {
         LiveData<List<User>> liveData = AppLocalDb.db.userDao().getAll();
@@ -114,7 +84,6 @@ public class UserModel {
         UserFirebase.getCurrentUserDetails(listener);
     }
 
-    //TODO - FIX
     public LiveData<User> getUser(String userEmail) {
         LiveData<User> userLiveData = AppLocalDb.db.userDao().getUser(userEmail);
         refreshUserDetails(userEmail);

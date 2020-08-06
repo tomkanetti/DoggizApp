@@ -1,9 +1,7 @@
 package com.example.myapplication.model;
 
 import android.graphics.Bitmap;
-import android.graphics.ColorSpace;
 import android.net.Uri;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

@@ -18,7 +18,6 @@ public interface CommentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Comment... comments);
 
-
     @Delete
     void delete(Comment comment);
 

@@ -71,9 +71,6 @@ public class UsersListFragment extends Fragment {
         list = view.findViewById(R.id.friends_list_recycleView);
         list.setHasFixedSize(true);
 
-        // for displaying the rows and contents of them
-        //data = Model.instance.getUserLst();
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
 
@@ -84,9 +81,7 @@ public class UsersListFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Log.d("TAG","row was clicked - " + position);
                 User user = data.get(position);
-                Log.d("TAG","user in UserListFragment onCreateView: " + user);
                 parent.onItemSelected(user);
             }
         });
@@ -128,7 +123,6 @@ public class UsersListFragment extends Fragment {
         TextView dogName;
         TextView ownerName;
         ImageView userImage;
-        User userFriend;
 
         public FriendsRowViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -157,14 +151,6 @@ public class UsersListFragment extends Fragment {
             } else {
                 userImage.setImageResource(R.drawable.f);
             }
-
-
-//            student = st;
-//            if (st.imgUrl != null && st.imgUrl != "") {
-//                Picasso.get().load(st.imgUrl).placeholder(R.drawable.avatar).into(image);
-//            } else {
-//                image.setImageResource(R.drawable.avatar);
-//            }
         }
     }
 
@@ -200,11 +186,5 @@ public class UsersListFragment extends Fragment {
             return data.size();
         }
     }
-
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.,menu);
-//    }
 
 }

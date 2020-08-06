@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
@@ -35,7 +34,6 @@ import static android.app.Activity.RESULT_OK;
 public class EditPostFragment extends Fragment {
 
     private static final int PICK_IMAGE =100 ;
-    EditPostViewModel viewModel;
     View view;
     Button savePostBtn, deletePostBtn, editImageBtn;
     TextView postTitle, postDescription;
@@ -93,8 +91,6 @@ public class EditPostFragment extends Fragment {
                 });
             }
         });
-
-
         return view;
     }
 
@@ -117,6 +113,12 @@ public class EditPostFragment extends Fragment {
                 @Override
                 public void onSuccess(String url) {
                     post.setImage(url);
+                    PostModel.instance.updatePostChanges(post, new PostModel.CompListener() {
+                        @Override
+                        public void onComplete() {
+                            Navigation.findNavController(view).navigateUp();
+                        }
+                    });
                 }
                 @Override
                 public void onFail() {
@@ -124,13 +126,6 @@ public class EditPostFragment extends Fragment {
                 }
             });
         }
-        PostModel.instance.updatePostChanges(post, new PostModel.CompListener() {
-            @Override
-            public void onComplete() {
-                Navigation.findNavController(view).navigateUp();
-            }
-        });
-
     }
 
 
@@ -160,6 +155,4 @@ public class EditPostFragment extends Fragment {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
-
-
 }

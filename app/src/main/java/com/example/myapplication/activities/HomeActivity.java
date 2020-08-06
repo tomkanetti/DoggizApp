@@ -2,23 +2,15 @@ package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.annotation.SuppressLint;
-import android.app.Fragment;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -82,7 +74,6 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
         });
 
         if (user == null) {
-            Log.d("TAG", "USER == NULL ?");
             hideAppBar();
         }
 
@@ -101,8 +92,8 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
                     navController.navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                 if(menuItem.getItemId()==R.id.usersListFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalUsersListFragment());
-                if(menuItem.getItemId()==R.id.editProfileFragment)
-                    navController.navigate(FeedFragmentDirections.actionGlobalEditProfileFragment(user));
+//                if(menuItem.getItemId()==R.id.editProfileFragment)
+//                    navController.navigate(FeedFragmentDirections.actionGlobalEditProfileFragment(user));
                 if (menuItem.getItemId()==R.id.userProfileFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
 
@@ -123,7 +114,6 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
 
 
     public void hideAppBar() {
-        Log.d("TAG","hideAppBar");
         appBarLayout.setExpanded(false,false);
         appBarLayout.setVisibility(View.GONE);
         isHide=true;

@@ -2,22 +2,14 @@ package com.example.myapplication.model;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.room.Database;
-import androidx.room.PrimaryKey;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,7 +24,6 @@ import java.util.Map;
 
 public class PostFirebase {
     final static String POST_COLLECTION = "posts";
-
 
     @SuppressLint("StaticFieldLeak")
     public static void addPost(final Post post, final PostModel.Listener<Post> listener) {

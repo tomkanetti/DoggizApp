@@ -9,21 +9,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.Post;
 
 public class MainFragment extends Fragment {
-//    Button loginBtn;
-//    Button singUpBtn;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
-
     }
 
     @Nullable
@@ -39,33 +33,6 @@ public class MainFragment extends Fragment {
         singUpBtn.setOnClickListener(Navigation.createNavigateOnClickListener(SingUpFragmentDirections.actionGlobalSingUpFragment()));
 
         return view;
-
     }
-
-
-
-
-
-//        setContentView(R.layout.activity_main);
-//
-//        Button loginBtn=findViewById(R.id.main_login_btn);
-//        Button singUpBtn=findViewById(R.id.main_singUp_btn);
-//
-//
-//        loginBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        singUpBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, SingUpActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
 }

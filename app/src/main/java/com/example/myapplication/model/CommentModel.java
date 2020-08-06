@@ -1,21 +1,14 @@
 package com.example.myapplication.model;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 
-import com.example.myapplication.MyApplication;
 
 import java.util.List;
 
 public class CommentModel {
     public static final CommentModel instance = new CommentModel();
-
-
 
     public LiveData<List<Comment>> getAllPostComments(String postId) {
         LiveData<List<Comment>> liveData = AppLocalDb.db.commentDao().getAll(postId);

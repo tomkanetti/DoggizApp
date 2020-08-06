@@ -46,7 +46,6 @@ public class CommentFirebase {
         }
     }
 
-
     private static Map<String,Object> toJson(Comment comment) {
         HashMap<String,Object> json = new HashMap<>();
         json.put("post id", comment.getPostId());
@@ -73,8 +72,6 @@ public class CommentFirebase {
     }
 
 
-
-
     public static void getAllPostComments(String postId, final CommentModel.Listener<List<Comment>> listListener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(COMMENTS_COLLECTION).whereEqualTo("post id", postId)
@@ -88,7 +85,6 @@ public class CommentFirebase {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             Map<String, Object> json = doc.getData();
                             Comment comment = factory(json);
-                            Log.d("TAG", "CommentFirebase -> getAllComents -> onComplete -> comments: "+ comment.getCommentContent());
                             comments.add(comment);
                         }
                     listListener.onComplete(comments);

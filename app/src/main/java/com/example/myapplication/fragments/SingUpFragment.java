@@ -7,7 +7,6 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import static android.app.Activity.RESULT_OK;
@@ -43,14 +41,12 @@ public class SingUpFragment extends Fragment {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final String INVALID_EMAIL_MESSAGE = "Email is not valid";
-    private static final CharSequence INVALID_PASSWORD_MESSAGE = "Password must to be minimum 4 length";
+    private static final CharSequence INVALID_PASSWORD_MESSAGE = "Password must to be minimum 6 length";
     View view;
 
     Button singUpBtn;
     ImageView imageView;
     FloatingActionButton button;
-    static final int PICK_IMAGE = 1;
-    Uri imageUri;
     TextView ownerNameTv;
     TextView dogNameTv;
     TextView emailTv;
@@ -87,10 +83,8 @@ public class SingUpFragment extends Fragment {
         singUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //hideKeyboard();
                 if(validateForm() ) {
                     signUp();
-
                 }
             }
         });
@@ -143,7 +137,6 @@ public class SingUpFragment extends Fragment {
                         public void onComplete(Boolean data) {
                             Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                             activity.updateUI();
-
                         }
                     });
                  }
@@ -170,22 +163,8 @@ public class SingUpFragment extends Fragment {
             saveUser("");
     }
 
-    public void hideKeyboard() {
-        if (view != null) {
-            FragmentActivity activity = getActivity();
-            InputMethodManager inputManager;
-            if (activity != null) {
-                inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (inputManager != null)
-                    inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            }
-        }
-    }
-
     private boolean validateForm() {
         return checkEmail(emailTv)
-//                && checkName(firstNameEt)
-//                && checkName(lastNameEt)
                 && checkPassword(passwordTv);
     }
 
@@ -197,22 +176,13 @@ public class SingUpFragment extends Fragment {
         return false;
     }
 
-//    private boolean checkName(EditText nameEt) {
-//        String name = nameEt.getText().toString();
-//        if (!name.trim().isEmpty() && Character.isUpperCase(name.charAt(0)))
-//            return true;
-//        nameEt.setError(INVALID_NAME_MESSAGE);
-//        return false;
-//    }
-
     private boolean checkPassword(TextView passwordTv) {
         String pwd = passwordTv.getText().toString();
-        if (pwd.length() < 3) {
+        if (pwd.length() < 7) {
             passwordTv.setError(INVALID_PASSWORD_MESSAGE);
             return false;
         }
         return true;
 
     }
-
 }

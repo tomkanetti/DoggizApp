@@ -30,10 +30,14 @@
     </fragment>
     <action
         android:id="@+id/action_global_singUpFragment"
-        app:destination="@id/singUpFragment" />
+        app:destination="@id/singUpFragment"
+        app:enterAnim="@anim/fui_slide_in_right"
+        app:popExitAnim="@anim/fui_slide_out_left" />
     <action
         android:id="@+id/action_global_loginFragment"
-        app:destination="@id/loginFragment" />
+        app:destination="@id/loginFragment"
+        app:enterAnim="@anim/fui_slide_in_right"
+        app:popExitAnim="@anim/fui_slide_out_left" />
     <fragment
         android:id="@+id/usersListFragment"
         android:name="com.example.myapplication.fragments.Drawer.usersList.UsersListFragment"

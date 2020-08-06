@@ -24,12 +24,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
-import com.example.myapplication.fragments.Drawer.feed.FeedViewModel;
 import com.example.myapplication.model.Post;
 import com.example.myapplication.model.PostModel;
 import com.example.myapplication.model.User;
-import com.example.myapplication.model.UserModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
@@ -49,8 +46,6 @@ public class UserProfileFragment extends Fragment {
     List<Post> myPostsList = new LinkedList<Post>();
     RecyclerView list;
     UserPostListAdapter adapter;
-    ProgressBar progressBar;
-    Button editProfileBtn;
 
 
     public UserProfileFragment() {
@@ -71,14 +66,6 @@ public class UserProfileFragment extends Fragment {
         dogName=view.findViewById(R.id.profile_dogName_text);
         ownerName=view.findViewById(R.id.profile_ownerName_text);
         userImage=view.findViewById(R.id.profile_image);
-//        UserModel.instance.getCurrentUserDetails(new UserModel.Listener<User>() {
-//            @Override
-//            public void onComplete(User u) {
-//                bind(u);
-//                user=u;
-//            }
-//        });
-//
         user=UserProfileFragmentArgs.fromBundle((getArguments())).getUser();
 
         if (user != null)
@@ -96,7 +83,6 @@ public class UserProfileFragment extends Fragment {
         adapter.setOnItemClickListener(new UserProfileFragment.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Log.d("TAG","row was clicked" + position);
                 Post p = myPostsList.get(position);
                 parent.onItemSelectedFromUserProfile(p);
             }
@@ -108,7 +94,6 @@ public class UserProfileFragment extends Fragment {
         liveData.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
-                //Log.d("TAG", "3");
                 myPostsList = posts;
                 adapter.notifyDataSetChanged(); //refresh
             }
@@ -127,7 +112,6 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -135,10 +119,8 @@ public class UserProfileFragment extends Fragment {
         dogName.setText(u.dogName);
         ownerName.setText(u.ownerName);
         if (u.imgUrl != null && !u.imgUrl.equals("")) {
-            Log.d("TAG", " if - UsersListFragment - bind");
             Picasso.get().load(u.imgUrl).placeholder(R.drawable.f).into(userImage);
         } else {
-            Log.d("TAG", " else - UsersListFragment - bind");
             userImage.setImageResource(R.drawable.f);
         }
         dogName.setVisibility(View.VISIBLE);

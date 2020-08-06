@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -15,26 +14,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplication.R;
-import com.example.myapplication.fragments.Drawer.feed.FeedFragment;
-import com.example.myapplication.fragments.Drawer.usersList.UsersListFragment;
-import com.example.myapplication.fragments.Drawer.usersList.UsersListViewModel;
 import com.example.myapplication.model.Comment;
 import com.example.myapplication.model.CommentModel;
 import com.example.myapplication.model.Post;
-import com.example.myapplication.model.PostModel;
 import com.example.myapplication.model.User;
-import com.example.myapplication.model.UserModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
@@ -53,7 +44,6 @@ public class PostDetailsFragment extends Fragment {
     ImageView authorCommentImg;
     TextView comment;
     Button addComment;
-    LiveData<User> UserLiveData;
     ProgressBar progressBar;
 
 
@@ -133,7 +123,6 @@ public class PostDetailsFragment extends Fragment {
             }
         });
 
-
         final SwipeRefreshLayout swipeRefresh = view.findViewById(R.id.post_details_comments_swipe_refresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -152,8 +141,7 @@ public class PostDetailsFragment extends Fragment {
 
 
     @Override
-    public void onDetach() {
-        //Log.d("TAG", "4");
+    public void onDetach() { ;
         super.onDetach();
         parent = null;
     }
@@ -196,9 +184,6 @@ public class PostDetailsFragment extends Fragment {
                 adapter.notifyDataSetChanged(); //refresh
             }
         });
-        //Log.d("TAG", "live data get comment: " +liveData.getValue().get(0).getCommentContent());
-        Log.d("TAG", "data size (list comments): "+ data.size());
-
     }
 
 
@@ -216,8 +201,6 @@ public class PostDetailsFragment extends Fragment {
             @Override
             public void onComplete(Boolean data) {
                 progressBar.setVisibility(View.INVISIBLE);
-//                NavController navController = Navigation.findNavController(view);
-//                navController.navigateUp();
             }
         });
     }
@@ -239,7 +222,6 @@ public class PostDetailsFragment extends Fragment {
             authorCommentName = itemView.findViewById(R.id.comment_list_authorName_txt);
             commentContent = itemView.findViewById(R.id.comment_list_content_txt);
             authorCommentImage = itemView.findViewById(R.id.comment_list_user_img);
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -269,11 +251,6 @@ public class PostDetailsFragment extends Fragment {
 
     class CommentListAdapter extends RecyclerView.Adapter<PostDetailsFragment.CommentRowViewHolder>{
         private PostDetailsFragment.OnItemClickListener listener;
-
-        void setOnItemClickListener(PostDetailsFragment.OnItemClickListener listener) {
-            this.listener = listener;
-        }
-
 
         @NonNull
         @Override
