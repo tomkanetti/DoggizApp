@@ -16,9 +16,9 @@
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/singUpFragment"
-        android:name="com.example.myapplication.fragments.SingUpFragment"
+        android:name="com.example.myapplication.fragments.SignUpFragment"
         android:label="fragment_sing_up"
-        tools:layout="@layout/fragment_sing_up" />
+        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragment"

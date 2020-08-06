@@ -37,17 +37,17 @@ tools:context=".fragments.MainFragment">
     app:layout_constraintTop_toBottomOf="@+id/main_logo"
     app:layout_constraintVertical_bias="0.0" />
 
-<Button
-    android:id="@+id/main_singUp_btn"
-    android:layout_width="223dp"
-    android:layout_height="55dp"
-    android:layout_marginTop="100dp"
-    android:background="@drawable/main_singup_btn_style"
-    android:text="@string/sing_up"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/main_logo"
-    app:layout_constraintVertical_bias="0.0" />
+    <Button
+        android:id="@+id/main_singUp_btn"
+        android:layout_width="223dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/main_singup_btn_style"
+        android:text="SIGN UP"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_logo"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

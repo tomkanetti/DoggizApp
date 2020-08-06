@@ -1,6 +1,5 @@
 package com.example.myapplication.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -11,7 +10,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 
 import static android.app.Activity.RESULT_OK;
@@ -38,7 +35,7 @@ import java.io.IOException;
 import java.util.Date;
 
 
-public class SingUpFragment extends Fragment {
+public class SignUpFragment extends Fragment {
     private static final int PICK_IMAGE = 100;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -61,7 +58,7 @@ public class SingUpFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.fragment_sing_up,container,false);
+        view= inflater.inflate(R.layout.fragment_sign_up,container,false);
 
         imageView = view.findViewById(R.id.user_list_userImg);
         button = view.findViewById(R.id.feed_writePost_btn);
@@ -72,15 +69,15 @@ public class SingUpFragment extends Fragment {
             }
         });
 
-        ownerNameTv=view.findViewById(R.id.singup_ownerName_text);
-        dogNameTv=view.findViewById(R.id.singup_dogName_text);
-        emailTv=view.findViewById(R.id.singup_email_text);
-        passwordTv=view.findViewById(R.id.singup_password_text);
+        ownerNameTv=view.findViewById(R.id.signup_ownerName_text);
+        dogNameTv=view.findViewById(R.id.signup_dogName_text);
+        emailTv=view.findViewById(R.id.signup_email_text);
+        passwordTv=view.findViewById(R.id.signup_password_text);
         progressBar = view.findViewById(R.id.signup_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         activity = (HomeActivity) getActivity();
 
-        singUpBtn=view.findViewById((R.id.singup_singup_btn));
+        singUpBtn=view.findViewById((R.id.signup_singup_btn));
         singUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
