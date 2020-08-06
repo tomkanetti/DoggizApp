@@ -79,6 +79,7 @@
         android:id="@+id/sharePost_share_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/login_btn_style"
         android:text="SHARE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

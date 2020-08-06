@@ -2,18 +2,23 @@ package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.annotation.SuppressLint;
+import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -41,7 +46,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-public class  HomeActivity extends AppCompatActivity implements FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate, UserProfileFragment.Delegate {
+public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate, UserProfileFragment.Delegate {
     NavController navController;
     NavigationView navigationView;
     DrawerLayout drawer;
@@ -98,26 +103,28 @@ public class  HomeActivity extends AppCompatActivity implements FeedFragment.Del
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if(menuItem.getItemId()==R.id.userProfileFragment)
-                    Log.d("TAG", "ENTER TO FUNCTIONS- IF");
-                    navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
                 if(menuItem.getItemId()==R.id.feedFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                 if(menuItem.getItemId()==R.id.usersListFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalUsersListFragment());
                 if(menuItem.getItemId()==R.id.editProfileFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalEditProfileFragment(user));
+                if (menuItem.getItemId()==R.id.userProfileFragment)
+                    navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
+
                 drawer.close();
                 return true;
             }
         });
     }
 
+
     private void logout() {
         UserModel.instance.logout();
         navController.navigate(MainFragmentDirections.actionGlobalMainFragment());
         drawer.closeDrawers();
         hideAppBar();
+        user = null;
     }
 
 

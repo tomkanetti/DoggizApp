@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.example.myapplication.fragments.Drawer.UserProfile.UserProfileFragment"
-        android:label="profile"
+        android:label="userProfileFragment"
         tools:layout="@layout/fragment_user_profile">
         <argument
             android:name="user"
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/usersListFragment"
         android:name="com.example.myapplication.fragments.Drawer.usersList.UsersListFragment"
-        android:label="fragment_friends_list"
+        android:label="usersListFragment"
         tools:layout="@layout/fragment_friends_list" />
     <action
         android:id="@+id/action_global_userProfileFragment"
