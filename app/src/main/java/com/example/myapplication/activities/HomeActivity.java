@@ -11,7 +11,11 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +41,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.Delegate, UsersListFragment.Delegate, PostDetailsFragment.Delegate, UserProfileFragment.Delegate {
+
     NavController navController;
     NavigationView navigationView;
     DrawerLayout drawer;
@@ -92,8 +97,6 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
                     navController.navigate(FeedFragmentDirections.actionGlobalFeedFragment());
                 if(menuItem.getItemId()==R.id.usersListFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalUsersListFragment());
-//                if(menuItem.getItemId()==R.id.editProfileFragment)
-//                    navController.navigate(FeedFragmentDirections.actionGlobalEditProfileFragment(user));
                 if (menuItem.getItemId()==R.id.userProfileFragment)
                     navController.navigate(FeedFragmentDirections.actionGlobalUserProfileFragment(user));
 
@@ -172,4 +175,7 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
     public void onItemSelectedFromUserProfile(Post post) {
         navController.navigate(UserProfileFragmentDirections.actionGlobalPostDetailsFragment(post,user));
     }
+
+
+
 }
