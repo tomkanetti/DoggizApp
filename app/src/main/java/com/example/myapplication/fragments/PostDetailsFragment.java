@@ -111,6 +111,7 @@ public class PostDetailsFragment extends Fragment {
         addComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 addComment();
                 comment.setText("");
                 viewModel.refresh(post.getId(), new CommentModel.CompListener() {
@@ -189,7 +190,7 @@ public class PostDetailsFragment extends Fragment {
 
 
     public void addComment() {
-        progressBar.setVisibility(View.VISIBLE);
+
         String theComment=comment.getText().toString();
         Comment newComment=new Comment();
         newComment.setPostId(post.getId());

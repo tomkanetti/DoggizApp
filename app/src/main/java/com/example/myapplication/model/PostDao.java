@@ -16,7 +16,7 @@ import java.util.List;
 public interface PostDao {
 
     // return all (*) usere from list<User>
-    @Query("select * from Posts")
+    @Query("select * from Posts WHERE isDelete not like 1")
     LiveData<List<Post>> getAll();
 
     // if i have this User in this ame name -> replace it
