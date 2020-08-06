@@ -36,11 +36,10 @@ public class PostModel {
                         long lastUpdated = 0;
                         if (data != null) {
                             for (Post post : data) {
-                                if(!post.getDelete()){
-                                    AppLocalDb.db.postDao().insertAll(post);
-                                    if (post.getLastUpdate() > lastUpdated)
-                                        lastUpdated = post.getLastUpdate();}
-                            }
+                                AppLocalDb.db.postDao().insertAll(post);
+                                if (post.getLastUpdate() > lastUpdated)
+                                    lastUpdated = post.getLastUpdate();}
+
                             SharedPreferences.Editor editor = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE).edit();
                             editor.putLong("PostsLastUpdateDate", lastUpdated).commit();
                         }

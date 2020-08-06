@@ -2,6 +2,7 @@ package com.example.myapplication.model;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -89,7 +90,8 @@ public class PostFirebase {
     public static void getAllPostsSince(long lastUpdated, final PostModel.Listener<List<Post>> listListener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts = new Timestamp(new Date(lastUpdated));
-        db.collection(POST_COLLECTION).whereEqualTo("is delete",false).whereGreaterThanOrEqualTo("last update", ts)
+        //////.whereEqualTo("is delete",false)
+        db.collection(POST_COLLECTION).whereGreaterThanOrEqualTo("last update", ts)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -101,6 +103,7 @@ public class PostFirebase {
                             Map<String, Object> json = doc.getData();
                             Post post = factory(json);
                             posts.add(post);
+                            Log.d("TAG",post.getDescription()+ " "+ post.getDelete());
                         }
                     }
                 }
@@ -121,7 +124,10 @@ public class PostFirebase {
 
     public static void deletePost(final Post p, final PostModel.Listener<Boolean> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(POST_COLLECTION).document(p.getId()).update("is delete",true).addOnCompleteListener(new OnCompleteListener<Void>() {
+        Map<String, Object> map= new HashMap<>();
+//        map.put("is delete", true);
+//        map.put("last update",FieldValue.serverTimestamp()) ;
+        db.collection(POST_COLLECTION).document(p.getId()).set(toJson(p)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 listener.onComplete(task.isSuccessful());

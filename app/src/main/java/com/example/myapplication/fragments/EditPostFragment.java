@@ -80,6 +80,7 @@ public class EditPostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
+                post.setDelete(true);
                 PostModel.instance.deletePost(post, new PostModel.Listener<Boolean>() {
                     @Override
                     public void onComplete(Boolean data) {
