@@ -72,7 +72,7 @@ public class UserFirebase {
         json.put("dog name", user.getDogName());
         json.put("owner name", user.getOwnerName());
         json.put("email", user.getEmail());
-        json.put("password", user.getPassword());
+       // json.put("password", user.getPassword());
         json.put("imgUrl", user.getImgUrl());
         json.put("lastUpdated", FieldValue.serverTimestamp());
         return json;
@@ -83,7 +83,7 @@ public class UserFirebase {
         user.setDogName((String) json.get("dog name"));
         user.setOwnerName((String) json.get("owner name"));
         user.setEmail((String) json.get("email"));
-        user.setPassword((String) json.get("password"));
+        //user.setPassword((String) json.get("password"));
         user.setImgUrl((String) json.get("imgUrl"));
         Timestamp timestamp = (Timestamp) json.get("lastUpdated");
         if (timestamp != null) user.setLastUpdated(timestamp.toDate().getTime());
