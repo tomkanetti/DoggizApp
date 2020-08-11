@@ -76,7 +76,7 @@ public class SignUpFragment extends Fragment {
         progressBar = view.findViewById(R.id.signup_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         activity = (HomeActivity) getActivity();
-
+        activity.logoutFromFirebase();
         singUpBtn=view.findViewById((R.id.signup_singup_btn));
         singUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
