@@ -40,6 +40,31 @@ public class UserModel {
         void onComplete();
     }
 
+    public void initializeUsersList(){
+        UserFirebase.getAllUsers(new Listener<List<User>>() {
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            public void onComplete(final List<User> data) {
+                new AsyncTask<String, String, String>() {
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        long lastUpdated = 0;
+                        for (User user : data) {
+                            AppLocalDb.db.userDao().insertAll(user);
+                            if (user.getLastUpdated() > lastUpdated)
+                                lastUpdated = user.getLastUpdated();
+                        }
+                        SharedPreferences.Editor editor = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE).edit();
+                        editor.putLong("UsersLastUpdateDate", lastUpdated).apply();
+                        return "";
+                    }
+                }.execute();
+            }
+        });
+
+
+    }
+
     public void refreshUserList(final CompListener listener){
         long lastUpdated = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE)
                 .getLong("ReportsLastUpdateDate", 0);

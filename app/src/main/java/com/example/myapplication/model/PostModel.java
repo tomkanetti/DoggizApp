@@ -22,8 +22,35 @@ public class PostModel {
         return liveData;
     }
 
+    public void initializePostsList(){
+        PostFirebase.getAllPosts(new PostModel.Listener<List<Post>>() {
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            public void onComplete(final List<Post> data) {
+                new AsyncTask<String, String, String>() {
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        long lastUpdated = 0;
+                        if (data != null) {
+                            for (Post post : data) {
+                                AppLocalDb.db.postDao().insertAll(post);
+                                if (post.getLastUpdate() > lastUpdated)
+                                    lastUpdated = post.getLastUpdate();}
 
-    public void refreshPostList(final CompListener listener) {
+                            SharedPreferences.Editor editor = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE).edit();
+                            editor.putLong("PostsLastUpdateDate", lastUpdated).commit();
+                        }
+                        return "";
+                    }
+                }.execute();
+            }
+        });
+
+    }
+
+
+
+        public void refreshPostList(final CompListener listener) {
         long lastUpdated = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE)
                 .getLong("PostsLastUpdateDate", 0);
        PostFirebase.getAllPostsSince(lastUpdated, new PostModel.Listener<List<Post>>() {
@@ -96,6 +123,8 @@ public class PostModel {
 
     @SuppressLint("StaticFieldLeak")
     public void refreshMyPostList(User u, final CompListener listener) {
+        //long lastUpdated = MyApplication.context.getSharedPreferences("last updated", Context.MODE_PRIVATE)
+               // .getLong("MyPostsLastUpdateDate", 0);
         PostFirebase.getAllMyPosts(u.getEmail(), new Listener<List<Post>>() {
             @Override
             public void onComplete(final List<Post> data) {

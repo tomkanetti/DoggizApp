@@ -86,11 +86,33 @@ public class PostFirebase {
         }
         return post;
     }
+    public static void getAllPosts(final PostModel.Listener<List<Post>> listListener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(POST_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Post> posts = null;
+                if (task.isSuccessful()) {
+                    posts = new LinkedList<Post>();
+                    if (task.getResult() != null) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            Map<String, Object> json = doc.getData();
+                            Post post = factory(json);
+                            posts.add(post);
+                        }
+                    }
+                }
+                listListener.onComplete(posts);
+            }
+        });
+    }
 
-    public static void getAllPostsSince(long lastUpdated, final PostModel.Listener<List<Post>> listListener) {
+        public static void getAllPostsSince(long lastUpdated, final PostModel.Listener<List<Post>> listListener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts = new Timestamp(new Date(lastUpdated));
-        //////.whereEqualTo("is delete",false)
+        Log.d("TAG",ts.toDate().toString());
+        Log.d("TAG",ts.toDate()+" ");
+
         db.collection(POST_COLLECTION).whereGreaterThanOrEqualTo("last update", ts)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -103,7 +125,6 @@ public class PostFirebase {
                             Map<String, Object> json = doc.getData();
                             Post post = factory(json);
                             posts.add(post);
-                            Log.d("TAG",post.getDescription()+ " "+ post.getDelete());
                         }
                     }
                 }
@@ -124,9 +145,6 @@ public class PostFirebase {
 
     public static void deletePost(final Post p, final PostModel.Listener<Boolean> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String, Object> map= new HashMap<>();
-//        map.put("is delete", true);
-//        map.put("last update",FieldValue.serverTimestamp()) ;
         db.collection(POST_COLLECTION).document(p.getId()).set(toJson(p)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -137,8 +155,9 @@ public class PostFirebase {
 
     public static void getAllMyPosts(String userEmail, final PostModel.Listener<List<Post>> listListener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(POST_COLLECTION).whereEqualTo("is delete", false).whereEqualTo("user email",userEmail)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        //Timestamp ts = new Timestamp(new Date(lastUpdated));
+        db.collection(POST_COLLECTION).whereEqualTo("is delete", false).whereEqualTo("user email",userEmail).
+                get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<Post> posts = null;
