@@ -65,33 +65,12 @@ public class UserFirebase {
             });
         }
     }
-    static void getAllUsers(final UserModel.Listener<List<User>> listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(USER_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<User> users = null;
-                if (task.isSuccessful()) {
-                    users = new LinkedList<>();
-                    if (task.getResult() != null) {
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            Map<String, Object> json = doc.getData();
-                            User user = factory(json);
-                            users.add(user);
-                        }
-                    }
-                }
-                listener.onComplete(users);
-            }
-        });
-    }
 
     private static Map<String, Object> toJson(User user) {
         HashMap<String, Object> json = new HashMap<>();
         json.put("dog name", user.getDogName());
         json.put("owner name", user.getOwnerName());
         json.put("email", user.getEmail());
-       // json.put("password", user.getPassword());
         json.put("imgUrl", user.getImgUrl());
         json.put("lastUpdated", FieldValue.serverTimestamp());
         return json;
@@ -102,7 +81,6 @@ public class UserFirebase {
         user.setDogName((String) json.get("dog name"));
         user.setOwnerName((String) json.get("owner name"));
         user.setEmail((String) json.get("email"));
-        //user.setPassword((String) json.get("password"));
         user.setImgUrl((String) json.get("imgUrl"));
         Timestamp timestamp = (Timestamp) json.get("lastUpdated");
         if (timestamp != null) user.setLastUpdated(timestamp.toDate().getTime());
@@ -140,9 +118,6 @@ public class UserFirebase {
         return null;
     }
 
-    public static boolean isLoggedIn() {
-        return FirebaseAuth.getInstance().getCurrentUser() != null;
-    }
 
     public static void getCurrentUserDetails(final UserModel.Listener<User> listener) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -178,27 +153,11 @@ public class UserFirebase {
         });
     }
 
-    public static String getCurrentUserEmail() {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser != null)
-            return firebaseUser.getEmail();
-        return null;
-    }
 
     public static void logout() {
         FirebaseAuth.getInstance().signOut();
     }
 
-    public static void updateUserChanges(User user, final UserModel.Listener<Boolean> listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        db.collection(USER_COLLECTION).document(firebaseUser.getUid()).set(toJson(user)).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                listener.onComplete(task.isSuccessful());
-            }
-        });
-    }
 }
 

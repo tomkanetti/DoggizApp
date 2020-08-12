@@ -103,7 +103,6 @@ public class SignUpFragment extends Fragment {
             Uri uri=data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-                //imageBitmap = activity.rotateImage((Bitmap) bitmap);
                 imageBitmap =rotateImage((Bitmap) bitmap);
                 imageView.setImageBitmap(imageBitmap);
             } catch (IOException e) {

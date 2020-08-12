@@ -86,26 +86,6 @@ public class PostFirebase {
         }
         return post;
     }
-    public static void getAllPosts(final PostModel.Listener<List<Post>> listListener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(POST_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<Post> posts = null;
-                if (task.isSuccessful()) {
-                    posts = new LinkedList<Post>();
-                    if (task.getResult() != null) {
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            Map<String, Object> json = doc.getData();
-                            Post post = factory(json);
-                            posts.add(post);
-                        }
-                    }
-                }
-                listListener.onComplete(posts);
-            }
-        });
-    }
 
         public static void getAllPostsSince(long lastUpdated, final PostModel.Listener<List<Post>> listListener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
