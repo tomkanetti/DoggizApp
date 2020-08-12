@@ -49,6 +49,8 @@ public class LoginFragment extends Fragment {
         progressBar.setVisibility(View.INVISIBLE);
 
         activity= (HomeActivity) getActivity();
+        activity.logoutFromFirebase();
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

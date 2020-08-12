@@ -107,14 +107,17 @@ public class  HomeActivity<f> extends AppCompatActivity implements FeedFragment.
     }
 
 
-    private void logout() {
-        UserModel.instance.logout();
+    public void logout() {
+        logoutFromFirebase();
         navController.navigate(MainFragmentDirections.actionGlobalMainFragment());
         drawer.closeDrawers();
+
+    }
+    public void logoutFromFirebase() {
+        UserModel.instance.logout();
         hideAppBar();
         user = null;
     }
-
 
     public void hideAppBar() {
         appBarLayout.setExpanded(false,false);

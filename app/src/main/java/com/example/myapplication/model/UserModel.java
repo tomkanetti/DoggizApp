@@ -40,6 +40,7 @@ public class UserModel {
         void onComplete();
     }
 
+
     public void refreshUserList(final CompListener listener){
         long lastUpdated = MyApplication.context.getSharedPreferences("lastUpdated", Context.MODE_PRIVATE)
                 .getLong("ReportsLastUpdateDate", 0);
@@ -84,11 +85,6 @@ public class UserModel {
         UserFirebase.getCurrentUserDetails(listener);
     }
 
-    public LiveData<User> getUser(String userEmail) {
-        LiveData<User> userLiveData = AppLocalDb.db.userDao().getUser(userEmail);
-        refreshUserDetails(userEmail);
-        return userLiveData;
-    }
 
     @SuppressLint("StaticFieldLeak")
     private void refreshUserDetails(String spotName) {

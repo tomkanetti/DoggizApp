@@ -76,7 +76,7 @@ public class SignUpFragment extends Fragment {
         progressBar = view.findViewById(R.id.signup_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         activity = (HomeActivity) getActivity();
-
+        activity.logoutFromFirebase();
         singUpBtn=view.findViewById((R.id.signup_singup_btn));
         singUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +103,6 @@ public class SignUpFragment extends Fragment {
             Uri uri=data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-                //imageBitmap = activity.rotateImage((Bitmap) bitmap);
                 imageBitmap =rotateImage((Bitmap) bitmap);
                 imageView.setImageBitmap(imageBitmap);
             } catch (IOException e) {

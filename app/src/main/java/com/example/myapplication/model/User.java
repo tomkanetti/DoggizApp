@@ -15,7 +15,6 @@ public class User implements Serializable {
     @PrimaryKey
     @NonNull
     public String email;
-    public String password;
     public String imgUrl;
     public long lastUpdated;
 
@@ -23,26 +22,16 @@ public class User implements Serializable {
         this.dogName = newU.dogName;
         this.ownerName = newU.ownerName;
         this.email=newU.email;
-        this.password=newU.password;
         this.imgUrl=newU.imgUrl;
     }
     public User(String ownerName, @NonNull String dogName, @NonNull String email,String password, String imgUrl) {
         this.dogName = dogName;
         this.ownerName = ownerName;
         this.email=email;
-        this.password=password;
         this.imgUrl=imgUrl;
     }
 
     public User() {
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @NonNull

@@ -114,20 +114,23 @@ public class EditPostFragment extends Fragment {
                 @Override
                 public void onSuccess(String url) {
                     post.setImage(url);
-                    PostModel.instance.updatePostChanges(post, new PostModel.CompListener() {
-                        @Override
-                        public void onComplete() {
-                            Navigation.findNavController(view).navigateUp();
-                        }
-                    });
                 }
+
                 @Override
                 public void onFail() {
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             });
         }
-    }
+            PostModel.instance.updatePostChanges(post, new PostModel.CompListener() {
+                @Override
+                public void onComplete() {
+                    Navigation.findNavController(view).navigateUp();
+                }
+            });
+
+        }
+
 
 
     private void openGallery() {
